@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080611">
+<title>C.N. Nexus</title>
+
+<style>
+:root{
+  --bg:#05050a;
+  --panel:#0b0a14;
+  --panel2:#111020;
+  --border:#29204d;
+  --violet:#8b5cf6;
+  --indigo:#4f46e5;
+  --marine:#07152f;
+  --text:#f5f3ff;
+  --muted:#aaa5bd;
+  --danger:#ff5577;
+  --shadow:0 12px 40px rgba(0,0,0,.45);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 20% 0%,rgba(91,50,180,.18),transparent 32%),
+    radial-gradient(circle at 90% 100%,rgba(28,55,120,.2),transparent 35%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+button,
+input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+.topbar{
+  background:rgba(8,7,15,.94);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(16px);
+  padding:10px 12px 0;
+}
+
+.brand-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  height:42px;
+}
+
+.logo{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  background:linear-gradient(135deg,var(--violet),var(--indigo));
+  box-shadow:0 0 22px rgba(139,92,246,.28);
+}
+
+.brand{
+  font-weight:800;
+  letter-spacing:.2px;
+}
+
+.brand small{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  font-weight:500;
+}
+
+.spacer{
+  flex:1;
+}
+
+.icon-btn,
+.nav-btn,
+.home-btn{
+  border:1px solid transparent;
+  background:transparent;
+  color:var(--muted);
+  width:36px;
+  height:34px;
+  border-radius:9px;
+}
+
+.icon-btn:hover,
+.nav-btn:hover,
+.home-btn:hover{
+  background:#17132a;
+  color:white;
+  border-color:var(--border);
+}
+
+.ai-btn{
+  border:1px solid #6040b8;
+  background:linear-gradient(135deg,#201445,#111534);
+  color:#dcd1ff;
+  border-radius:9px;
+  padding:8px 11px;
+  font-weight:800;
+  font-size:12px;
+}
+
+.tabs{
+  display:flex;
+  gap:4px;
+  overflow:auto;
+  padding-top:8px;
+}
+
+.tab{
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  padding:9px 14px;
+  border-bottom:2px solid transparent;
+  white-space:nowrap;
+}
+
+.tab.active{
+  color:#fff;
+  border-bottom-color:var(--violet);
+}
+
+.toolbar{
+  display:flex;
+  gap:7px;
+  padding:9px 0;
+}
+
+.address-wrap{
+  flex:1;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:#0d0c17;
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:0 11px;
+}
+
+.address-wrap span{
+  color:var(--violet);
+  font-size:13px;
+}
+
+#address{
+  flex:1;
+  background:transparent;
+  border:0;
+  outline:0;
+  color:#fff;
+  height:38px;
+  min-width:0;
+}
+
+.main{
+  flex:1;
+  min-height:0;
+  display:flex;
+}
+
+.page-area{
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+}
+
+.page{
+  flex:1;
+  overflow:auto;
+  position:relative;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,8,18,.35),
+      rgba(3,5,14,.75)
+    );
+}
+
+.home{
+  min-height:100%;
+  display:grid;
+  place-items:center;
+  padding:30px;
+}
+
+.home-card{
+  max-width:720px;
+  width:100%;
+  text-align:center;
+}
+
+.home-card h1{
+  font-size:clamp(34px,7vw,68px);
+  margin:0 0 8px;
+}
+
+.gradient{
+  background:linear-gradient(
+    90deg,
+    #c4b5fd,
+    #818cf8,
+    #60a5fa
+  );
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.home-card p{
+  color:var(--muted);
+  line-height:1.6;
+}
+
+.search-home{
+  display:flex;
+  gap:8px;
+  margin:25px auto;
+  max-width:620px;
+}
+
+.search-home input{
+  flex:1;
+  background:#0d0c17;
+  border:1px solid var(--border);
+  border-radius:12px;
+  color:white;
+  padding:13px 15px;
+  outline:none;
+}
+
+.primary{
+  background:linear-gradient(
+    135deg,
+    var(--violet),
+    var(--indigo)
+  );
+  border:0;
+  color:white;
+  border-radius:11px;
+  padding:12px 18px;
+  font-weight:800;
+}
+
+.quick{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.quick button{
+  background:#0e0d18;
+  color:#c9c2df;
+  border:1px solid var(--border);
+  padding:8px 11px;
+  border-radius:9px;
+}
+
+.frame{
+  width:100%;
+  height:100%;
+  border:0;
+  background:white;
+}
+
+.status{
+  padding:6px 12px;
+  color:var(--muted);
+  font-size:11px;
+  border-top:1px solid var(--border);
+  background:#080710;
+}
+
+.sidebar{
+  width:290px;
+  border-left:1px solid var(--border);
+  background:rgba(7,7,13,.94);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+.side-head{
+  padding:14px;
+  border-bottom:1px solid var(--border);
+  font-weight:800;
+}
+
+.bookmarks{
+  overflow:auto;
+  padding:10px;
+}
+
+.bookmark{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:9px;
+  border-radius:9px;
+  color:#d9d4e8;
+  font-size:13px;
+}
+
+.bookmark:hover{
+  background:#151127;
+}
+
+.bookmark span{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  flex:1;
+}
+
+.remove{
+  color:#766e8c;
+  border:0;
+  background:none;
+}
+
+.empty{
+  color:var(--muted);
+  font-size:12px;
+  padding:12px;
+}
+
+.ai-panel{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  width:min(390px,calc(100vw - 36px));
+  height:min(570px,calc(100vh - 110px));
+  display:none;
+  flex-direction:column;
+  background:#0b0a14;
+  border:1px solid #38266d;
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  z-index:20;
+  overflow:hidden;
+}
+
+.ai-panel.open{
+  display:flex;
+}
+
+.ai-head{
+  display:flex;
+  align-items:center;
+  padding:12px 14px;
+  border-bottom:1px solid var(--border);
+}
+
+.ai-title{
+  font-weight:850;
+}
+
+.ai-title small{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+}
+
+.ai-messages{
+  flex:1;
+  overflow:auto;
+  padding:14px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.msg{
+  max-width:88%;
+  padding:10px 12px;
+  border-radius:12px;
+  font-size:13px;
+  line-height:1.45;
+  white-space:pre-wrap;
+}
+
+.msg.bot{
+  background:#141127;
+  border:1px solid #29204d;
+  align-self:flex-start;
+}
+
+.msg.user{
+  background:linear-gradient(
+    135deg,
+    #4c2e9d,
+    #3037a2
+  );
+  align-self:flex-end;
+}
+
+.ai-compose{
+  display:flex;
+  gap:7px;
+  padding:10px;
+  border-top:1px solid var(--border);
+}
+
+.ai-compose input{
+  flex:1;
+  min-width:0;
+  background:#11101c;
+  border:1px solid var(--border);
+  color:white;
+  border-radius:10px;
+  padding:10px;
+  outline:0;
+}
+
+@media(max-width:760px){
+
+  .sidebar{
+    display:none;
+  }
+
+  .brand small{
+    display:none;
+  }
+
+  .nav-btn,
+  .home-btn{
+    width:32px;
+  }
+
+  .ai-btn{
+    padding:8px;
+  }
+
+  .home{
+    padding:22px 15px;
+  }
+}
+
+@media(max-width:430px){
+
+  .brand{
+    font-size:13px;
+  }
+
+  .toolbar{
+    gap:4px;
+  }
+
+  .nav-btn,
+  .home-btn{
+    width:30px;
+    padding:0;
+  }
+
+  .address-wrap{
+    padding:0 7px;
+  }
+
+  .tabs{
+    padding-top:4px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="topbar">
+
+  <div class="brand-row">
+
+    <div class="logo">
+      N
+    </div>
+
+    <div class="brand">
+      C.N. Nexus
+      <small>by C.N. Organization</small>
+    </div>
+
+    <div class="spacer"></div>
+
+    <button class="ai-btn" id="aiOpen">
+      C.N. AI
+    </button>
+
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+
+  <div class="toolbar">
+
+    <button class="nav-btn" id="back" title="Retour">
+      ←
+    </button>
+
+    <button class="nav-btn" id="forward" title="Avancer">
+      →
+    </button>
+
+    <button class="nav-btn" id="reload" title="Actualiser">
+      ↻
+    </button>
+
+    <button class="home-btn" id="home" title="Accueil">
+      ⌂
+    </button>
+
+    <div class="address-wrap">
+
+      <span>⌕</span>
+
+      <input
+        id="address"
+        autocomplete="off"
+        spellcheck="false"
+        placeholder="Rechercher ou entrer une adresse"
+      >
+
+    </div>
+
+    <button class="nav-btn" id="bookmark" title="Ajouter aux favoris">
+      ☆
+    </button>
+
+    <button class="nav-btn" id="newTab" title="Nouvel onglet">
+      ＋
+    </button>
+
+  </div>
+
+</header>
+
+
+<main class="main">
+
+<section class="page-area">
+
+  <div class="page" id="page"></div>
+
+  <div class="status" id="status">
+    Prêt
+  </div>
+
+</section>
+
+
+<aside class="sidebar">
+
+  <div class="side-head">
+    ☆ Favoris
+  </div>
+
+  <div class="bookmarks" id="bookmarks"></div>
+
+</aside>
+
+</main>
+
+</div>
+
+
+<div class="ai-panel" id="aiPanel">
+
+  <div class="ai-head">
+
+    <div class="ai-title">
+      C.N. AI
+      <small>
+        Assistant local de C.N. Nexus
+      </small>
+    </div>
+
+    <div class="spacer"></div>
+
+    <button class="icon-btn" id="aiClose">
+      ×
+    </button>
+
+  </div>
+
+
+  <div class="ai-messages" id="aiMessages">
+
+    <div class="msg bot">
+      Salut ! Je suis C.N. AI. Je peux t'aider à utiliser C.N. Nexus ou à préparer une recherche.
+    </div>
+
+  </div>
+
+
+  <form class="ai-compose" id="aiForm">
+
+    <input
+      id="aiInput"
+      maxlength="500"
+      placeholder="Écris ton message…"
+    >
+
+    <button class="primary">
+      Envoyer
+    </button>
+
+  </form>
+
+</div>
+
+
+<script>
+
+const STORAGE_KEY="cn_nexus_bookmarks_v1";
+
+let tabs=[
+  {
+    id:1,
+    title:"Nouvel onglet",
+    url:""
+  }
+];
+
+let activeTab=1;
+
+let history=[];
+
+let historyIndex=-1;
+
+
+const $=id=>document.getElementById(id);
+
+const page=$("page");
+
+const address=$("address");
+
+const statusEl=$("status");
+
+
+function currentTab(){
+
+  return tabs.find(
+    t=>t.id===activeTab
+  );
+
+}
+
+
+function renderTabs(){
+
+  $("tabs").innerHTML="";
+
+  tabs.forEach(t=>{
+
+    const b=document.createElement("button");
+
+    b.className=
+      "tab"+
+      (t.id===activeTab?" active":"");
+
+    b.textContent=
+      t.title||
+      "Nouvel onglet";
+
+    b.onclick=()=>{
+
+      activeTab=t.id;
+
+      renderTabs();
+
+      loadCurrent(false);
+
+    };
+
+    $("tabs").appendChild(b);
+
+  });
+
+}
+
+
+function setStatus(s){
+
+  statusEl.textContent=s;
+
+}
+
+
+function homePage(){
+
+  page.innerHTML=`
+
+    <div class="home">
+
+      <div class="home-card">
+
+        <h1>
+          <span class="gradient">
+            C.N. Nexus
+          </span>
+        </h1>
+
+        <p>
+          Un espace de navigation conçu par C.N. Organization.
+        </p>
+
+        <form
+          class="search-home"
+          id="homeSearch"
+        >
+
+          <input
+            id="homeInput"
+            placeholder="Rechercher sur le Web…"
+          >
+
+          <button class="primary">
+            Rechercher
+          </button>
+
+        </form>
+
+        <div class="quick">
+
+          <button data-url="https://www.google.com">
+            Google
+          </button>
+
+          <button data-url="https://www.youtube.com">
+            YouTube
+          </button>
+
+          <button data-url="https://github.com">
+            GitHub
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  $("homeSearch").onsubmit=e=>{
+
+    e.preventDefault();
+
+    navigate(
+      $("homeInput").value
+    );
+
+  };
+
+
+  page
+    .querySelectorAll("[data-url]")
+    .forEach(b=>{
+
+      b.onclick=()=>navigate(
+        b.dataset.url
+      );
+
+    });
+
+}
+
+
+function normalize(value){
+
+  value=value.trim();
+
+  if(!value){
+
+    return "";
+
+  }
+
+
+  if(
+    /^https?:\/\//i.test(value)
+  ){
+
+    return value;
+
+  }
+
+
+  if(
+    /^[\w.-]+\.[a-z]{2,}(\/.*)?$/i.test(value)
+  ){
+
+    return "https://"+value;
+
+  }
+
+
+  return "https://www.google.com/search?q="+
+    encodeURIComponent(value);
+
+}
+
+
+function navigate(value,push=true){
+
+  const url=normalize(value);
+
+  if(!url){
+
+    homePage();
+
+    address.value="";
+
+    return;
+
+  }
+
+
+  const t=currentTab();
+
+  t.url=url;
+
+
+  try{
+
+    t.title=
+      new URL(url)
+        .hostname
+        .replace(/^www\./,"");
+
+  }catch{
+
+    t.title="Page";
+
+  }
+
+
+  address.value=url;
+
+  renderTabs();
+
+
+  if(push){
+
+    history=
+      history.slice(
+        0,
+        historyIndex+1
+      );
+
+    history.push(url);
+
+    historyIndex++;
+
+  }
+
+
+  page.innerHTML="";
+
+
+  const frame=
+    document.createElement("iframe");
+
+
+  frame.className="frame";
+
+  frame.src=url;
+
+  frame.referrerPolicy=
+    "no-referrer-when-downgrade";
+
+
+  page.appendChild(frame);
+
+
+  setStatus(
+    "Chargement : "+url
+  );
+
+
+  frame.addEventListener(
+    "load",
+    ()=>setStatus(
+      "Page chargée — "+url
+    )
+  );
+
+}
+
+
+function loadCurrent(){
+
+  const t=currentTab();
+
+
+  if(!t.url){
+
+    homePage();
+
+    address.value="";
+
+    setStatus("Prêt");
+
+    return;
+
+  }
+
+
+  navigate(
+    t.url,
+    false
+  );
+
+}
+
+
+function newTab(){
+
+  const id=Date.now();
+
+
+  tabs.push({
+
+    id:id,
+
+    title:"Nouvel onglet",
+
+    url:""
+
+  });
+
+
+  activeTab=id;
+
+  renderTabs();
+
+  loadCurrent();
+
+}
+
+
+$("address").addEventListener(
+  "keydown",
+  e=>{
+
+    if(e.key==="Enter"){
+
+      navigate(
+        address.value
+      );
+
+    }
+
+  }
+);
+
+
+$("home").onclick=()=>{
+
+  currentTab().url="";
+
+  currentTab().title=
+    "Nouvel onglet";
+
+  renderTabs();
+
+  loadCurrent();
+
+};
+
+
+$("reload").onclick=()=>{
+
+  loadCurrent();
+
+};
+
+
+$("back").onclick=()=>{
+
+  if(historyIndex>0){
+
+    historyIndex--;
+
+    navigate(
+      history[historyIndex],
+      false
+    );
+
+  }
+
+};
+
+
+$("forward").onclick=()=>{
+
+  if(
+    historyIndex<
+    history.length-1
+  ){
+
+    historyIndex++;
+
+    navigate(
+      history[historyIndex],
+      false
+    );
+
+  }
+
+};
+
+
+$("newTab").onclick=
+  newTab;
+
+
+$("bookmark").onclick=()=>{
+
+  const url=
+    currentTab().url;
+
+
+  if(!url){
+
+    return;
+
+  }
+
+
+  const list=
+    JSON.parse(
+      localStorage.getItem(
+        STORAGE_KEY
+      )||"[]"
+    );
+
+
+  if(
+    !list.some(
+      x=>x.url===url
+    )
+  ){
+
+    list.push({
+
+      title:currentTab().title,
+
+      url:url
+
+    });
+
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(list)
+    );
+
+
+    renderBookmarks();
+
+
+    setStatus(
+      "Ajouté aux favoris"
+    );
+
+  }
+
+};
+
+
+function renderBookmarks(){
+
+  const box=
+    $("bookmarks");
+
+
+  const list=
+    JSON.parse(
+      localStorage.getItem(
+        STORAGE_KEY
+      )||"[]"
+    );
+
+
+  box.innerHTML="";
+
+
+  if(!list.length){
+
+    box.innerHTML=
+      '<div class="empty">Aucun favori pour le moment.</div>';
+
+    return;
+
+  }
+
+
+  list.forEach(
+    (item,i)=>{
+
+      const row=
+        document.createElement(
+          "div"
+        );
+
+      row.className=
+        "bookmark";
+
+
+      const btn=
+        document.createElement(
+          "button"
+        );
+
+      btn.className=
+        "bookmark";
+
+      btn.style.border="0";
+
+      btn.style.background=
+        "transparent";
+
+      btn.style.color=
+        "inherit";
+
+      btn.style.padding="0";
+
+      btn.style.flex="1";
+
+
+      btn.innerHTML=
+        `<span>☆ ${escapeHtml(item.title)}</span>`;
+
+
+      btn.onclick=()=>{
+
+        navigate(
+          item.url
+        );
+
+      };
+
+
+      const del=
+        document.createElement(
+          "button"
+        );
+
+
+      del.className="remove";
+
+      del.textContent="×";
+
+
+      del.onclick=()=>{
+
+        list.splice(i,1);
+
+
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(list)
+        );
+
+
+        renderBookmarks();
+
+      };
+
+
+      row.append(
+        btn,
+        del
+      );
+
+
+      box.appendChild(row);
+
+    }
+  );
+
+}
+
+
+function escapeHtml(s){
+
+  return String(s).replace(
+    /[&<>"']/g,
+    m=>({
+
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+
+    }[m])
+  );
+
+}
+
+
+$("aiOpen").onclick=()=>{
+
+  $("aiPanel")
+    .classList
+    .add("open");
+
+};
+
+
+$("aiClose").onclick=()=>{
+
+  $("aiPanel")
+    .classList
+    .remove("open");
+
+};
+
+
+$("aiForm").onsubmit=e=>{
+
+  e.preventDefault();
+
+
+  const input=
+    $("aiInput");
+
+
+  const text=
+    input.value.trim();
+
+
+  if(!text){
+
+    return;
+
+  }
+
+
+  addMsg(
+    text,
+    "user"
+  );
+
+
+  input.value="";
+
+
+  setTimeout(
+    ()=>addMsg(
+      aiReply(text),
+      "bot"
+    ),
+    250
+  );
+
+};
+
+
+function addMsg(text,type){
+
+  const d=
+    document.createElement(
+      "div"
+    );
+
+
+  d.className=
+    "msg "+type;
+
+
+  d.textContent=text;
+
+
+  $("aiMessages")
+    .appendChild(d);
+
+
+  $("aiMessages")
+    .scrollTop=
+      $("aiMessages").scrollHeight;
+
+}
+
+
+function aiReply(text){
+
+  const q=
+    text.toLowerCase();
+
+
+  if(
+    q.includes("github")
+  ){
+
+    return "C.N. Nexus est conçu pour fonctionner comme une interface statique sur GitHub Pages. Attention : un site externe peut refuser d'être affiché dans un iframe.";
+
+  }
+
+
+  if(
+    q.includes("favori")
+  ){
+
+    return "Utilise l'étoile ☆ à droite de la barre d'adresse. Les favoris sont enregistrés dans le stockage local de ton navigateur.";
+
+  }
+
+
+  if(
+    q.includes("onglet")
+  ){
+
+    return "Le bouton ＋ crée un nouvel onglet. Chaque onglet conserve sa propre adresse.";
+
+  }
+
+
+  if(
+    q.includes("cn nexus")||
+    q.includes("nom")
+  ){
+
+    return "Le nom est C.N. Nexus : C.N. pour C.N. Organization, et Nexus pour l'idée d'un point de connexion.";
+
+  }
+
+
+  if(
+    q.includes("bonjour")||
+    q.includes("salut")
+  ){
+
+    return "Salut ! 👋 Que veux-tu faire dans C.N. Nexus ?";
+
+  }
+
+
+  return "Je suis actuellement la version locale de C.N. AI. Pour une IA en ligne, il faudra connecter un backend ou une API sans exposer de clé secrète.";
+
+}
+
+
+renderTabs();
+
+renderBookmarks();
+
+homePage();
+
+</script>
+
+</body>
+</html>
