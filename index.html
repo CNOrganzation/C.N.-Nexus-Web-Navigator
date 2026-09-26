@@ -636,6 +636,15 @@ button{
 
 const STORAGE_KEY="cn_nexus_bookmarks_v1";
 
+/*
+  Temps avant de considérer que l'iframe
+  est probablement bloquée.
+
+  5 secondes permet de laisser le temps
+  aux sites un peu lents de charger.
+*/
+const IFRAME_FALLBACK_DELAY=5000;
+
 let tabs=[
   {
     id:1,
@@ -649,6 +658,15 @@ let activeTab=1;
 let history=[];
 
 let historyIndex=-1;
+
+
+/*
+  Permet d'annuler le fallback lorsqu'un
+  chargement normal est détecté.
+*/
+let iframeFallbackTimer=null;
+
+let iframeLoadDetected=false;
 
 
 const $=id=>document.getElementById(id);
@@ -710,6 +728,8 @@ function setStatus(s){
 
 
 function homePage(){
+
+  clearIframeFallback();
 
   page.innerHTML=`
 
@@ -825,6 +845,126 @@ function normalize(value){
 }
 
 
+/*
+  Annule le système de fallback précédent.
+*/
+function clearIframeFallback(){
+
+  if(iframeFallbackTimer){
+
+    clearTimeout(
+      iframeFallbackTimer
+    );
+
+    iframeFallbackTimer=null;
+
+  }
+
+}
+
+
+/*
+  Ouvre l'URL dans un nouvel onglet.
+*/
+function openExternal(url){
+
+  const opened=
+    window.open(
+      url,
+      "_blank",
+      "noopener,noreferrer"
+    );
+
+
+  /*
+    Certains navigateurs peuvent bloquer
+    window.open selon le contexte.
+  */
+  if(!opened){
+
+    setStatus(
+      "Impossible d'ouvrir le nouvel onglet automatiquement."
+    );
+
+  }
+
+}
+
+
+/*
+  Fallback lorsqu'une iframe semble bloquée.
+
+  Important :
+  JavaScript ne peut pas lire directement
+  les erreurs X-Frame-Options / CSP d'un
+  site externe.
+
+  On utilise donc un délai de sécurité.
+*/
+function setupIframeFallback(frame,url){
+
+  clearIframeFallback();
+
+  iframeLoadDetected=false;
+
+
+  /*
+    Si l'iframe déclenche son chargement,
+    on considère qu'elle a réussi à être
+    intégrée dans Nexus.
+  */
+  frame.addEventListener(
+    "load",
+    ()=>{
+
+      iframeLoadDetected=true;
+
+      clearIframeFallback();
+
+      setStatus(
+        "Page chargée — "+url
+      );
+
+    },
+    {
+      once:true
+    }
+  );
+
+
+  /*
+    Si aucune confirmation de chargement
+    n'arrive dans le délai prévu, on tente
+    l'ouverture externe.
+  */
+  iframeFallbackTimer=
+    setTimeout(
+      ()=>{
+
+        iframeFallbackTimer=null;
+
+
+        if(iframeLoadDetected){
+
+          return;
+
+        }
+
+
+        setStatus(
+          "Cette page ne peut probablement pas être affichée dans Nexus. Ouverture dans un nouvel onglet…"
+        );
+
+
+        openExternal(url);
+
+      },
+      IFRAME_FALLBACK_DELAY
+    );
+
+}
+
+
 function navigate(value,push=true){
 
   const url=normalize(value);
@@ -838,6 +978,9 @@ function navigate(value,push=true){
     return;
 
   }
+
+
+  clearIframeFallback();
 
 
   const t=currentTab();
@@ -894,6 +1037,12 @@ function navigate(value,push=true){
     "no-referrer-when-downgrade";
 
 
+  /*
+    sandbox n'est volontairement PAS utilisé :
+    certains sites ont besoin de leurs
+    permissions normales pour fonctionner.
+  */
+
   page.appendChild(frame);
 
 
@@ -902,17 +1051,18 @@ function navigate(value,push=true){
   );
 
 
-  frame.addEventListener(
-    "load",
-    ()=>setStatus(
-      "Page chargée — "+url
-    )
+  setupIframeFallback(
+    frame,
+    url
   );
 
 }
 
 
 function loadCurrent(){
+
+  clearIframeFallback();
+
 
   const t=currentTab();
 
@@ -939,6 +1089,9 @@ function loadCurrent(){
 
 
 function newTab(){
+
+  clearIframeFallback();
+
 
   const id=Date.now();
 
@@ -981,6 +1134,8 @@ $("address").addEventListener(
 
 $("home").onclick=()=>{
 
+  clearIframeFallback();
+
   currentTab().url="";
 
   currentTab().title=
@@ -995,12 +1150,17 @@ $("home").onclick=()=>{
 
 $("reload").onclick=()=>{
 
+  clearIframeFallback();
+
   loadCurrent();
 
 };
 
 
 $("back").onclick=()=>{
+
+  clearIframeFallback();
+
 
   if(historyIndex>0){
 
@@ -1017,6 +1177,9 @@ $("back").onclick=()=>{
 
 
 $("forward").onclick=()=>{
+
+  clearIframeFallback();
+
 
   if(
     historyIndex<
@@ -1302,9 +1465,8 @@ function addMsg(text,type){
     .appendChild(d);
 
 
-  $("aiMessages")
-    .scrollTop=
-      $("aiMessages").scrollHeight;
+  $("aiMessages").scrollTop=
+    $("aiMessages").scrollHeight;
 
 }
 
@@ -1337,7 +1499,7 @@ function aiReply(text){
     q.includes("onglet")
   ){
 
-    return "Le bouton ＋ crée un nouvel onglet. Chaque onglet conserve sa propre adresse.";
+    return "Le bouton ＋ crée un nouvel onglet. Chaque onglet conserve sa propre adresse. Si une page bloque son affichage dans Nexus, elle peut être ouverte dans un nouvel onglet.";
 
   }
 
