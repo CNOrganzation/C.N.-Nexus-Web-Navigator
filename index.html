@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080611">
+
 <title>C.N. Nexus</title>
 
 <style>
@@ -26,67 +26,349 @@
   box-sizing:border-box;
 }
 
+html,
 body{
   margin:0;
-  min-height:100vh;
-  background:
-    radial-gradient(
-      circle at 20% 0%,
-      rgba(91,50,180,.18),
-      transparent 32%
-    ),
-    radial-gradient(
-      circle at 90% 100%,
-      rgba(28,55,120,.2),
-      transparent 35%
-    ),
-    var(--bg);
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
   color:var(--text);
-  font-family:
-    Inter,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
 }
 
-button,
-input{
-  font:inherit;
+body{
+  display:flex;
+  flex-direction:column;
 }
 
-button{
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+  height:58px;
+  min-height:58px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:0 14px;
+  background:linear-gradient(
+    90deg,
+    #090812,
+    #0d0b19,
+    #090812
+  );
+  border-bottom:1px solid var(--border);
+  box-shadow:var(--shadow);
+  z-index:20;
+}
+
+.logo{
+  width:36px;
+  height:36px;
+  border-radius:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:19px;
+  background:
+    linear-gradient(
+      135deg,
+      var(--violet),
+      var(--indigo)
+    );
+  box-shadow:
+    0 0 22px rgba(139,92,246,.3);
+}
+
+.brand{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+
+.brand strong{
+  font-size:15px;
+  line-height:17px;
+}
+
+.brand span{
+  color:var(--muted);
+  font-size:10px;
+}
+
+.ai-button{
+  margin-left:auto;
+  border:1px solid #38266d;
+  background:#120d25;
+  color:#dcd1ff;
+  border-radius:10px;
+  padding:9px 13px;
   cursor:pointer;
+  font-weight:700;
 }
 
-.app{
-  height:100vh;
+.ai-button:hover{
+  background:#1a1234;
+}
+
+
+/* =========================
+   TABS
+========================= */
+
+#tabs{
+  height:40px;
+  min-height:40px;
+  display:flex;
+  align-items:flex-end;
+  gap:5px;
+  padding:0 8px;
+  background:#080711;
+  border-bottom:1px solid var(--border);
+  overflow-x:auto;
+  overflow-y:hidden;
+}
+
+#tabs::-webkit-scrollbar{
+  height:3px;
+}
+
+#tabs::-webkit-scrollbar-thumb{
+  background:#39266d;
+  border-radius:10px;
+}
+
+.tab{
+  max-width:220px;
+  min-width:0;
+  height:34px;
+  padding:0 12px;
+  border:1px solid transparent;
+  border-radius:10px 10px 0 0;
+  background:transparent;
+  color:var(--muted);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  font-size:12px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  flex-shrink:0;
+}
+
+.tab.active{
+  background:var(--panel);
+  border-color:var(--border);
+  border-bottom-color:var(--panel);
+  color:var(--text);
+}
+
+@media(max-width:760px){
+  .tab{
+    max-width:170px;
+  }
+}
+
+@media(max-width:430px){
+  .tab{
+    max-width:125px;
+  }
+}
+
+
+/* =========================
+   TOOLBAR
+========================= */
+
+.toolbar{
+  height:52px;
+  min-height:52px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 10px;
+  background:var(--panel);
+  border-bottom:1px solid var(--border);
+}
+
+.tool{
+  width:35px;
+  height:35px;
+  flex:0 0 35px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:#0d0b18;
+  color:var(--text);
+  cursor:pointer;
+  font-size:16px;
+}
+
+.tool:hover{
+  background:#171329;
+}
+
+.address-wrap{
+  min-width:0;
+  flex:1;
+  height:35px;
+  display:flex;
+  align-items:center;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#080711;
+  overflow:hidden;
+}
+
+.address{
+  width:100%;
+  height:100%;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:var(--text);
+  padding:0 13px;
+  font-size:13px;
+}
+
+.address::placeholder{
+  color:#77718d;
+}
+
+
+/* =========================
+   LAYOUT
+========================= */
+
+.layout{
+  flex:1;
+  min-height:0;
+  display:grid;
+  grid-template-columns:230px 1fr;
+}
+
+.sidebar{
+  min-width:0;
+  background:#080711;
+  border-right:1px solid var(--border);
   display:flex;
   flex-direction:column;
   overflow:hidden;
 }
 
-.topbar{
-  background:rgba(8,7,15,.94);
-  border-bottom:1px solid var(--border);
-  backdrop-filter:blur(16px);
-  padding:10px 12px 0;
+.sidebar-title{
+  padding:15px 14px 10px;
+  font-size:12px;
+  font-weight:800;
+  color:#d7d0e8;
 }
 
-.brand-row{
+#favorites{
+  overflow:auto;
+  padding:0 8px 12px;
+}
+
+.favorite{
   display:flex;
   align-items:center;
-  gap:10px;
-  height:42px;
+  gap:9px;
+  width:100%;
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  padding:10px;
+  border-radius:9px;
+  cursor:pointer;
+  text-align:left;
+  font-size:12px;
 }
 
-.logo{
-  width:34px;
-  height:34px;
-  border-radius:10px;
-  display:grid;
-  place-items:center;
+.favorite:hover{
+  background:#121021;
+  color:var(--text);
+}
+
+.favorite-name{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.empty-favorites{
+  padding:10px;
+  color:#68627a;
+  font-size:11px;
+}
+
+.main{
+  min-width:0;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+}
+
+#page{
+  flex:1;
+  min-height:0;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(79,70,229,.09),
+      transparent 42%
+    ),
+    var(--bg);
+}
+
+#status{
+  height:25px;
+  min-height:25px;
+  display:flex;
+  align-items:center;
+  padding:0 10px;
+  border-top:1px solid var(--border);
+  background:#080711;
+  color:var(--muted);
+  font-size:10px;
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+.home{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
+}
+
+.home-card{
+  width:min(700px,100%);
+  text-align:center;
+  padding:30px;
+}
+
+.home-logo{
+  width:70px;
+  height:70px;
+  margin:0 auto 18px;
+  border-radius:21px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:34px;
   font-weight:900;
   background:
     linear-gradient(
@@ -95,317 +377,142 @@ button{
       var(--indigo)
     );
   box-shadow:
-    0 0 22px rgba(139,92,246,.28);
+    0 0 45px rgba(139,92,246,.28);
 }
 
-.brand{
-  font-weight:800;
-  letter-spacing:.2px;
+.home h1{
+  margin:0 0 8px;
+  font-size:29px;
 }
 
-.brand small{
-  display:block;
+.home p{
+  margin:0;
   color:var(--muted);
-  font-size:10px;
-  font-weight:500;
-}
-
-.spacer{
-  flex:1;
-}
-
-.icon-btn,
-.nav-btn,
-.home-btn{
-  border:1px solid transparent;
-  background:transparent;
-  color:var(--muted);
-  width:36px;
-  height:34px;
-  border-radius:9px;
-}
-
-.icon-btn:hover,
-.nav-btn:hover,
-.home-btn:hover{
-  background:#17132a;
-  color:white;
-  border-color:var(--border);
-}
-
-.ai-btn{
-  border:1px solid #6040b8;
-  background:
-    linear-gradient(
-      135deg,
-      #201445,
-      #111534
-    );
-  color:#dcd1ff;
-  border-radius:9px;
-  padding:8px 11px;
-  font-weight:800;
-  font-size:12px;
-}
-
-.tabs{
-  display:flex;
-  gap:4px;
-  overflow-x:auto;
-  overflow-y:hidden;
-  padding-top:8px;
-  scrollbar-width:none;
-}
-
-.tabs::-webkit-scrollbar{
-  display:none;
-}
-
-.tab{
-  border:0;
-  background:transparent;
-  color:var(--muted);
-  padding:9px 14px;
-  border-bottom:2px solid transparent;
-  white-space:nowrap;
-
-  /*
-    Empêche les noms d'onglets
-    de devenir gigantesques.
-  */
-  max-width:220px;
-  min-width:0;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  flex-shrink:0;
-}
-
-.tab.active{
-  color:#fff;
-  border-bottom-color:var(--violet);
-}
-
-.toolbar{
-  display:flex;
-  gap:7px;
-  padding:9px 0;
-}
-
-.address-wrap{
-  flex:1;
-  display:flex;
-  align-items:center;
-  gap:8px;
-  background:#0d0c17;
-  border:1px solid var(--border);
-  border-radius:11px;
-  padding:0 11px;
-}
-
-.address-wrap span{
-  color:var(--violet);
   font-size:13px;
 }
 
-#address{
-  flex:1;
-  background:transparent;
-  border:0;
-  outline:0;
-  color:#fff;
-  height:38px;
-  min-width:0;
-}
-
-.main{
-  flex:1;
-  min-height:0;
+.home-search{
+  margin:24px auto 0;
   display:flex;
-}
-
-.page-area{
-  flex:1;
-  min-width:0;
-  display:flex;
-  flex-direction:column;
-}
-
-.page{
-  flex:1;
-  overflow:auto;
-  position:relative;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(7,8,18,.35),
-      rgba(3,5,14,.75)
-    );
-}
-
-.home{
-  min-height:100%;
-  display:grid;
-  place-items:center;
-  padding:30px;
-}
-
-.home-card{
-  max-width:720px;
-  width:100%;
-  text-align:center;
-}
-
-.home-card h1{
-  font-size:clamp(34px,7vw,68px);
-  margin:0 0 8px;
-}
-
-.gradient{
-  background:
-    linear-gradient(
-      90deg,
-      #c4b5fd,
-      #818cf8,
-      #60a5fa
-    );
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-}
-
-.home-card p{
-  color:var(--muted);
-  line-height:1.6;
-}
-
-.search-home{
-  display:flex;
+  max-width:560px;
   gap:8px;
-  margin:25px auto;
-  max-width:620px;
 }
 
-.search-home input{
+.home-search input{
   flex:1;
-  background:#0d0c17;
+  min-width:0;
+  height:42px;
   border:1px solid var(--border);
-  border-radius:12px;
-  color:white;
-  padding:13px 15px;
-  outline:none;
+  border-radius:11px;
+  outline:0;
+  background:#080711;
+  color:var(--text);
+  padding:0 13px;
 }
 
 .primary{
+  height:42px;
+  border:1px solid #5533a1;
+  border-radius:11px;
+  padding:0 17px;
   background:
     linear-gradient(
       135deg,
-      var(--violet),
-      var(--indigo)
+      #6538bf,
+      #4036c7
     );
-  border:0;
   color:white;
-  border-radius:11px;
-  padding:12px 18px;
   font-weight:800;
+  cursor:pointer;
 }
 
-.quick{
-  display:flex;
-  justify-content:center;
-  gap:8px;
-  flex-wrap:wrap;
+.primary:hover{
+  filter:brightness(1.1);
 }
 
-.quick button{
-  background:#0e0d18;
-  color:#c9c2df;
-  border:1px solid var(--border);
-  padding:8px 11px;
-  border-radius:9px;
-}
 
-.frame{
+/* =========================
+   IFRAME
+========================= */
+
+.browser-frame{
   width:100%;
   height:100%;
   border:0;
+  display:block;
   background:white;
 }
 
-.status{
-  padding:6px 12px;
-  color:var(--muted);
-  font-size:11px;
-  border-top:1px solid var(--border);
-  background:#080710;
-}
 
-.sidebar{
-  width:290px;
-  border-left:1px solid var(--border);
-  background:rgba(7,7,13,.94);
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-}
+/* =========================
+   FALLBACK
+========================= */
 
-.side-head{
-  padding:14px;
-  border-bottom:1px solid var(--border);
-  font-weight:800;
-}
-
-.bookmarks{
-  overflow:auto;
-  padding:10px;
-}
-
-.bookmark{
+.external-fallback{
+  position:absolute;
+  inset:0;
   display:flex;
   align-items:center;
-  gap:8px;
-  padding:9px;
-  border-radius:9px;
-  color:#d9d4e8;
-  font-size:13px;
+  justify-content:center;
+  background:
+    linear-gradient(
+      180deg,
+      #080711,
+      #05050a
+    );
+  z-index:10;
+  padding:25px;
 }
 
-.bookmark:hover{
-  background:#151127;
+.external-fallback-box{
+  width:min(500px,100%);
+  background:#0d0b18;
+  border:1px solid #38266d;
+  border-radius:18px;
+  padding:28px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.55);
 }
 
-.bookmark span{
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-  flex:1;
+.external-fallback-title{
+  font-size:18px;
+  font-weight:800;
+  margin-bottom:10px;
 }
 
-.remove{
-  color:#766e8c;
-  border:0;
-  background:none;
-}
-
-.empty{
+.external-fallback-text{
   color:var(--muted);
-  font-size:12px;
-  padding:12px;
+  font-size:13px;
+  line-height:1.5;
+  margin-bottom:20px;
 }
+
+.external-fallback-url{
+  color:#c9b9ff;
+  font-size:11px;
+  margin-bottom:18px;
+  word-break:break-all;
+}
+
+
+/* =========================
+   AI PANEL
+========================= */
 
 .ai-panel{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  width:min(390px,calc(100vw - 36px));
-  height:min(570px,calc(100vh - 110px));
+  position:absolute;
+  right:15px;
+  bottom:42px;
+  width:min(360px,calc(100% - 30px));
+  max-height:500px;
   display:none;
   flex-direction:column;
   background:#0b0a14;
-  border:1px solid #38266d;
+  border:1px solid #39266d;
   border-radius:16px;
-  box-shadow:var(--shadow);
-  z-index:20;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
   overflow:hidden;
+  z-index:30;
 }
 
 .ai-panel.open{
@@ -413,417 +520,373 @@ button{
 }
 
 .ai-head{
+  padding:13px 15px;
+  border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
-  padding:12px 14px;
-  border-bottom:1px solid var(--border);
+  justify-content:space-between;
 }
 
-.ai-title{
-  font-weight:850;
+.ai-head strong{
+  font-size:13px;
 }
 
-.ai-title small{
-  display:block;
+.ai-close{
+  border:0;
+  background:transparent;
   color:var(--muted);
-  font-size:10px;
+  cursor:pointer;
+  font-size:17px;
 }
 
 .ai-messages{
   flex:1;
+  min-height:180px;
+  max-height:330px;
   overflow:auto;
-  padding:14px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+  padding:12px;
 }
 
-.msg{
-  max-width:88%;
-  padding:10px 12px;
-  border-radius:12px;
-  font-size:13px;
+.ai-message{
+  padding:9px 11px;
+  margin-bottom:8px;
+  border-radius:10px;
+  font-size:12px;
   line-height:1.45;
-  white-space:pre-wrap;
 }
 
-.msg.bot{
-  background:#141127;
-  border:1px solid #29204d;
-  align-self:flex-start;
+.ai-message.bot{
+  background:#111020;
+  color:#ddd7ed;
 }
 
-.msg.user{
-  background:
-    linear-gradient(
-      135deg,
-      #4c2e9d,
-      #3037a2
-    );
-  align-self:flex-end;
+.ai-message.user{
+  background:#211642;
+  color:#eee8ff;
+  margin-left:25px;
 }
 
-.ai-compose{
+.ai-form{
   display:flex;
   gap:7px;
   padding:10px;
   border-top:1px solid var(--border);
 }
 
-.ai-compose input{
+.ai-input{
   flex:1;
   min-width:0;
-  background:#11101c;
+  height:36px;
   border:1px solid var(--border);
-  color:white;
-  border-radius:10px;
-  padding:10px;
+  border-radius:9px;
   outline:0;
+  background:#080711;
+  color:var(--text);
+  padding:0 10px;
+  font-size:12px;
 }
 
-@media(max-width:760px){
+.ai-send{
+  width:38px;
+  height:36px;
+  border:1px solid #5533a1;
+  border-radius:9px;
+  background:#34236c;
+  color:white;
+  cursor:pointer;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+  header{
+    padding:0 9px;
+  }
+
+  .brand span{
+    display:none;
+  }
+
+  .brand strong{
+    font-size:14px;
+  }
+
+  .ai-button{
+    padding:8px 10px;
+    font-size:11px;
+  }
+
+  .layout{
+    grid-template-columns:1fr;
+  }
 
   .sidebar{
     display:none;
   }
 
-  .brand small{
-    display:none;
+  .toolbar{
+    gap:5px;
+    padding:7px;
   }
 
-  .nav-btn,
-  .home-btn{
-    width:32px;
+  .tool{
+    width:33px;
+    flex-basis:33px;
   }
 
-  .ai-btn{
-    padding:8px;
+  .address{
+    font-size:12px;
   }
 
   .home{
-    padding:22px 15px;
+    padding:15px;
   }
 
-  .tab{
-    max-width:170px;
+  .home-card{
+    padding:20px 10px;
   }
 
-}
-
-@media(max-width:430px){
-
-  .brand{
-    font-size:13px;
+  .home h1{
+    font-size:24px;
   }
 
-  .toolbar{
-    gap:4px;
+  .home-search{
+    flex-direction:column;
   }
 
-  .nav-btn,
-  .home-btn{
-    width:30px;
-    padding:0;
+  .primary{
+    width:100%;
   }
 
-  .address-wrap{
-    padding:0 7px;
+  .ai-panel{
+    right:10px;
+    bottom:34px;
   }
-
-  .tabs{
-    padding-top:4px;
-  }
-
-  .tab{
-    max-width:125px;
-    padding-left:10px;
-    padding-right:10px;
-  }
-
 }
 
 </style>
 </head>
 
-
 <body>
 
-<div class="app">
 
+<!-- =========================
+     HEADER
+========================= -->
 
-<header class="topbar">
+<header>
 
+  <div class="logo">N</div>
 
-  <div class="brand-row">
-
-    <div class="logo">
-      N
-    </div>
-
-
-    <div class="brand">
-
-      C.N. Nexus
-
-      <small>
-        by C.N. Organization
-      </small>
-
-    </div>
-
-
-    <div class="spacer"></div>
-
-
-    <button
-      class="ai-btn"
-      id="aiOpen"
-    >
-      C.N. AI
-    </button>
-
+  <div class="brand">
+    <strong>C.N. Nexus</strong>
+    <span>by C.N. Organization</span>
   </div>
 
-
-  <div
-    class="tabs"
-    id="tabs"
-  ></div>
-
-
-  <div class="toolbar">
-
-
-    <button
-      class="nav-btn"
-      id="back"
-      title="Retour"
-    >
-      ←
-    </button>
-
-
-    <button
-      class="nav-btn"
-      id="forward"
-      title="Avancer"
-    >
-      →
-    </button>
-
-
-    <button
-      class="nav-btn"
-      id="reload"
-      title="Actualiser"
-    >
-      ↻
-    </button>
-
-
-    <button
-      class="home-btn"
-      id="home"
-      title="Accueil"
-    >
-      ⌂
-    </button>
-
-
-    <div class="address-wrap">
-
-      <span>
-        ⌕
-      </span>
-
-
-      <input
-        id="address"
-        autocomplete="off"
-        spellcheck="false"
-        placeholder="Rechercher ou entrer une adresse"
-      >
-
-    </div>
-
-
-    <button
-      class="nav-btn"
-      id="bookmark"
-      title="Ajouter aux favoris"
-    >
-      ☆
-    </button>
-
-
-    <button
-      class="nav-btn"
-      id="newTab"
-      title="Nouvel onglet"
-    >
-      ＋
-    </button>
-
-
-  </div>
+  <button
+    class="ai-button"
+    id="aiOpen"
+  >
+    ✦ C.N. AI
+  </button>
 
 </header>
 
 
+<!-- =========================
+     TABS
+========================= -->
 
-<main class="main">
-
-
-<section class="page-area">
-
-
-  <div
-    class="page"
-    id="page"
-  ></div>
+<div id="tabs"></div>
 
 
-  <div
-    class="status"
-    id="status"
+<!-- =========================
+     TOOLBAR
+========================= -->
+
+<div class="toolbar">
+
+  <button
+    class="tool"
+    id="back"
+    title="Précédent"
   >
-    Prêt
-  </div>
+    ←
+  </button>
 
-
-</section>
-
-
-
-<aside class="sidebar">
-
-
-  <div class="side-head">
-    ☆ Favoris
-  </div>
-
-
-  <div
-    class="bookmarks"
-    id="bookmarks"
-  ></div>
-
-
-</aside>
-
-
-</main>
-
-
-</div>
-
-
-
-<div
-  class="ai-panel"
-  id="aiPanel"
->
-
-
-  <div class="ai-head">
-
-
-    <div class="ai-title">
-
-      C.N. AI
-
-      <small>
-        Assistant local de C.N. Nexus
-      </small>
-
-    </div>
-
-
-    <div class="spacer"></div>
-
-
-    <button
-      class="icon-btn"
-      id="aiClose"
-    >
-      ×
-    </button>
-
-
-  </div>
-
-
-
-  <div
-    class="ai-messages"
-    id="aiMessages"
+  <button
+    class="tool"
+    id="forward"
+    title="Suivant"
   >
+    →
+  </button>
 
-
-    <div class="msg bot">
-
-      Salut ! Je suis C.N. AI.
-      Je peux t'aider à utiliser
-      C.N. Nexus ou à préparer
-      une recherche.
-
-    </div>
-
-
-  </div>
-
-
-
-  <form
-    class="ai-compose"
-    id="aiForm"
+  <button
+    class="tool"
+    id="reload"
+    title="Actualiser"
   >
+    ↻
+  </button>
 
+  <button
+    class="tool"
+    id="home"
+    title="Accueil"
+  >
+    ⌂
+  </button>
+
+  <div class="address-wrap">
 
     <input
-      id="aiInput"
-      maxlength="500"
-      placeholder="Écris ton message…"
+      class="address"
+      id="address"
+      type="text"
+      placeholder="Rechercher ou entrer une adresse"
+      autocomplete="off"
+      spellcheck="false"
     >
 
+  </div>
 
-    <button class="primary">
-      Envoyer
-    </button>
+  <button
+    class="tool"
+    id="bookmark"
+    title="Ajouter aux favoris"
+  >
+    ☆
+  </button>
 
-
-  </form>
-
+  <button
+    class="tool"
+    id="newTab"
+    title="Nouvel onglet"
+  >
+    +
+  </button>
 
 </div>
 
+
+<!-- =========================
+     MAIN LAYOUT
+========================= -->
+
+<div class="layout">
+
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="sidebar-title">
+      ★ Favoris
+    </div>
+
+    <div id="favorites"></div>
+
+  </aside>
+
+
+  <!-- MAIN -->
+
+  <main class="main">
+
+    <div id="page"></div>
+
+    <div id="status">
+      Prêt
+    </div>
+
+
+    <!-- =====================
+         C.N. AI
+    ====================== -->
+
+    <div
+      class="ai-panel"
+      id="aiPanel"
+    >
+
+      <div class="ai-head">
+
+        <strong>C.N. AI</strong>
+
+        <button
+          class="ai-close"
+          id="aiClose"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <div
+        class="ai-messages"
+        id="aiMessages"
+      >
+
+        <div class="ai-message bot">
+          Salut 👋 Je suis C.N. AI.
+          <br><br>
+          Je peux t'aider à utiliser C.N. Nexus.
+        </div>
+
+      </div>
+
+      <form
+        class="ai-form"
+        id="aiForm"
+      >
+
+        <input
+          class="ai-input"
+          id="aiInput"
+          type="text"
+          placeholder="Écris un message..."
+          autocomplete="off"
+        >
+
+        <button
+          class="ai-send"
+          type="submit"
+        >
+          ➤
+        </button>
+
+      </form>
+
+    </div>
+
+  </main>
+
+</div>
 
 
 <script>
 
-
-/* ================================
+/* =========================================================
    CONFIGURATION
-================================ */
+========================================================= */
 
-const STORAGE_KEY=
+const STORAGE_KEY =
   "cn_nexus_bookmarks_v1";
 
-
-/*
-  Temps d'attente avant le fallback
-  vers un nouvel onglet.
-*/
-const IFRAME_FALLBACK_DELAY=
+const IFRAME_FALLBACK_DELAY =
   5000;
 
 
-
-/* ================================
+/* =========================================================
    ÉTAT
-================================ */
+========================================================= */
 
-let tabs=[
+let tabs = [
   {
     id:1,
     title:"Nouvel onglet",
@@ -831,354 +894,347 @@ let tabs=[
   }
 ];
 
+let activeTab = 1;
 
-let activeTab=1;
+let history = [];
 
+let historyIndex = -1;
 
-let history=[];
+let iframeFallbackTimer = null;
 
-
-let historyIndex=-1;
-
-
-/*
-  Timer du fallback iframe.
-*/
-let iframeFallbackTimer=null;
+let iframeLoadDetected = false;
 
 
-/*
-  Indique qu'un chargement iframe
-  a été détecté.
-*/
-let iframeLoadDetected=false;
-
-
-
-/* ================================
+/* =========================================================
    ÉLÉMENTS
-================================ */
+========================================================= */
 
-const $=
-  id=>document.getElementById(id);
+const $ =
+  id => document.getElementById(id);
 
-
-const page=
+const page =
   $("page");
 
-
-const address=
+const address =
   $("address");
 
-
-const statusEl=
+const statusEl =
   $("status");
 
 
+/* =========================================================
+   STATUS
+========================================================= */
 
-/* ================================
-   ONGLET ACTUEL
-================================ */
+function setStatus(text){
 
-function currentTab(){
-
-  return tabs.find(
-    t=>t.id===activeTab
-  );
+  statusEl.textContent =
+    text;
 
 }
 
 
-
-/* ================================
-   AFFICHAGE DE L'URL
-================================ */
-
-/*
-  L'URL réelle n'est JAMAIS modifiée.
-
-  Exemple réel :
-
-  https://www.google.com/search?q=test
-
-  Affichage Nexus :
-
-  google.com.nexus/search?q=test
-
-  .nexus est donc uniquement visuel.
-*/
+/* =========================================================
+   URL AFFICHÉE
+   IMPORTANT :
+   .nexus est UNIQUEMENT VISUEL.
+   L'URL réelle n'est jamais modifiée.
+========================================================= */
 
 function displayUrl(url){
 
   if(!url){
-
     return "";
-
   }
-
 
   try{
 
-    const parsed=
+    const parsed =
       new URL(url);
 
+    let host =
+      parsed.hostname;
 
-    /*
-      On retire www. uniquement
-      pour rendre l'affichage plus court.
-    */
-    let host=
-      parsed.hostname
-        .replace(/^www\./i,"");
+    if(host.startsWith("www.")){
+      host =
+        host.slice(4);
+    }
 
-
-    /*
-      Si jamais une fausse extension
-      était déjà présente, on l'enlève.
-    */
-    host=
-      host.replace(
-        /\.nexus$/i,
-        ""
-      );
-
-
-    /*
-      Faux suffixe uniquement
-      dans l'affichage.
-    */
-    host+=".nexus";
-
+    if(host.endsWith(".nexus")){
+      host =
+        host.slice(0,-6);
+    }
 
     return (
-      host+
-      parsed.pathname+
-      parsed.search+
+      host +
+      ".nexus" +
+      parsed.pathname +
+      parsed.search +
       parsed.hash
     );
 
   }catch{
 
-    let fallback=
-      String(url)
-        .replace(
-          /\.nexus$/i,
-          ""
-        );
-
-
-    return fallback+".nexus";
+    return url;
 
   }
 
 }
 
 
-
-/* ================================
-   NOM COURT DES ONGLET
-================================ */
-
-/*
-  Les onglets n'affichent PAS
-  toute l'URL.
-
-  Exemple :
-
-  google.com.nexus/search/...
-  
-  devient simplement :
-
-  google.com.nexus
-
-  Cela évite les onglets de 3 km.
-*/
+/* =========================================================
+   NOM D'ONGLET
+========================================================= */
 
 function tabLabel(url){
 
   if(!url){
-
     return "Nouvel onglet";
-
   }
-
 
   try{
 
-    const parsed=
+    const parsed =
       new URL(url);
 
+    let host =
+      parsed.hostname;
 
-    let host=
-      parsed.hostname
-        .replace(/^www\./i,"")
-        .replace(/\.nexus$/i,"");
+    if(host.startsWith("www.")){
+      host =
+        host.slice(4);
+    }
 
+    if(host.endsWith(".nexus")){
+      host =
+        host.slice(0,-6);
+    }
 
-    return host+".nexus";
+    return host + ".nexus";
 
   }catch{
 
-    return "Page";
+    return "C.N. Nexus";
 
   }
 
 }
 
 
+/* =========================================================
+   NORMALISATION URL
+========================================================= */
 
-/* ================================
-   AFFICHAGE DES ONGLET
-================================ */
+function normalize(value){
+
+  value =
+    String(value || "").trim();
+
+  if(!value){
+    return "";
+  }
+
+
+  /*
+    Si l'utilisateur tape :
+
+    google.com.nexus
+    google.com.nexus/test
+
+    on enlève uniquement le faux .nexus.
+  */
+
+  if(
+    !value.includes("://") &&
+    /\.nexus(?=[:/?#]|$)/i.test(value)
+  ){
+
+    value =
+      value.replace(
+        /\.nexus(?=[:/?#]|$)/i,
+        ""
+      );
+
+  }
+
+
+  /*
+    Si l'utilisateur tape :
+
+    https://google.com.nexus/test
+
+    on enlève le faux .nexus du hostname.
+  */
+
+  if(
+    value.includes("://")
+  ){
+
+    try{
+
+      const parsed =
+        new URL(value);
+
+      if(
+        parsed.hostname.endsWith(".nexus")
+      ){
+
+        parsed.hostname =
+          parsed.hostname.slice(
+            0,
+            -6
+          );
+
+      }
+
+      return parsed.toString();
+
+    }catch{
+
+      return value;
+
+    }
+
+  }
+
+
+  /*
+    Adresse classique
+  */
+
+  if(
+    /^(localhost|[\w-]+(\.[\w-]+)+)(:\d+)?(\/.*)?$/i
+      .test(value)
+  ){
+
+    return "https://" + value;
+
+  }
+
+
+  /*
+    Sinon recherche Google
+  */
+
+  return (
+    "https://www.google.com/search?q=" +
+    encodeURIComponent(value)
+  );
+
+}
+
+
+/* =========================================================
+   TAB ACTIVE
+========================================================= */
+
+function getActiveTab(){
+
+  return tabs.find(
+    t => t.id === activeTab
+  );
+
+}
+
+
+/* =========================================================
+   TABS
+========================================================= */
 
 function renderTabs(){
 
-  $("tabs").innerHTML="";
+  const container =
+    $("tabs");
 
+  container.innerHTML =
+    "";
 
-  tabs.forEach(t=>{
+  tabs.forEach(
+    t => {
 
+      const button =
+        document.createElement("button");
 
-    const b=
-      document.createElement(
-        "button"
+      button.className =
+        "tab" +
+        (
+          t.id === activeTab
+            ? " active"
+            : ""
+        );
+
+      button.textContent =
+        tabLabel(t.url);
+
+      button.title =
+        t.url
+          ? displayUrl(t.url)
+          : "Nouvel onglet";
+
+      button.onclick =
+        () => {
+
+          activeTab =
+            t.id;
+
+          renderTabs();
+
+          loadCurrent();
+
+        };
+
+      container.appendChild(
+        button
       );
 
-
-    b.className=
-      "tab"+
-      (
-        t.id===activeTab
-          ? " active"
-          : ""
-      );
-
-
-    /*
-      Nom court dans l'onglet.
-    */
-    b.textContent=
-      t.url
-        ? tabLabel(t.url)
-        : "Nouvel onglet";
-
-
-    /*
-      Au survol, on peut voir
-      l'adresse .nexus complète.
-    */
-    b.title=
-      t.url
-        ? displayUrl(t.url)
-        : "Nouvel onglet";
-
-
-    b.onclick=()=>{
-
-      activeTab=t.id;
-
-      renderTabs();
-
-      loadCurrent();
-
-    };
-
-
-    $("tabs")
-      .appendChild(b);
-
-  });
+    }
+  );
 
 }
 
 
+/* =========================================================
+   HOME
+========================================================= */
 
-/* ================================
-   STATUT
-================================ */
+function showHome(){
 
-function setStatus(s){
-
-  statusEl.textContent=s;
-
-}
-
-
-
-/* ================================
-   PAGE D'ACCUEIL
-================================ */
-
-function homePage(){
-
-  clearIframeFallback();
-
-
-  page.innerHTML=`
+  page.innerHTML = `
 
     <div class="home">
 
       <div class="home-card">
 
+        <div class="home-logo">
+          N
+        </div>
+
         <h1>
-
-          <span class="gradient">
-            C.N. Nexus
-          </span>
-
+          C.N. Nexus
         </h1>
 
-
         <p>
-          Un espace de navigation conçu
-          par C.N. Organization.
+          Le navigateur de C.N. Organization
         </p>
 
-
-        <form
-          class="search-home"
-          id="homeSearch"
-        >
+        <div class="home-search">
 
           <input
             id="homeInput"
-            placeholder="Rechercher sur le Web…"
+            type="text"
+            placeholder="Rechercher ou entrer une adresse"
+            autocomplete="off"
+            spellcheck="false"
           >
-
-
-          <button class="primary">
-            Rechercher
-          </button>
-
-        </form>
-
-
-        <div class="quick">
-
 
           <button
-            data-url="https://www.google.com"
+            class="primary"
+            id="homeGo"
           >
-            Google
+            Explorer
           </button>
-
-
-          <button
-            data-url="https://www.youtube.com"
-          >
-            YouTube
-          </button>
-
-
-          <button
-            data-url="https://github.com"
-          >
-            GitHub
-          </button>
-
 
         </div>
-
 
       </div>
 
@@ -1187,190 +1243,43 @@ function homePage(){
   `;
 
 
-  $("homeSearch").onsubmit=e=>{
+  const input =
+    $("homeInput");
 
-    e.preventDefault();
+  const go =
+    $("homeGo");
 
+
+  function launch(){
 
     navigate(
-      $("homeInput").value
+      input.value
     );
 
-  };
-
-
-  page
-    .querySelectorAll("[data-url]")
-    .forEach(b=>{
-
-      b.onclick=()=>{
-
-        navigate(
-          b.dataset.url
-        );
-
-      };
-
-    });
-
-}
-
-
-
-/* ================================
-   NORMALISATION DES URL
-================================ */
-
-/*
-  Convertit ce que l'utilisateur
-  écrit en vraie URL.
-
-  Exemple :
-
-  google.com.nexus
-  ↓
-  https://google.com
-
-  google.com.nexus/test
-  ↓
-  https://google.com/test
-
-  https://google.com.nexus/test
-  ↓
-  https://google.com/test
-*/
-
-function normalize(value){
-
-  value=value.trim();
-
-
-  if(!value){
-
-    return "";
-
   }
 
 
-  let cleaned=value;
+  go.onclick =
+    launch;
 
 
-  /*
-    Si ce n'est pas une URL avec
-    protocole, on traite le domaine.
-  */
-  if(
-    !/^https?:\/\//i.test(cleaned)
-  ){
+  input.addEventListener(
+    "keydown",
+    event => {
 
-
-    const match=
-      cleaned.match(
-        /^([^\/?#]+)([\/?#].*)?$/i
-      );
-
-
-    if(
-      match &&
-      /\.nexus$/i.test(match[1])
-    ){
-
-
-      /*
-        Suppression du faux .nexus
-        uniquement sur le domaine.
-      */
-      cleaned=
-        match[1]
-          .replace(
-            /\.nexus$/i,
-            ""
-          )+
-        (
-          match[2]||
-          ""
-        );
+      if(event.key === "Enter"){
+        launch();
+      }
 
     }
-
-  }else{
-
-
-    /*
-      Cas :
-
-      https://google.com.nexus/test
-    */
-
-    try{
-
-      const parsed=
-        new URL(cleaned);
-
-
-      parsed.hostname=
-        parsed.hostname
-          .replace(
-            /\.nexus$/i,
-            ""
-          );
-
-
-      cleaned=
-        parsed.href;
-
-    }catch{
-
-      /*
-        Si l'URL est invalide,
-        on la laisse telle quelle.
-      */
-
-    }
-
-  }
-
-
-  /*
-    URL avec protocole.
-  */
-  if(
-    /^https?:\/\//i.test(cleaned)
-  ){
-
-    return cleaned;
-
-  }
-
-
-  /*
-    Domaine classique.
-  */
-  if(
-    /^[\w.-]+\.[a-z]{2,}(\/.*)?$/i.test(cleaned)
-  ){
-
-    return "https://"+cleaned;
-
-  }
-
-
-  /*
-    Sinon on considère que c'est
-    une recherche.
-  */
-  return (
-    "https://www.google.com/search?q="+
-    encodeURIComponent(value)
   );
 
 }
 
 
-
-/* ================================
+/* =========================================================
    FALLBACK IFRAME
-================================ */
+========================================================= */
 
 function clearIframeFallback(){
 
@@ -1380,65 +1289,138 @@ function clearIframeFallback(){
       iframeFallbackTimer
     );
 
-
-    iframeFallbackTimer=null;
+    iframeFallbackTimer =
+      null;
 
   }
 
 }
 
 
-
-/* ================================
+/* =========================================================
    OUVERTURE EXTERNE
-================================ */
+   L'utilisateur clique lui-même sur le bouton.
+   Cela évite le blocage des popups sur iPhone/Safari.
+========================================================= */
 
 function openExternal(url){
 
-  const opened=
-    window.open(
-      url,
-      "_blank",
-      "noopener,noreferrer"
-    );
+  const overlay =
+    document.createElement("div");
+
+  overlay.className =
+    "external-fallback";
 
 
-  if(!opened){
+  const box =
+    document.createElement("div");
 
-    setStatus(
-      "Impossible d'ouvrir le nouvel onglet automatiquement."
-    );
+  box.className =
+    "external-fallback-box";
 
-  }
+
+  const title =
+    document.createElement("div");
+
+  title.className =
+    "external-fallback-title";
+
+  title.textContent =
+    "Cette page ne peut pas être affichée dans C.N. Nexus";
+
+
+  const text =
+    document.createElement("div");
+
+  text.className =
+    "external-fallback-text";
+
+  text.textContent =
+    "Le site externe bloque probablement l'affichage dans une iframe.";
+
+
+  const urlText =
+    document.createElement("div");
+
+  urlText.className =
+    "external-fallback-url";
+
+  urlText.textContent =
+    displayUrl(url);
+
+
+  const button =
+    document.createElement("button");
+
+  button.className =
+    "primary";
+
+  button.style.width =
+    "100%";
+
+  button.textContent =
+    "↗ Ouvrir dans un nouvel onglet";
+
+
+  button.onclick =
+    () => {
+
+      /*
+        IMPORTANT :
+        window.open() est exécuté directement
+        après le clic de l'utilisateur.
+      */
+
+      const opened =
+        window.open(
+          url,
+          "_blank"
+        );
+
+
+      if(opened){
+
+        overlay.remove();
+
+        setStatus(
+          "Page ouverte dans un nouvel onglet — " +
+          displayUrl(url)
+        );
+
+      }else{
+
+        setStatus(
+          "Le navigateur a bloqué l'ouverture du nouvel onglet."
+        );
+
+      }
+
+    };
+
+
+  box.append(
+    title,
+    text,
+    urlText,
+    button
+  );
+
+
+  overlay.appendChild(
+    box
+  );
+
+
+  page.appendChild(
+    overlay
+  );
 
 }
 
 
-
-/* ================================
-   DÉTECTION IFRAME
-================================ */
-
-/*
-  Système demandé :
-
-  1. On essaie d'abord l'iframe.
-  2. Si elle charge :
-       → on reste dans Nexus.
-  3. Si aucun chargement n'est
-     détecté après 5 secondes :
-       → nouvel onglet.
-
-  IMPORTANT :
-  Les protections des sites externes
-  (X-Frame-Options / CSP) ne permettent
-  pas à une page comme Nexus de savoir
-  parfaitement pourquoi un iframe
-  ne s'affiche pas.
-
-  Ce système est donc un fallback
-  basé sur le délai de chargement.
-*/
+/* =========================================================
+   DÉTECTION DU CHARGEMENT IFRAME
+========================================================= */
 
 function setupIframeFallback(
   frame,
@@ -1447,30 +1429,23 @@ function setupIframeFallback(
 
   clearIframeFallback();
 
+  iframeLoadDetected =
+    false;
 
-  iframeLoadDetected=false;
 
-
-  /*
-    Si l'iframe signale un chargement,
-    on considère qu'elle fonctionne.
-  */
   frame.addEventListener(
     "load",
-    ()=>{
+    () => {
 
-
-      iframeLoadDetected=true;
-
+      iframeLoadDetected =
+        true;
 
       clearIframeFallback();
 
-
       setStatus(
-        "Page chargée — "+
+        "Page chargée — " +
         displayUrl(url)
       );
-
 
     },
     {
@@ -1479,24 +1454,17 @@ function setupIframeFallback(
   );
 
 
-  /*
-    Après 5 secondes :
-    si aucun load n'a été détecté,
-    on tente le nouvel onglet.
-  */
-  iframeFallbackTimer=
+  iframeFallbackTimer =
     setTimeout(
-      ()=>{
+      () => {
+
+        iframeFallbackTimer =
+          null;
 
 
-        iframeFallbackTimer=null;
-
-
-        /*
-          L'iframe a chargé :
-          on ne fait RIEN.
-        */
-        if(iframeLoadDetected){
+        if(
+          iframeLoadDetected
+        ){
 
           return;
 
@@ -1504,12 +1472,13 @@ function setupIframeFallback(
 
 
         setStatus(
-          "Cette page ne peut pas être affichée ici — ouverture dans un nouvel onglet…"
+          "Page externe — ouverture disponible dans un nouvel onglet"
         );
 
 
-        openExternal(url);
-
+        openExternal(
+          url
+        );
 
       },
       IFRAME_FALLBACK_DELAY
@@ -1518,68 +1487,67 @@ function setupIframeFallback(
 }
 
 
-
-/* ================================
+/* =========================================================
    NAVIGATION
-================================ */
+========================================================= */
 
 function navigate(
   value,
-  push=true
+  push = true
 ){
 
-  const url=
+  const url =
     normalize(value);
 
 
   if(!url){
 
-    homePage();
-
-    address.value="";
+    showHome();
 
     return;
 
   }
 
 
-  clearIframeFallback();
+  const t =
+    getActiveTab();
 
 
-  const t=
-    currentTab();
+  if(!t){
+    return;
+  }
 
 
   /*
-    IMPORTANT :
-    t.url contient toujours
-    la vraie URL.
+    On conserve l'URL RÉELLE.
   */
-  t.url=url;
+
+  t.url =
+    url;
 
 
   try{
 
-    t.title=
-      new URL(url)
-        .hostname
-        .replace(
-          /^www\./,
-          ""
-        );
+    const parsed =
+      new URL(url);
+
+    t.title =
+      parsed.hostname;
 
   }catch{
 
-    t.title="Page";
+    t.title =
+      "C.N. Nexus";
 
   }
 
 
   /*
-    La barre affiche la fausse
-    version .nexus.
+    Seule la barre d'adresse
+    affiche le faux .nexus.
   */
-  address.value=
+
+  address.value =
     displayUrl(url);
 
 
@@ -1587,76 +1555,69 @@ function navigate(
 
 
   /*
-    Historique avec les VRAIES URLs.
+    Historique réel.
   */
+
   if(push){
 
-    history=
+    history =
       history.slice(
         0,
-        historyIndex+1
+        historyIndex + 1
       );
 
+    history.push(
+      url
+    );
 
-    history.push(url);
-
-
-    historyIndex++;
+    historyIndex =
+      history.length - 1;
 
   }
 
 
-  /*
-    Nettoyage de la page précédente.
-  */
-  page.innerHTML="";
+  clearIframeFallback();
+
+  page.innerHTML =
+    "";
 
 
-  /*
-    Création de l'iframe.
-  */
-  const frame=
-    document.createElement(
-      "iframe"
-    );
+  const frame =
+    document.createElement("iframe");
 
+  frame.className =
+    "browser-frame";
 
-  frame.className="frame";
-
-
-  /*
-    IMPORTANT :
-    l'iframe reçoit l'URL réelle,
-    PAS l'URL .nexus.
-  */
-  frame.src=url;
-
-
-  frame.referrerPolicy=
-    "no-referrer-when-downgrade";
-
-
-  /*
-    Sécurité iframe.
-  */
   frame.setAttribute(
     "allowfullscreen",
     ""
   );
 
+  frame.setAttribute(
+    "referrerpolicy",
+    "no-referrer-when-downgrade"
+  );
 
-  page.appendChild(frame);
+  /*
+    L'URL réelle est utilisée ici.
+    Aucun .nexus n'est envoyé au site.
+  */
+
+  frame.src =
+    url;
+
+
+  page.appendChild(
+    frame
+  );
 
 
   setStatus(
-    "Chargement : "+
+    "Chargement : " +
     displayUrl(url)
   );
 
 
-  /*
-    Active le fallback.
-  */
   setupIframeFallback(
     frame,
     url
@@ -1665,36 +1626,37 @@ function navigate(
 }
 
 
-
-/* ================================
-   CHARGEMENT ONGLET ACTUEL
-================================ */
+/* =========================================================
+   CHARGER L'ONGLET ACTUEL
+========================================================= */
 
 function loadCurrent(){
 
-  clearIframeFallback();
+  const t =
+    getActiveTab();
 
 
-  const t=
-    currentTab();
+  if(!t || !t.url){
 
+    clearIframeFallback();
 
-  if(!t.url){
+    page.innerHTML =
+      "";
 
-    homePage();
+    address.value =
+      "";
 
-    address.value="";
+    showHome();
 
-    setStatus("Prêt");
+    setStatus(
+      "Prêt"
+    );
 
     return;
 
   }
 
 
-  /*
-    On passe l'URL réelle.
-  */
   navigate(
     t.url,
     false
@@ -1703,383 +1665,309 @@ function loadCurrent(){
 }
 
 
-
-/* ================================
+/* =========================================================
    NOUVEL ONGLET
-================================ */
+========================================================= */
 
 function newTab(){
 
-  clearIframeFallback();
-
-
-  const id=
+  const id =
     Date.now();
 
 
   tabs.push({
-
     id:id,
-
     title:"Nouvel onglet",
-
     url:""
-
   });
 
 
-  activeTab=id;
+  activeTab =
+    id;
 
 
   renderTabs();
 
-
   loadCurrent();
+
+  address.focus();
 
 }
 
 
-
-/* ================================
-   BARRE D'ADRESSE
-================================ */
-
-$("address")
-  .addEventListener(
-    "keydown",
-    e=>{
-
-
-      if(e.key==="Enter"){
-
-        navigate(
-          address.value
-        );
-
-      }
-
-    }
-  );
-
-
-
-/* ================================
+/* =========================================================
    ACCUEIL
-================================ */
+========================================================= */
 
-$("home").onclick=()=>{
+function goHome(){
 
-  clearIframeFallback();
-
-
-  const t=
-    currentTab();
+  const t =
+    getActiveTab();
 
 
-  t.url="";
+  if(!t){
+    return;
+  }
 
 
-  t.title=
+  t.url =
+    "";
+
+  t.title =
     "Nouvel onglet";
 
 
+  clearIframeFallback();
+
   renderTabs();
 
-
   loadCurrent();
 
-};
+}
 
 
+/* =========================================================
+   RELOAD
+========================================================= */
 
-/* ================================
-   RECHARGER
-================================ */
+function reload(){
 
-$("reload").onclick=()=>{
-
-  clearIframeFallback();
-
-
-  loadCurrent();
-
-};
+  const t =
+    getActiveTab();
 
 
+  if(!t || !t.url){
 
-/* ================================
-   RETOUR
-================================ */
-
-$("back").onclick=()=>{
-
-  clearIframeFallback();
-
-
-  if(historyIndex>0){
-
-    historyIndex--;
-
-
-    navigate(
-      history[historyIndex],
-      false
-    );
-
-  }
-
-};
-
-
-
-/* ================================
-   AVANCE
-================================ */
-
-$("forward").onclick=()=>{
-
-  clearIframeFallback();
-
-
-  if(
-    historyIndex<
-    history.length-1
-  ){
-
-    historyIndex++;
-
-
-    navigate(
-      history[historyIndex],
-      false
-    );
-
-  }
-
-};
-
-
-
-/* ================================
-   NOUVEL ONGLET
-================================ */
-
-$("newTab").onclick=
-  newTab;
-
-
-
-/* ================================
-   FAVORIS
-================================ */
-
-$("bookmark").onclick=()=>{
-
-
-  const url=
-    currentTab().url;
-
-
-  if(!url){
+    loadCurrent();
 
     return;
 
   }
 
 
-  const list=
-    JSON.parse(
-      localStorage.getItem(
-        STORAGE_KEY
-      )||
-      "[]"
-    );
+  navigate(
+    t.url,
+    false
+  );
+
+}
 
 
-  /*
-    Pas de doublon.
-  */
+/* =========================================================
+   BACK
+========================================================= */
+
+function goBack(){
+
   if(
-    !list.some(
-      x=>x.url===url
-    )
+    historyIndex <= 0
   ){
-
-
-    /*
-      On sauvegarde la VRAIE URL.
-    */
-    list.push({
-
-      title:
-        currentTab().title,
-
-      url:url
-
-    });
-
-
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(list)
-    );
-
-
-    renderBookmarks();
-
 
     setStatus(
-      "Ajouté aux favoris — "+
-      displayUrl(url)
+      "Pas de page précédente"
     );
-
-  }
-
-};
-
-
-
-/* ================================
-   AFFICHAGE FAVORIS
-================================ */
-
-function renderBookmarks(){
-
-  const box=
-    $("bookmarks");
-
-
-  const list=
-    JSON.parse(
-      localStorage.getItem(
-        STORAGE_KEY
-      )||
-      "[]"
-    );
-
-
-  box.innerHTML="";
-
-
-  if(!list.length){
-
-    box.innerHTML=
-      '<div class="empty">Aucun favori pour le moment.</div>';
 
     return;
 
   }
 
 
-  list.forEach(
-    (item,i)=>{
+  historyIndex--;
+
+  const url =
+    history[historyIndex];
 
 
-      const row=
-        document.createElement(
-          "div"
-        );
+  const t =
+    getActiveTab();
 
 
-      row.className=
-        "bookmark";
+  if(t){
+
+    t.url =
+      url;
+
+  }
 
 
-      const btn=
-        document.createElement(
-          "button"
-        );
+  navigate(
+    url,
+    false
+  );
+
+}
 
 
-      btn.className=
-        "bookmark";
+/* =========================================================
+   FORWARD
+========================================================= */
+
+function goForward(){
+
+  if(
+    historyIndex >=
+    history.length - 1
+  ){
+
+    setStatus(
+      "Pas de page suivante"
+    );
+
+    return;
+
+  }
 
 
-      btn.style.border="0";
+  historyIndex++;
+
+  const url =
+    history[historyIndex];
 
 
-      btn.style.background=
-        "transparent";
+  const t =
+    getActiveTab();
 
 
-      btn.style.color=
-        "inherit";
+  if(t){
+
+    t.url =
+      url;
+
+  }
 
 
-      btn.style.padding="0";
+  navigate(
+    url,
+    false
+  );
+
+}
 
 
-      btn.style.flex="1";
+/* =========================================================
+   FAVORIS
+========================================================= */
+
+function getBookmarks(){
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem(
+        STORAGE_KEY
+      ) || "[]"
+    );
+
+  }catch{
+
+    return [];
+
+  }
+
+}
 
 
-      /*
-        Affichage .nexus.
-        item.url reste réelle.
-      */
-      btn.innerHTML=
-        `<span>
-          ☆ ${escapeHtml(
-            displayUrl(item.url)
-          )}
-        </span>`;
+function saveBookmarks(
+  bookmarks
+){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(bookmarks)
+  );
+
+}
 
 
-      btn.title=
+/* =========================================================
+   AFFICHER FAVORIS
+========================================================= */
+
+function renderFavorites(){
+
+  const container =
+    $("favorites");
+
+  const bookmarks =
+    getBookmarks();
+
+
+  container.innerHTML =
+    "";
+
+
+  if(
+    bookmarks.length === 0
+  ){
+
+    const empty =
+      document.createElement("div");
+
+    empty.className =
+      "empty-favorites";
+
+    empty.textContent =
+      "Aucun favori";
+
+    container.appendChild(
+      empty
+    );
+
+    return;
+
+  }
+
+
+  bookmarks.forEach(
+    item => {
+
+      const button =
+        document.createElement("button");
+
+      button.className =
+        "favorite";
+
+
+      const icon =
+        document.createElement("span");
+
+      icon.textContent =
+        "★";
+
+
+      const name =
+        document.createElement("span");
+
+      name.className =
+        "favorite-name";
+
+      name.textContent =
+        item.title ||
+        tabLabel(item.url);
+
+      button.title =
         displayUrl(item.url);
 
 
-      btn.onclick=()=>{
-
-        navigate(
-          item.url
-        );
-
-      };
-
-
-      const del=
-        document.createElement(
-          "button"
-        );
-
-
-      del.className="remove";
-
-
-      del.textContent="×";
-
-
-      del.title=
-        "Supprimer";
-
-
-      del.onclick=()=>{
-
-
-        list.splice(
-          i,
-          1
-        );
-
-
-        localStorage.setItem(
-          STORAGE_KEY,
-          JSON.stringify(list)
-        );
-
-
-        renderBookmarks();
-
-      };
-
-
-      row.append(
-        btn,
-        del
+      button.append(
+        icon,
+        name
       );
 
 
-      box.appendChild(row);
+      button.onclick =
+        () => {
+
+          navigate(
+            item.url
+          );
+
+        };
+
+
+      container.appendChild(
+        button
+      );
 
     }
   );
@@ -2087,251 +1975,438 @@ function renderBookmarks(){
 }
 
 
+/* =========================================================
+   AJOUT FAVORI
+========================================================= */
 
-/* ================================
-   SÉCURITÉ HTML
-================================ */
+function toggleBookmark(){
 
-function escapeHtml(s){
-
-  return String(s).replace(
-    /[&<>"']/g,
-    m=>({
-
-      "&":"&amp;",
-      "<":"&lt;",
-      ">":"&gt;",
-      '"':"&quot;",
-      "'":"&#039;"
-
-    }[m])
-  );
-
-}
+  const t =
+    getActiveTab();
 
 
+  if(
+    !t ||
+    !t.url
+  ){
 
-/* ================================
-   C.N. AI
-================================ */
-
-$("aiOpen").onclick=()=>{
-
-  $("aiPanel")
-    .classList
-    .add("open");
-
-};
-
-
-$("aiClose").onclick=()=>{
-
-  $("aiPanel")
-    .classList
-    .remove("open");
-
-};
-
-
-
-$("aiForm").onsubmit=e=>{
-
-  e.preventDefault();
-
-
-  const input=
-    $("aiInput");
-
-
-  const text=
-    input.value.trim();
-
-
-  if(!text){
+    setStatus(
+      "Aucune page à ajouter aux favoris"
+    );
 
     return;
 
   }
 
 
-  addMsg(
-    text,
-    "user"
-  );
+  const bookmarks =
+    getBookmarks();
 
 
-  input.value="";
-
-
-  setTimeout(
-    ()=>addMsg(
-      aiReply(text),
-      "bot"
-    ),
-    250
-  );
-
-};
-
-
-
-function addMsg(
-  text,
-  type
-){
-
-  const d=
-    document.createElement(
-      "div"
+  const existing =
+    bookmarks.findIndex(
+      item =>
+        item.url === t.url
     );
 
 
-  d.className=
-    "msg "+type;
+  if(existing !== -1){
+
+    bookmarks.splice(
+      existing,
+      1
+    );
+
+    saveBookmarks(
+      bookmarks
+    );
+
+    renderFavorites();
+
+    setStatus(
+      "Favori supprimé"
+    );
+
+    $("bookmark").textContent =
+      "☆";
+
+    return;
+
+  }
 
 
-  d.textContent=text;
+  bookmarks.push({
+    title:tabLabel(t.url),
+    url:t.url
+  });
 
 
-  $("aiMessages")
-    .appendChild(d);
+  saveBookmarks(
+    bookmarks
+  );
 
+  renderFavorites();
 
-  $("aiMessages").scrollTop=
-    $("aiMessages").scrollHeight;
+  setStatus(
+    "Ajouté aux favoris — " +
+    displayUrl(t.url)
+  );
+
+  $("bookmark").textContent =
+    "★";
 
 }
 
 
+/* =========================================================
+   ACTUALISER ICÔNE FAVORI
+========================================================= */
 
-/* ================================
-   RÉPONSES C.N. AI
-================================ */
+function updateBookmarkButton(){
 
-function aiReply(text){
+  const t =
+    getActiveTab();
 
-  const q=
-    text.toLowerCase();
+  const button =
+    $("bookmark");
 
 
   if(
-    q.includes("github")
+    !t ||
+    !t.url
+  ){
+
+    button.textContent =
+      "☆";
+
+    return;
+
+  }
+
+
+  const bookmarks =
+    getBookmarks();
+
+
+  const exists =
+    bookmarks.some(
+      item =>
+        item.url === t.url
+    );
+
+
+  button.textContent =
+    exists
+      ? "★"
+      : "☆";
+
+}
+
+
+/* =========================================================
+   C.N. AI
+========================================================= */
+
+function aiReply(message){
+
+  const text =
+    message
+      .toLowerCase()
+      .trim();
+
+
+  if(
+    text.includes("nexus")
   ){
 
     return (
-      "C.N. Nexus est conçu pour fonctionner " +
-      "comme une interface statique sur GitHub Pages. " +
-      "Attention : un site externe peut refuser " +
-      "d'être affiché dans un iframe."
+      "C.N. Nexus est l'interface navigateur de C.N. Organization. " +
+      "Les sites sont affichés dans une iframe quand cela fonctionne."
     );
 
   }
 
 
   if(
-    q.includes("favori")
+    text.includes("nexus") &&
+    text.includes("url")
   ){
 
     return (
-      "Utilise l'étoile ☆ à droite de la barre " +
-      "d'adresse. Les favoris conservent les vraies " +
-      "adresses, tandis que C.N. Nexus affiche " +
-      "la version .nexus."
+      "Le .nexus affiché dans la barre est uniquement visuel. " +
+      "L'URL réelle utilisée par Nexus reste l'adresse originale."
     );
 
   }
 
 
   if(
-    q.includes("onglet")
+    text.includes("nouvel onglet")
   ){
 
     return (
-      "Le bouton ＋ crée un nouvel onglet. " +
-      "Chaque onglet conserve sa propre adresse réelle. " +
-      "Le nom de l'onglet reste volontairement court " +
-      "pour éviter les onglets gigantesques."
+      "Utilise le bouton + en haut pour créer un nouvel onglet."
     );
 
   }
 
 
   if(
-    q.includes("iframe")||
-    q.includes("bloque")
+    text.includes("iframe")
   ){
 
     return (
-      "Nexus essaie d'abord d'afficher la page dans " +
-      "l'iframe. Si aucun chargement n'est détecté " +
-      "après quelques secondes, il tente d'ouvrir " +
-      "la vraie adresse dans un nouvel onglet."
+      "Si une page externe ne peut pas être affichée dans l'iframe, " +
+      "Nexus affiche une option pour l'ouvrir dans un nouvel onglet."
     );
 
   }
 
 
   if(
-    q.includes("nexus")||
-    q.includes("adresse")
+    text.includes("favori")
   ){
 
     return (
-      "C.N. Nexus affiche les adresses avec un faux " +
-      "suffixe .nexus. La vraie URL n'est jamais " +
-      "modifiée : elle reste utilisée pour la navigation, " +
-      "l'historique, les favoris et les onglets."
+      "Le bouton ☆ permet d'ajouter la page actuelle aux favoris. " +
+      "Les favoris sont conservés dans le stockage local du navigateur."
     );
 
   }
 
 
   if(
-    q.includes("nom")
+    text.includes("sécur")
   ){
 
     return (
-      "Le nom est C.N. Nexus : C.N. pour " +
-      "C.N. Organization, et Nexus pour l'idée " +
-      "d'un point de connexion."
+      "Le suffixe .nexus est une présentation visuelle : " +
+      "il ne transforme pas l'URL réelle et ne constitue pas une protection de sécurité."
     );
 
   }
 
 
   if(
-    q.includes("bonjour")||
-    q.includes("salut")
+    text.includes("bonjour") ||
+    text.includes("salut") ||
+    text === "yo"
   ){
 
     return (
-      "Salut ! 👋 Que veux-tu faire " +
-      "dans C.N. Nexus ?"
+      "Salut 👋 Comment puis-je t'aider avec C.N. Nexus ?"
     );
 
   }
 
 
   return (
-    "Je suis actuellement la version locale " +
-    "de C.N. AI. Pour une IA en ligne, il faudra " +
-    "connecter un backend ou une API sans exposer " +
-    "de clé secrète."
+    "Je suis C.N. AI. Pour l'instant, je peux t'aider " +
+    "avec les fonctions de C.N. Nexus : navigation, onglets, favoris, " +
+    "iframe et ouverture externe."
   );
 
 }
 
 
+/* =========================================================
+   AJOUT MESSAGE AI
+========================================================= */
 
-/* ================================
+function addAiMessage(
+  text,
+  type
+){
+
+  const container =
+    $("aiMessages");
+
+
+  const message =
+    document.createElement("div");
+
+  message.className =
+    "ai-message " +
+    type;
+
+  message.textContent =
+    text;
+
+
+  container.appendChild(
+    message
+  );
+
+
+  container.scrollTop =
+    container.scrollHeight;
+
+}
+
+
+/* =========================================================
+   ÉVÉNEMENTS
+========================================================= */
+
+$("back").onclick =
+  goBack;
+
+
+$("forward").onclick =
+  goForward;
+
+
+$("reload").onclick =
+  reload;
+
+
+$("home").onclick =
+  goHome;
+
+
+$("newTab").onclick =
+  newTab;
+
+
+$("bookmark").onclick =
+  toggleBookmark;
+
+
+address.addEventListener(
+  "keydown",
+  event => {
+
+    if(
+      event.key === "Enter"
+    ){
+
+      navigate(
+        address.value
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   CLIC C.N. AI
+========================================================= */
+
+$("aiOpen").onclick =
+  () => {
+
+    $("aiPanel")
+      .classList
+      .toggle("open");
+
+  };
+
+
+$("aiClose").onclick =
+  () => {
+
+    $("aiPanel")
+      .classList
+      .remove("open");
+
+  };
+
+
+/* =========================================================
+   FORM C.N. AI
+========================================================= */
+
+$("aiForm").addEventListener(
+  "submit",
+  event => {
+
+    event.preventDefault();
+
+
+    const input =
+      $("aiInput");
+
+    const value =
+      input.value.trim();
+
+
+    if(!value){
+      return;
+    }
+
+
+    addAiMessage(
+      value,
+      "user"
+    );
+
+
+    input.value =
+      "";
+
+
+    setTimeout(
+      () => {
+
+        addAiMessage(
+          aiReply(value),
+          "bot"
+        );
+
+      },
+      250
+    );
+
+  }
+);
+
+
+/* =========================================================
    INITIALISATION
-================================ */
+========================================================= */
 
 renderTabs();
 
-renderBookmarks();
+renderFavorites();
 
-homePage();
+showHome();
+
+updateBookmarkButton();
+
+setStatus(
+  "Prêt"
+);
+
+
+/* =========================================================
+   MAJ FAVORI APRÈS NAVIGATION
+========================================================= */
+
+const originalNavigate =
+  navigate;
+
+
+/*
+  On remplace navigate par une version
+  qui actualise aussi l'étoile du favori.
+*/
+
+navigate =
+  function(
+    value,
+    push = true
+  ){
+
+    originalNavigate(
+      value,
+      push
+    );
+
+    updateBookmarkButton();
+
+  };
 
 
 </script>
