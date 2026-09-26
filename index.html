@@ -7,6 +7,7 @@
 <title>C.N. Nexus</title>
 
 <style>
+
 :root{
   --bg:#05050a;
   --panel:#0b0a14;
@@ -29,11 +30,25 @@ body{
   margin:0;
   min-height:100vh;
   background:
-    radial-gradient(circle at 20% 0%,rgba(91,50,180,.18),transparent 32%),
-    radial-gradient(circle at 90% 100%,rgba(28,55,120,.2),transparent 35%),
+    radial-gradient(
+      circle at 20% 0%,
+      rgba(91,50,180,.18),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 90% 100%,
+      rgba(28,55,120,.2),
+      transparent 35%
+    ),
     var(--bg);
   color:var(--text);
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 }
 
 button,
@@ -73,8 +88,14 @@ button{
   display:grid;
   place-items:center;
   font-weight:900;
-  background:linear-gradient(135deg,var(--violet),var(--indigo));
-  box-shadow:0 0 22px rgba(139,92,246,.28);
+  background:
+    linear-gradient(
+      135deg,
+      var(--violet),
+      var(--indigo)
+    );
+  box-shadow:
+    0 0 22px rgba(139,92,246,.28);
 }
 
 .brand{
@@ -114,7 +135,12 @@ button{
 
 .ai-btn{
   border:1px solid #6040b8;
-  background:linear-gradient(135deg,#201445,#111534);
+  background:
+    linear-gradient(
+      135deg,
+      #201445,
+      #111534
+    );
   color:#dcd1ff;
   border-radius:9px;
   padding:8px 11px;
@@ -125,8 +151,14 @@ button{
 .tabs{
   display:flex;
   gap:4px;
-  overflow:auto;
+  overflow-x:auto;
+  overflow-y:hidden;
   padding-top:8px;
+  scrollbar-width:none;
+}
+
+.tabs::-webkit-scrollbar{
+  display:none;
 }
 
 .tab{
@@ -136,6 +168,16 @@ button{
   padding:9px 14px;
   border-bottom:2px solid transparent;
   white-space:nowrap;
+
+  /*
+    Empêche les noms d'onglets
+    de devenir gigantesques.
+  */
+  max-width:220px;
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  flex-shrink:0;
 }
 
 .tab.active{
@@ -219,12 +261,13 @@ button{
 }
 
 .gradient{
-  background:linear-gradient(
-    90deg,
-    #c4b5fd,
-    #818cf8,
-    #60a5fa
-  );
+  background:
+    linear-gradient(
+      90deg,
+      #c4b5fd,
+      #818cf8,
+      #60a5fa
+    );
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
@@ -253,11 +296,12 @@ button{
 }
 
 .primary{
-  background:linear-gradient(
-    135deg,
-    var(--violet),
-    var(--indigo)
-  );
+  background:
+    linear-gradient(
+      135deg,
+      var(--violet),
+      var(--indigo)
+    );
   border:0;
   color:white;
   border-radius:11px;
@@ -410,11 +454,12 @@ button{
 }
 
 .msg.user{
-  background:linear-gradient(
-    135deg,
-    #4c2e9d,
-    #3037a2
-  );
+  background:
+    linear-gradient(
+      135deg,
+      #4c2e9d,
+      #3037a2
+    );
   align-self:flex-end;
 }
 
@@ -458,6 +503,11 @@ button{
   .home{
     padding:22px 15px;
   }
+
+  .tab{
+    max-width:170px;
+  }
+
 }
 
 @media(max-width:430px){
@@ -483,15 +533,26 @@ button{
   .tabs{
     padding-top:4px;
   }
+
+  .tab{
+    max-width:125px;
+    padding-left:10px;
+    padding-right:10px;
+  }
+
 }
+
 </style>
 </head>
+
 
 <body>
 
 <div class="app">
 
+
 <header class="topbar">
+
 
   <div class="brand-row">
 
@@ -499,42 +560,82 @@ button{
       N
     </div>
 
+
     <div class="brand">
+
       C.N. Nexus
-      <small>by C.N. Organization</small>
+
+      <small>
+        by C.N. Organization
+      </small>
+
     </div>
+
 
     <div class="spacer"></div>
 
-    <button class="ai-btn" id="aiOpen">
+
+    <button
+      class="ai-btn"
+      id="aiOpen"
+    >
       C.N. AI
     </button>
 
   </div>
 
-  <div class="tabs" id="tabs"></div>
+
+  <div
+    class="tabs"
+    id="tabs"
+  ></div>
+
 
   <div class="toolbar">
 
-    <button class="nav-btn" id="back" title="Retour">
+
+    <button
+      class="nav-btn"
+      id="back"
+      title="Retour"
+    >
       ←
     </button>
 
-    <button class="nav-btn" id="forward" title="Avancer">
+
+    <button
+      class="nav-btn"
+      id="forward"
+      title="Avancer"
+    >
       →
     </button>
 
-    <button class="nav-btn" id="reload" title="Actualiser">
+
+    <button
+      class="nav-btn"
+      id="reload"
+      title="Actualiser"
+    >
       ↻
     </button>
 
-    <button class="home-btn" id="home" title="Accueil">
+
+    <button
+      class="home-btn"
+      id="home"
+      title="Accueil"
+    >
       ⌂
     </button>
 
+
     <div class="address-wrap">
 
-      <span>⌕</span>
+      <span>
+        ⌕
+      </span>
+
 
       <input
         id="address"
@@ -545,77 +646,139 @@ button{
 
     </div>
 
-    <button class="nav-btn" id="bookmark" title="Ajouter aux favoris">
+
+    <button
+      class="nav-btn"
+      id="bookmark"
+      title="Ajouter aux favoris"
+    >
       ☆
     </button>
 
-    <button class="nav-btn" id="newTab" title="Nouvel onglet">
+
+    <button
+      class="nav-btn"
+      id="newTab"
+      title="Nouvel onglet"
+    >
       ＋
     </button>
+
 
   </div>
 
 </header>
 
 
+
 <main class="main">
+
 
 <section class="page-area">
 
-  <div class="page" id="page"></div>
 
-  <div class="status" id="status">
+  <div
+    class="page"
+    id="page"
+  ></div>
+
+
+  <div
+    class="status"
+    id="status"
+  >
     Prêt
   </div>
+
 
 </section>
 
 
+
 <aside class="sidebar">
+
 
   <div class="side-head">
     ☆ Favoris
   </div>
 
-  <div class="bookmarks" id="bookmarks"></div>
+
+  <div
+    class="bookmarks"
+    id="bookmarks"
+  ></div>
+
 
 </aside>
 
+
 </main>
+
 
 </div>
 
 
-<div class="ai-panel" id="aiPanel">
+
+<div
+  class="ai-panel"
+  id="aiPanel"
+>
+
 
   <div class="ai-head">
 
+
     <div class="ai-title">
+
       C.N. AI
+
       <small>
         Assistant local de C.N. Nexus
       </small>
+
     </div>
+
 
     <div class="spacer"></div>
 
-    <button class="icon-btn" id="aiClose">
+
+    <button
+      class="icon-btn"
+      id="aiClose"
+    >
       ×
     </button>
 
+
   </div>
 
 
-  <div class="ai-messages" id="aiMessages">
+
+  <div
+    class="ai-messages"
+    id="aiMessages"
+  >
+
 
     <div class="msg bot">
-      Salut ! Je suis C.N. AI. Je peux t'aider à utiliser C.N. Nexus ou à préparer une recherche.
+
+      Salut ! Je suis C.N. AI.
+      Je peux t'aider à utiliser
+      C.N. Nexus ou à préparer
+      une recherche.
+
     </div>
+
 
   </div>
 
 
-  <form class="ai-compose" id="aiForm">
+
+  <form
+    class="ai-compose"
+    id="aiForm"
+  >
+
 
     <input
       id="aiInput"
@@ -623,20 +786,42 @@ button{
       placeholder="Écris ton message…"
     >
 
+
     <button class="primary">
       Envoyer
     </button>
 
+
   </form>
+
 
 </div>
 
 
+
 <script>
 
-const STORAGE_KEY="cn_nexus_bookmarks_v1";
 
-const IFRAME_FALLBACK_DELAY=5000;
+/* ================================
+   CONFIGURATION
+================================ */
+
+const STORAGE_KEY=
+  "cn_nexus_bookmarks_v1";
+
+
+/*
+  Temps d'attente avant le fallback
+  vers un nouvel onglet.
+*/
+const IFRAME_FALLBACK_DELAY=
+  5000;
+
+
+
+/* ================================
+   ÉTAT
+================================ */
 
 let tabs=[
   {
@@ -646,25 +831,54 @@ let tabs=[
   }
 ];
 
+
 let activeTab=1;
+
 
 let history=[];
 
+
 let historyIndex=-1;
 
+
+/*
+  Timer du fallback iframe.
+*/
 let iframeFallbackTimer=null;
 
+
+/*
+  Indique qu'un chargement iframe
+  a été détecté.
+*/
 let iframeLoadDetected=false;
 
 
-const $=id=>document.getElementById(id);
 
-const page=$("page");
+/* ================================
+   ÉLÉMENTS
+================================ */
 
-const address=$("address");
+const $=
+  id=>document.getElementById(id);
 
-const statusEl=$("status");
 
+const page=
+  $("page");
+
+
+const address=
+  $("address");
+
+
+const statusEl=
+  $("status");
+
+
+
+/* ================================
+   ONGLET ACTUEL
+================================ */
 
 function currentTab(){
 
@@ -675,13 +889,25 @@ function currentTab(){
 }
 
 
-/*
-  Transforme uniquement l'affichage
-  de l'URL.
 
-  IMPORTANT :
-  L'URL réelle reste inchangée.
+/* ================================
+   AFFICHAGE DE L'URL
+================================ */
+
+/*
+  L'URL réelle n'est JAMAIS modifiée.
+
+  Exemple réel :
+
+  https://www.google.com/search?q=test
+
+  Affichage Nexus :
+
+  google.com.nexus/search?q=test
+
+  .nexus est donc uniquement visuel.
 */
+
 function displayUrl(url){
 
   if(!url){
@@ -698,72 +924,154 @@ function displayUrl(url){
 
 
     /*
-      On retire le protocole uniquement
-      pour l'affichage.
+      On retire www. uniquement
+      pour rendre l'affichage plus court.
     */
-    let displayed=
-      parsed.host+
-      parsed.pathname+
-      parsed.search+
-      parsed.hash;
+    let host=
+      parsed.hostname
+        .replace(/^www\./i,"");
 
 
     /*
-      Si .nexus est déjà présent,
-      on ne l'ajoute pas une deuxième fois.
+      Si jamais une fausse extension
+      était déjà présente, on l'enlève.
     */
-    if(
-      !displayed.endsWith(".nexus")
-    ){
-
-      displayed += ".nexus";
-
-    }
+    host=
+      host.replace(
+        /\.nexus$/i,
+        ""
+      );
 
 
-    return displayed;
+    /*
+      Faux suffixe uniquement
+      dans l'affichage.
+    */
+    host+=".nexus";
+
+
+    return (
+      host+
+      parsed.pathname+
+      parsed.search+
+      parsed.hash
+    );
 
   }catch{
 
-    if(
-      !String(url).endsWith(".nexus")
-    ){
+    let fallback=
+      String(url)
+        .replace(
+          /\.nexus$/i,
+          ""
+        );
 
-      return String(url)+".nexus";
 
-    }
-
-    return String(url);
+    return fallback+".nexus";
 
   }
 
 }
 
 
+
+/* ================================
+   NOM COURT DES ONGLET
+================================ */
+
+/*
+  Les onglets n'affichent PAS
+  toute l'URL.
+
+  Exemple :
+
+  google.com.nexus/search/...
+  
+  devient simplement :
+
+  google.com.nexus
+
+  Cela évite les onglets de 3 km.
+*/
+
+function tabLabel(url){
+
+  if(!url){
+
+    return "Nouvel onglet";
+
+  }
+
+
+  try{
+
+    const parsed=
+      new URL(url);
+
+
+    let host=
+      parsed.hostname
+        .replace(/^www\./i,"")
+        .replace(/\.nexus$/i,"");
+
+
+    return host+".nexus";
+
+  }catch{
+
+    return "Page";
+
+  }
+
+}
+
+
+
+/* ================================
+   AFFICHAGE DES ONGLET
+================================ */
+
 function renderTabs(){
 
   $("tabs").innerHTML="";
 
+
   tabs.forEach(t=>{
 
-    const b=document.createElement("button");
+
+    const b=
+      document.createElement(
+        "button"
+      );
+
 
     b.className=
       "tab"+
-      (t.id===activeTab?" active":"");
+      (
+        t.id===activeTab
+          ? " active"
+          : ""
+      );
 
+
+    /*
+      Nom court dans l'onglet.
+    */
     b.textContent=
       t.url
-        ? displayUrl(t.url)
-        : (
-            t.title||
-            "Nouvel onglet"
-          );
+        ? tabLabel(t.url)
+        : "Nouvel onglet";
 
+
+    /*
+      Au survol, on peut voir
+      l'adresse .nexus complète.
+    */
     b.title=
       t.url
         ? displayUrl(t.url)
         : "Nouvel onglet";
+
 
     b.onclick=()=>{
 
@@ -771,16 +1079,23 @@ function renderTabs(){
 
       renderTabs();
 
-      loadCurrent(false);
+      loadCurrent();
 
     };
 
-    $("tabs").appendChild(b);
+
+    $("tabs")
+      .appendChild(b);
 
   });
 
 }
 
+
+
+/* ================================
+   STATUT
+================================ */
 
 function setStatus(s){
 
@@ -789,9 +1104,15 @@ function setStatus(s){
 }
 
 
+
+/* ================================
+   PAGE D'ACCUEIL
+================================ */
+
 function homePage(){
 
   clearIframeFallback();
+
 
   page.innerHTML=`
 
@@ -800,14 +1121,19 @@ function homePage(){
       <div class="home-card">
 
         <h1>
+
           <span class="gradient">
             C.N. Nexus
           </span>
+
         </h1>
 
+
         <p>
-          Un espace de navigation conçu par C.N. Organization.
+          Un espace de navigation conçu
+          par C.N. Organization.
         </p>
+
 
         <form
           class="search-home"
@@ -819,27 +1145,40 @@ function homePage(){
             placeholder="Rechercher sur le Web…"
           >
 
+
           <button class="primary">
             Rechercher
           </button>
 
         </form>
 
+
         <div class="quick">
 
-          <button data-url="https://www.google.com">
+
+          <button
+            data-url="https://www.google.com"
+          >
             Google
           </button>
 
-          <button data-url="https://www.youtube.com">
+
+          <button
+            data-url="https://www.youtube.com"
+          >
             YouTube
           </button>
 
-          <button data-url="https://github.com">
+
+          <button
+            data-url="https://github.com"
+          >
             GitHub
           </button>
 
+
         </div>
+
 
       </div>
 
@@ -852,6 +1191,7 @@ function homePage(){
 
     e.preventDefault();
 
+
     navigate(
       $("homeInput").value
     );
@@ -863,18 +1203,47 @@ function homePage(){
     .querySelectorAll("[data-url]")
     .forEach(b=>{
 
-      b.onclick=()=>navigate(
-        b.dataset.url
-      );
+      b.onclick=()=>{
+
+        navigate(
+          b.dataset.url
+        );
+
+      };
 
     });
 
 }
 
 
+
+/* ================================
+   NORMALISATION DES URL
+================================ */
+
+/*
+  Convertit ce que l'utilisateur
+  écrit en vraie URL.
+
+  Exemple :
+
+  google.com.nexus
+  ↓
+  https://google.com
+
+  google.com.nexus/test
+  ↓
+  https://google.com/test
+
+  https://google.com.nexus/test
+  ↓
+  https://google.com/test
+*/
+
 function normalize(value){
 
   value=value.trim();
+
 
   if(!value){
 
@@ -883,53 +1252,125 @@ function normalize(value){
   }
 
 
-  /*
-    Si l'utilisateur tape une URL
-    affichée avec .nexus, on retire
-    uniquement le faux suffixe avant
-    d'effectuer la navigation.
+  let cleaned=value;
 
-    Exemple :
-    github.com.nexus
-    devient :
-    https://github.com
+
+  /*
+    Si ce n'est pas une URL avec
+    protocole, on traite le domaine.
   */
   if(
-    /\.nexus$/i.test(value)
+    !/^https?:\/\//i.test(cleaned)
   ){
 
-    value=
-      value.replace(
-        /\.nexus$/i,
-        ""
+
+    const match=
+      cleaned.match(
+        /^([^\/?#]+)([\/?#].*)?$/i
       );
 
+
+    if(
+      match &&
+      /\.nexus$/i.test(match[1])
+    ){
+
+
+      /*
+        Suppression du faux .nexus
+        uniquement sur le domaine.
+      */
+      cleaned=
+        match[1]
+          .replace(
+            /\.nexus$/i,
+            ""
+          )+
+        (
+          match[2]||
+          ""
+        );
+
+    }
+
+  }else{
+
+
+    /*
+      Cas :
+
+      https://google.com.nexus/test
+    */
+
+    try{
+
+      const parsed=
+        new URL(cleaned);
+
+
+      parsed.hostname=
+        parsed.hostname
+          .replace(
+            /\.nexus$/i,
+            ""
+          );
+
+
+      cleaned=
+        parsed.href;
+
+    }catch{
+
+      /*
+        Si l'URL est invalide,
+        on la laisse telle quelle.
+      */
+
+    }
+
   }
 
 
+  /*
+    URL avec protocole.
+  */
   if(
-    /^https?:\/\//i.test(value)
+    /^https?:\/\//i.test(cleaned)
   ){
 
-    return value;
+    return cleaned;
 
   }
 
 
+  /*
+    Domaine classique.
+  */
   if(
-    /^[\w.-]+\.[a-z]{2,}(\/.*)?$/i.test(value)
+    /^[\w.-]+\.[a-z]{2,}(\/.*)?$/i.test(cleaned)
   ){
 
-    return "https://"+value;
+    return "https://"+cleaned;
 
   }
 
 
-  return "https://www.google.com/search?q="+
-    encodeURIComponent(value);
+  /*
+    Sinon on considère que c'est
+    une recherche.
+  */
+  return (
+    "https://www.google.com/search?q="+
+    encodeURIComponent(value)
+  );
 
 }
 
+
+
+/* ================================
+   FALLBACK IFRAME
+================================ */
 
 function clearIframeFallback(){
 
@@ -939,12 +1380,18 @@ function clearIframeFallback(){
       iframeFallbackTimer
     );
 
+
     iframeFallbackTimer=null;
 
   }
 
 }
 
+
+
+/* ================================
+   OUVERTURE EXTERNE
+================================ */
 
 function openExternal(url){
 
@@ -967,25 +1414,63 @@ function openExternal(url){
 }
 
 
-function setupIframeFallback(frame,url){
+
+/* ================================
+   DÉTECTION IFRAME
+================================ */
+
+/*
+  Système demandé :
+
+  1. On essaie d'abord l'iframe.
+  2. Si elle charge :
+       → on reste dans Nexus.
+  3. Si aucun chargement n'est
+     détecté après 5 secondes :
+       → nouvel onglet.
+
+  IMPORTANT :
+  Les protections des sites externes
+  (X-Frame-Options / CSP) ne permettent
+  pas à une page comme Nexus de savoir
+  parfaitement pourquoi un iframe
+  ne s'affiche pas.
+
+  Ce système est donc un fallback
+  basé sur le délai de chargement.
+*/
+
+function setupIframeFallback(
+  frame,
+  url
+){
 
   clearIframeFallback();
+
 
   iframeLoadDetected=false;
 
 
+  /*
+    Si l'iframe signale un chargement,
+    on considère qu'elle fonctionne.
+  */
   frame.addEventListener(
     "load",
     ()=>{
 
+
       iframeLoadDetected=true;
 
+
       clearIframeFallback();
+
 
       setStatus(
         "Page chargée — "+
         displayUrl(url)
       );
+
 
     },
     {
@@ -994,13 +1479,23 @@ function setupIframeFallback(frame,url){
   );
 
 
+  /*
+    Après 5 secondes :
+    si aucun load n'a été détecté,
+    on tente le nouvel onglet.
+  */
   iframeFallbackTimer=
     setTimeout(
       ()=>{
 
+
         iframeFallbackTimer=null;
 
 
+        /*
+          L'iframe a chargé :
+          on ne fait RIEN.
+        */
         if(iframeLoadDetected){
 
           return;
@@ -1009,11 +1504,12 @@ function setupIframeFallback(frame,url){
 
 
         setStatus(
-          "Page externe — ouverture dans un nouvel onglet…"
+          "Cette page ne peut pas être affichée ici — ouverture dans un nouvel onglet…"
         );
 
 
         openExternal(url);
+
 
       },
       IFRAME_FALLBACK_DELAY
@@ -1022,9 +1518,19 @@ function setupIframeFallback(frame,url){
 }
 
 
-function navigate(value,push=true){
 
-  const url=normalize(value);
+/* ================================
+   NAVIGATION
+================================ */
+
+function navigate(
+  value,
+  push=true
+){
+
+  const url=
+    normalize(value);
+
 
   if(!url){
 
@@ -1040,10 +1546,14 @@ function navigate(value,push=true){
   clearIframeFallback();
 
 
-  const t=currentTab();
+  const t=
+    currentTab();
+
 
   /*
-    URL réelle conservée ici.
+    IMPORTANT :
+    t.url contient toujours
+    la vraie URL.
   */
   t.url=url;
 
@@ -1053,7 +1563,10 @@ function navigate(value,push=true){
     t.title=
       new URL(url)
         .hostname
-        .replace(/^www\./,"");
+        .replace(
+          /^www\./,
+          ""
+        );
 
   }catch{
 
@@ -1063,15 +1576,19 @@ function navigate(value,push=true){
 
 
   /*
-    Seule l'URL affichée reçoit
-    le suffixe .nexus.
+    La barre affiche la fausse
+    version .nexus.
   */
   address.value=
     displayUrl(url);
 
+
   renderTabs();
 
 
+  /*
+    Historique avec les VRAIES URLs.
+  */
   if(push){
 
     history=
@@ -1080,33 +1597,52 @@ function navigate(value,push=true){
         historyIndex+1
       );
 
-    /*
-      L'historique conserve également
-      l'URL réelle, jamais .nexus.
-    */
+
     history.push(url);
+
 
     historyIndex++;
 
   }
 
 
+  /*
+    Nettoyage de la page précédente.
+  */
   page.innerHTML="";
 
 
+  /*
+    Création de l'iframe.
+  */
   const frame=
-    document.createElement("iframe");
+    document.createElement(
+      "iframe"
+    );
 
 
   frame.className="frame";
 
+
   /*
-    L'iframe reçoit l'URL réelle.
+    IMPORTANT :
+    l'iframe reçoit l'URL réelle,
+    PAS l'URL .nexus.
   */
   frame.src=url;
 
+
   frame.referrerPolicy=
     "no-referrer-when-downgrade";
+
+
+  /*
+    Sécurité iframe.
+  */
+  frame.setAttribute(
+    "allowfullscreen",
+    ""
+  );
 
 
   page.appendChild(frame);
@@ -1118,6 +1654,9 @@ function navigate(value,push=true){
   );
 
 
+  /*
+    Active le fallback.
+  */
   setupIframeFallback(
     frame,
     url
@@ -1126,12 +1665,18 @@ function navigate(value,push=true){
 }
 
 
+
+/* ================================
+   CHARGEMENT ONGLET ACTUEL
+================================ */
+
 function loadCurrent(){
 
   clearIframeFallback();
 
 
-  const t=currentTab();
+  const t=
+    currentTab();
 
 
   if(!t.url){
@@ -1148,7 +1693,7 @@ function loadCurrent(){
 
 
   /*
-    navigate() utilise t.url réelle.
+    On passe l'URL réelle.
   */
   navigate(
     t.url,
@@ -1158,12 +1703,18 @@ function loadCurrent(){
 }
 
 
+
+/* ================================
+   NOUVEL ONGLET
+================================ */
+
 function newTab(){
 
   clearIframeFallback();
 
 
-  const id=Date.now();
+  const id=
+    Date.now();
 
 
   tabs.push({
@@ -1179,53 +1730,86 @@ function newTab(){
 
   activeTab=id;
 
+
   renderTabs();
+
 
   loadCurrent();
 
 }
 
 
-$("address").addEventListener(
-  "keydown",
-  e=>{
 
-    if(e.key==="Enter"){
+/* ================================
+   BARRE D'ADRESSE
+================================ */
 
-      navigate(
-        address.value
-      );
+$("address")
+  .addEventListener(
+    "keydown",
+    e=>{
+
+
+      if(e.key==="Enter"){
+
+        navigate(
+          address.value
+        );
+
+      }
 
     }
+  );
 
-  }
-);
 
+
+/* ================================
+   ACCUEIL
+================================ */
 
 $("home").onclick=()=>{
 
   clearIframeFallback();
 
-  currentTab().url="";
 
-  currentTab().title=
+  const t=
+    currentTab();
+
+
+  t.url="";
+
+
+  t.title=
     "Nouvel onglet";
 
+
   renderTabs();
+
 
   loadCurrent();
 
 };
 
+
+
+/* ================================
+   RECHARGER
+================================ */
 
 $("reload").onclick=()=>{
 
   clearIframeFallback();
 
+
   loadCurrent();
 
 };
 
+
+
+/* ================================
+   RETOUR
+================================ */
 
 $("back").onclick=()=>{
 
@@ -1236,6 +1820,7 @@ $("back").onclick=()=>{
 
     historyIndex--;
 
+
     navigate(
       history[historyIndex],
       false
@@ -1245,6 +1830,11 @@ $("back").onclick=()=>{
 
 };
 
+
+
+/* ================================
+   AVANCE
+================================ */
 
 $("forward").onclick=()=>{
 
@@ -1258,6 +1848,7 @@ $("forward").onclick=()=>{
 
     historyIndex++;
 
+
     navigate(
       history[historyIndex],
       false
@@ -1268,11 +1859,22 @@ $("forward").onclick=()=>{
 };
 
 
+
+/* ================================
+   NOUVEL ONGLET
+================================ */
+
 $("newTab").onclick=
   newTab;
 
 
+
+/* ================================
+   FAVORIS
+================================ */
+
 $("bookmark").onclick=()=>{
+
 
   const url=
     currentTab().url;
@@ -1289,22 +1891,28 @@ $("bookmark").onclick=()=>{
     JSON.parse(
       localStorage.getItem(
         STORAGE_KEY
-      )||"[]"
+      )||
+      "[]"
     );
 
 
+  /*
+    Pas de doublon.
+  */
   if(
     !list.some(
       x=>x.url===url
     )
   ){
 
+
+    /*
+      On sauvegarde la VRAIE URL.
+    */
     list.push({
 
-      /*
-        Le favori conserve l'URL réelle.
-      */
-      title:currentTab().title,
+      title:
+        currentTab().title,
 
       url:url
 
@@ -1330,6 +1938,11 @@ $("bookmark").onclick=()=>{
 };
 
 
+
+/* ================================
+   AFFICHAGE FAVORIS
+================================ */
+
 function renderBookmarks(){
 
   const box=
@@ -1340,7 +1953,8 @@ function renderBookmarks(){
     JSON.parse(
       localStorage.getItem(
         STORAGE_KEY
-      )||"[]"
+      )||
+      "[]"
     );
 
 
@@ -1360,10 +1974,12 @@ function renderBookmarks(){
   list.forEach(
     (item,i)=>{
 
+
       const row=
         document.createElement(
           "div"
         );
+
 
       row.className=
         "bookmark";
@@ -1374,30 +1990,42 @@ function renderBookmarks(){
           "button"
         );
 
+
       btn.className=
         "bookmark";
 
+
       btn.style.border="0";
+
 
       btn.style.background=
         "transparent";
 
+
       btn.style.color=
         "inherit";
 
+
       btn.style.padding="0";
+
 
       btn.style.flex="1";
 
 
       /*
-        Affichage du favori avec .nexus.
-        L'URL réelle reste dans item.url.
+        Affichage .nexus.
+        item.url reste réelle.
       */
       btn.innerHTML=
-        `<span>☆ ${escapeHtml(
-          displayUrl(item.url)
-        )}</span>`;
+        `<span>
+          ☆ ${escapeHtml(
+            displayUrl(item.url)
+          )}
+        </span>`;
+
+
+      btn.title=
+        displayUrl(item.url);
 
 
       btn.onclick=()=>{
@@ -1417,12 +2045,21 @@ function renderBookmarks(){
 
       del.className="remove";
 
+
       del.textContent="×";
+
+
+      del.title=
+        "Supprimer";
 
 
       del.onclick=()=>{
 
-        list.splice(i,1);
+
+        list.splice(
+          i,
+          1
+        );
 
 
         localStorage.setItem(
@@ -1450,6 +2087,11 @@ function renderBookmarks(){
 }
 
 
+
+/* ================================
+   SÉCURITÉ HTML
+================================ */
+
 function escapeHtml(s){
 
   return String(s).replace(
@@ -1468,6 +2110,11 @@ function escapeHtml(s){
 }
 
 
+
+/* ================================
+   C.N. AI
+================================ */
+
 $("aiOpen").onclick=()=>{
 
   $("aiPanel")
@@ -1484,6 +2131,7 @@ $("aiClose").onclick=()=>{
     .remove("open");
 
 };
+
 
 
 $("aiForm").onsubmit=e=>{
@@ -1526,7 +2174,11 @@ $("aiForm").onsubmit=e=>{
 };
 
 
-function addMsg(text,type){
+
+function addMsg(
+  text,
+  type
+){
 
   const d=
     document.createElement(
@@ -1551,6 +2203,11 @@ function addMsg(text,type){
 }
 
 
+
+/* ================================
+   RÉPONSES C.N. AI
+================================ */
+
 function aiReply(text){
 
   const q=
@@ -1561,7 +2218,12 @@ function aiReply(text){
     q.includes("github")
   ){
 
-    return "C.N. Nexus est conçu pour fonctionner comme une interface statique sur GitHub Pages. Attention : un site externe peut refuser d'être affiché dans un iframe.";
+    return (
+      "C.N. Nexus est conçu pour fonctionner " +
+      "comme une interface statique sur GitHub Pages. " +
+      "Attention : un site externe peut refuser " +
+      "d'être affiché dans un iframe."
+    );
 
   }
 
@@ -1570,7 +2232,12 @@ function aiReply(text){
     q.includes("favori")
   ){
 
-    return "Utilise l'étoile ☆ à droite de la barre d'adresse. Les favoris conservent les vraies adresses, tandis que C.N. Nexus affiche la version .nexus.";
+    return (
+      "Utilise l'étoile ☆ à droite de la barre " +
+      "d'adresse. Les favoris conservent les vraies " +
+      "adresses, tandis que C.N. Nexus affiche " +
+      "la version .nexus."
+    );
 
   }
 
@@ -1579,17 +2246,55 @@ function aiReply(text){
     q.includes("onglet")
   ){
 
-    return "Le bouton ＋ crée un nouvel onglet. Chaque onglet conserve sa propre adresse réelle, tandis que l'adresse affichée utilise le suffixe .nexus.";
+    return (
+      "Le bouton ＋ crée un nouvel onglet. " +
+      "Chaque onglet conserve sa propre adresse réelle. " +
+      "Le nom de l'onglet reste volontairement court " +
+      "pour éviter les onglets gigantesques."
+    );
 
   }
 
 
   if(
-    q.includes("cn nexus")||
+    q.includes("iframe")||
+    q.includes("bloque")
+  ){
+
+    return (
+      "Nexus essaie d'abord d'afficher la page dans " +
+      "l'iframe. Si aucun chargement n'est détecté " +
+      "après quelques secondes, il tente d'ouvrir " +
+      "la vraie adresse dans un nouvel onglet."
+    );
+
+  }
+
+
+  if(
+    q.includes("nexus")||
+    q.includes("adresse")
+  ){
+
+    return (
+      "C.N. Nexus affiche les adresses avec un faux " +
+      "suffixe .nexus. La vraie URL n'est jamais " +
+      "modifiée : elle reste utilisée pour la navigation, " +
+      "l'historique, les favoris et les onglets."
+    );
+
+  }
+
+
+  if(
     q.includes("nom")
   ){
 
-    return "Le nom est C.N. Nexus : C.N. pour C.N. Organization, et Nexus pour l'idée d'un point de connexion.";
+    return (
+      "Le nom est C.N. Nexus : C.N. pour " +
+      "C.N. Organization, et Nexus pour l'idée " +
+      "d'un point de connexion."
+    );
 
   }
 
@@ -1599,15 +2304,28 @@ function aiReply(text){
     q.includes("salut")
   ){
 
-    return "Salut ! 👋 Que veux-tu faire dans C.N. Nexus ?";
+    return (
+      "Salut ! 👋 Que veux-tu faire " +
+      "dans C.N. Nexus ?"
+    );
 
   }
 
 
-  return "Je suis actuellement la version locale de C.N. AI. Pour une IA en ligne, il faudra connecter un backend ou une API sans exposer de clé secrète.";
+  return (
+    "Je suis actuellement la version locale " +
+    "de C.N. AI. Pour une IA en ligne, il faudra " +
+    "connecter un backend ou une API sans exposer " +
+    "de clé secrète."
+  );
 
 }
 
+
+
+/* ================================
+   INITIALISATION
+================================ */
 
 renderTabs();
 
@@ -1615,8 +2333,8 @@ renderBookmarks();
 
 homePage();
 
+
 </script>
 
 </body>
 </html>
-
