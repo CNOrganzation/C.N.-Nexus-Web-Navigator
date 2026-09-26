@@ -636,13 +636,6 @@ button{
 
 const STORAGE_KEY="cn_nexus_bookmarks_v1";
 
-/*
-  Temps avant de considérer que l'iframe
-  est probablement bloquée.
-
-  5 secondes permet de laisser le temps
-  aux sites un peu lents de charger.
-*/
 const IFRAME_FALLBACK_DELAY=5000;
 
 let tabs=[
@@ -659,11 +652,6 @@ let history=[];
 
 let historyIndex=-1;
 
-
-/*
-  Permet d'annuler le fallback lorsqu'un
-  chargement normal est détecté.
-*/
 let iframeFallbackTimer=null;
 
 let iframeLoadDetected=false;
@@ -687,6 +675,71 @@ function currentTab(){
 }
 
 
+/*
+  Transforme uniquement l'affichage
+  de l'URL.
+
+  IMPORTANT :
+  L'URL réelle reste inchangée.
+*/
+function displayUrl(url){
+
+  if(!url){
+
+    return "";
+
+  }
+
+
+  try{
+
+    const parsed=
+      new URL(url);
+
+
+    /*
+      On retire le protocole uniquement
+      pour l'affichage.
+    */
+    let displayed=
+      parsed.host+
+      parsed.pathname+
+      parsed.search+
+      parsed.hash;
+
+
+    /*
+      Si .nexus est déjà présent,
+      on ne l'ajoute pas une deuxième fois.
+    */
+    if(
+      !displayed.endsWith(".nexus")
+    ){
+
+      displayed += ".nexus";
+
+    }
+
+
+    return displayed;
+
+  }catch{
+
+    if(
+      !String(url).endsWith(".nexus")
+    ){
+
+      return String(url)+".nexus";
+
+    }
+
+    return String(url);
+
+  }
+
+}
+
+
 function renderTabs(){
 
   $("tabs").innerHTML="";
@@ -700,8 +753,17 @@ function renderTabs(){
       (t.id===activeTab?" active":"");
 
     b.textContent=
-      t.title||
-      "Nouvel onglet";
+      t.url
+        ? displayUrl(t.url)
+        : (
+            t.title||
+            "Nouvel onglet"
+          );
+
+    b.title=
+      t.url
+        ? displayUrl(t.url)
+        : "Nouvel onglet";
 
     b.onclick=()=>{
 
@@ -821,6 +883,30 @@ function normalize(value){
   }
 
 
+  /*
+    Si l'utilisateur tape une URL
+    affichée avec .nexus, on retire
+    uniquement le faux suffixe avant
+    d'effectuer la navigation.
+
+    Exemple :
+    github.com.nexus
+    devient :
+    https://github.com
+  */
+  if(
+    /\.nexus$/i.test(value)
+  ){
+
+    value=
+      value.replace(
+        /\.nexus$/i,
+        ""
+      );
+
+  }
+
+
   if(
     /^https?:\/\//i.test(value)
   ){
@@ -845,9 +931,6 @@ function normalize(value){
 }
 
 
-/*
-  Annule le système de fallback précédent.
-*/
 function clearIframeFallback(){
 
   if(iframeFallbackTimer){
@@ -863,9 +946,6 @@ function clearIframeFallback(){
 }
 
 
-/*
-  Ouvre l'URL dans un nouvel onglet.
-*/
 function openExternal(url){
 
   const opened=
@@ -876,10 +956,6 @@ function openExternal(url){
     );
 
 
-  /*
-    Certains navigateurs peuvent bloquer
-    window.open selon le contexte.
-  */
   if(!opened){
 
     setStatus(
@@ -891,16 +967,6 @@ function openExternal(url){
 }
 
 
-/*
-  Fallback lorsqu'une iframe semble bloquée.
-
-  Important :
-  JavaScript ne peut pas lire directement
-  les erreurs X-Frame-Options / CSP d'un
-  site externe.
-
-  On utilise donc un délai de sécurité.
-*/
 function setupIframeFallback(frame,url){
 
   clearIframeFallback();
@@ -908,11 +974,6 @@ function setupIframeFallback(frame,url){
   iframeLoadDetected=false;
 
 
-  /*
-    Si l'iframe déclenche son chargement,
-    on considère qu'elle a réussi à être
-    intégrée dans Nexus.
-  */
   frame.addEventListener(
     "load",
     ()=>{
@@ -922,7 +983,8 @@ function setupIframeFallback(frame,url){
       clearIframeFallback();
 
       setStatus(
-        "Page chargée — "+url
+        "Page chargée — "+
+        displayUrl(url)
       );
 
     },
@@ -932,11 +994,6 @@ function setupIframeFallback(frame,url){
   );
 
 
-  /*
-    Si aucune confirmation de chargement
-    n'arrive dans le délai prévu, on tente
-    l'ouverture externe.
-  */
   iframeFallbackTimer=
     setTimeout(
       ()=>{
@@ -952,7 +1009,7 @@ function setupIframeFallback(frame,url){
 
 
         setStatus(
-          "Cette page ne peut probablement pas être affichée dans Nexus. Ouverture dans un nouvel onglet…"
+          "Page externe — ouverture dans un nouvel onglet…"
         );
 
 
@@ -985,6 +1042,9 @@ function navigate(value,push=true){
 
   const t=currentTab();
 
+  /*
+    URL réelle conservée ici.
+  */
   t.url=url;
 
 
@@ -1002,7 +1062,12 @@ function navigate(value,push=true){
   }
 
 
-  address.value=url;
+  /*
+    Seule l'URL affichée reçoit
+    le suffixe .nexus.
+  */
+  address.value=
+    displayUrl(url);
 
   renderTabs();
 
@@ -1015,6 +1080,10 @@ function navigate(value,push=true){
         historyIndex+1
       );
 
+    /*
+      L'historique conserve également
+      l'URL réelle, jamais .nexus.
+    */
     history.push(url);
 
     historyIndex++;
@@ -1031,23 +1100,21 @@ function navigate(value,push=true){
 
   frame.className="frame";
 
+  /*
+    L'iframe reçoit l'URL réelle.
+  */
   frame.src=url;
 
   frame.referrerPolicy=
     "no-referrer-when-downgrade";
 
 
-  /*
-    sandbox n'est volontairement PAS utilisé :
-    certains sites ont besoin de leurs
-    permissions normales pour fonctionner.
-  */
-
   page.appendChild(frame);
 
 
   setStatus(
-    "Chargement : "+url
+    "Chargement : "+
+    displayUrl(url)
   );
 
 
@@ -1080,6 +1147,9 @@ function loadCurrent(){
   }
 
 
+  /*
+    navigate() utilise t.url réelle.
+  */
   navigate(
     t.url,
     false
@@ -1231,6 +1301,9 @@ $("bookmark").onclick=()=>{
 
     list.push({
 
+      /*
+        Le favori conserve l'URL réelle.
+      */
       title:currentTab().title,
 
       url:url
@@ -1248,7 +1321,8 @@ $("bookmark").onclick=()=>{
 
 
     setStatus(
-      "Ajouté aux favoris"
+      "Ajouté aux favoris — "+
+      displayUrl(url)
     );
 
   }
@@ -1316,8 +1390,14 @@ function renderBookmarks(){
       btn.style.flex="1";
 
 
+      /*
+        Affichage du favori avec .nexus.
+        L'URL réelle reste dans item.url.
+      */
       btn.innerHTML=
-        `<span>☆ ${escapeHtml(item.title)}</span>`;
+        `<span>☆ ${escapeHtml(
+          displayUrl(item.url)
+        )}</span>`;
 
 
       btn.onclick=()=>{
@@ -1490,7 +1570,7 @@ function aiReply(text){
     q.includes("favori")
   ){
 
-    return "Utilise l'étoile ☆ à droite de la barre d'adresse. Les favoris sont enregistrés dans le stockage local de ton navigateur.";
+    return "Utilise l'étoile ☆ à droite de la barre d'adresse. Les favoris conservent les vraies adresses, tandis que C.N. Nexus affiche la version .nexus.";
 
   }
 
@@ -1499,7 +1579,7 @@ function aiReply(text){
     q.includes("onglet")
   ){
 
-    return "Le bouton ＋ crée un nouvel onglet. Chaque onglet conserve sa propre adresse. Si une page bloque son affichage dans Nexus, elle peut être ouverte dans un nouvel onglet.";
+    return "Le bouton ＋ crée un nouvel onglet. Chaque onglet conserve sa propre adresse réelle, tandis que l'adresse affichée utilise le suffixe .nexus.";
 
   }
 
@@ -1539,3 +1619,4 @@ homePage();
 
 </body>
 </html>
+
