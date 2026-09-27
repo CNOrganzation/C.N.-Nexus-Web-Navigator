@@ -407,6 +407,54 @@ header{
   color:#77718d;
 }
 
+.search-engine{
+  height:35px;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:9px;
+
+  background:#0d0b18;
+
+  color:var(--text);
+
+  padding:
+    0 8px;
+
+  font-size:11px;
+
+  outline:0;
+
+  cursor:pointer;
+
+  max-width:145px;
+
+  flex-shrink:0;
+}
+
+.search-engine:hover{
+  background:#171329;
+}
+
+.search-engine option{
+  background:#0d0b18;
+  color:var(--text);
+}
+
+@media(max-width:700px){
+
+  .search-engine{
+    max-width:42px;
+    padding:0 5px;
+  }
+
+  .search-engine option{
+    font-size:12px;
+  }
+
+}
+
 
 /* =========================================================
    LAYOUT
@@ -1122,6 +1170,16 @@ header{
 
   </div>
 
+  <select
+    id="searchEngine"
+    class="search-engine"
+    title="Moteur de recherche"
+  >
+    <option value="duckduckgo">🦆 DuckDuckGo</option>
+    <option value="ecosia">🌱 Ecosia</option>
+    <option value="yahoo">🟣 Yahoo</option>
+  </select>
+
   <button
     class="tool"
     id="bookmark"
@@ -1245,6 +1303,29 @@ header{
 const STORAGE_KEY =
   "cn_nexus_bookmarks_v1";
 
+const SEARCH_ENGINE_KEY =
+  "cn_nexus_search_engine_v1";
+
+const SEARCH_ENGINES = {
+  duckduckgo: {
+    name: "DuckDuckGo",
+    icon: "🦆",
+    url: "https://duckduckgo.com/?q="
+  },
+
+  ecosia: {
+    name: "Ecosia",
+    icon: "🌱",
+    url: "https://www.ecosia.org/search?q="
+  },
+
+  yahoo: {
+    name: "Yahoo",
+    icon: "🟣",
+    url: "https://search.yahoo.com/search?p="
+  }
+};
+
 
 /*
   Domaines dont les pages principales sont connues
@@ -1319,6 +1400,9 @@ const address =
 const statusEl =
   $("status");
 
+const searchEngineSelect =
+  $("searchEngine");
+
 
 /* =========================================================
    STATUS
@@ -1328,6 +1412,68 @@ function setStatus(text){
 
   statusEl.textContent =
     text;
+
+}
+
+
+function getSearchEngine(){
+
+  const saved =
+    localStorage.getItem(
+      SEARCH_ENGINE_KEY
+    );
+
+  if(
+    saved &&
+    SEARCH_ENGINES[saved]
+  ){
+    return saved;
+  }
+
+  return "duckduckgo";
+}
+
+
+function setSearchEngine(engine){
+
+  if(
+    !SEARCH_ENGINES[engine]
+  ){
+    engine = "duckduckgo";
+  }
+
+  localStorage.setItem(
+    SEARCH_ENGINE_KEY,
+    engine
+  );
+
+  if(searchEngineSelect){
+    searchEngineSelect.value =
+      engine;
+  }
+
+  setStatus(
+    "Moteur de recherche : " +
+    SEARCH_ENGINES[engine].name
+  );
+}
+
+
+if(searchEngineSelect){
+
+  searchEngineSelect.value =
+    getSearchEngine();
+
+  searchEngineSelect.addEventListener(
+    "change",
+    () => {
+
+      setSearchEngine(
+        searchEngineSelect.value
+      );
+
+    }
+  );
 
 }
 
@@ -1688,8 +1834,14 @@ function normalize(value){
   }
 
 
+  const engine =
+    SEARCH_ENGINES[
+      getSearchEngine()
+    ] || SEARCH_ENGINES.duckduckgo;
+
+
   return (
-    "https://www.google.com/search?q=" +
+    engine.url +
     encodeURIComponent(value)
   );
 
@@ -2755,6 +2907,22 @@ function aiReply(message){
     return (
       "Le bouton ⌃ permet de rabattre toute l'interface " +
       "Nexus pour afficher davantage la page."
+    );
+
+  }
+
+
+  if(
+    text.includes("moteur") ||
+    text.includes("duckduckgo") ||
+    text.includes("ecosia") ||
+    text.includes("yahoo")
+  ){
+
+    return (
+      "Tu peux choisir ton moteur de recherche avec " +
+      "le sélecteur dans la barre : DuckDuckGo, Ecosia ou Yahoo. " +
+      "Ton choix est mémorisé automatiquement."
     );
 
   }
