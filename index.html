@@ -229,7 +229,7 @@ header{
 
 
 /* =========================================================
-   TABS
+   TABS NEXUS
 ========================================================= */
 
 #tabs{
@@ -405,54 +405,6 @@ header{
 
 .address::placeholder{
   color:#77718d;
-}
-
-.search-engine{
-  height:35px;
-
-  border:
-    1px solid var(--border);
-
-  border-radius:9px;
-
-  background:#0d0b18;
-
-  color:var(--text);
-
-  padding:
-    0 8px;
-
-  font-size:11px;
-
-  outline:0;
-
-  cursor:pointer;
-
-  max-width:145px;
-
-  flex-shrink:0;
-}
-
-.search-engine:hover{
-  background:#171329;
-}
-
-.search-engine option{
-  background:#0d0b18;
-  color:var(--text);
-}
-
-@media(max-width:700px){
-
-  .search-engine{
-    max-width:42px;
-    padding:0 5px;
-  }
-
-  .search-engine option{
-    font-size:12px;
-  }
-
 }
 
 
@@ -723,6 +675,487 @@ header{
 
 .primary:hover{
   filter:brightness(1.1);
+}
+
+
+/* =========================================================
+   NEXUSSEARCH
+========================================================= */
+
+.nexus-search-page{
+  width:100%;
+  height:100%;
+  overflow:auto;
+  padding:28px;
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(139,92,246,.10),
+      transparent 42%
+    ),
+    var(--bg);
+}
+
+.nexus-search-inner{
+  width:min(1000px,100%);
+  margin:0 auto;
+}
+
+.nexus-search-head{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.nexus-search-mini-logo{
+  width:42px;
+  height:42px;
+  flex:0 0 42px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:13px;
+
+  font-weight:900;
+  font-size:19px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--violet),
+      var(--indigo)
+    );
+
+  box-shadow:
+    0 0 28px
+    rgba(139,92,246,.25);
+}
+
+.nexus-search-title{
+  font-size:20px;
+  font-weight:900;
+}
+
+.nexus-search-subtitle{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+
+/* =========================================================
+   MODES DE RECHERCHE
+========================================================= */
+
+.nexus-search-modes{
+  display:flex;
+
+  gap:5px;
+
+  margin-bottom:13px;
+
+  padding:4px;
+
+  width:max-content;
+  max-width:100%;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:11px;
+
+  background:#080711;
+
+  overflow-x:auto;
+}
+
+.nexus-search-mode{
+  border:0;
+
+  border-radius:8px;
+
+  background:transparent;
+
+  color:var(--muted);
+
+  padding:8px 13px;
+
+  cursor:pointer;
+
+  font-size:12px;
+
+  font-weight:700;
+
+  white-space:nowrap;
+}
+
+.nexus-search-mode:hover{
+  background:#121021;
+  color:var(--text);
+}
+
+.nexus-search-mode.active{
+  background:#211642;
+
+  color:#eee8ff;
+
+  box-shadow:
+    0 0 0 1px #4a347d;
+}
+
+
+/* =========================================================
+   RECHERCHE
+========================================================= */
+
+.nexus-search-form{
+  display:flex;
+
+  gap:8px;
+
+  margin-bottom:8px;
+}
+
+.nexus-search-input{
+  flex:1;
+
+  min-width:0;
+
+  height:43px;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:11px;
+
+  outline:0;
+
+  background:#080711;
+
+  color:var(--text);
+
+  padding:
+    0 13px;
+
+  font-size:13px;
+}
+
+.nexus-search-input:focus{
+  border-color:#5533a1;
+
+  box-shadow:
+    0 0 0 2px
+    rgba(139,92,246,.10);
+}
+
+.nexus-search-france{
+  color:#aaa5bd;
+
+  font-size:10px;
+
+  margin:
+    0 0 20px 2px;
+}
+
+
+/* =========================================================
+   RESULTATS WEB
+========================================================= */
+
+.nexus-search-result{
+  display:block;
+
+  width:100%;
+
+  text-align:left;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:13px;
+
+  background:#0b0a14;
+
+  padding:15px;
+
+  margin-bottom:10px;
+
+  cursor:pointer;
+
+  transition:
+    background .15s ease,
+    border-color .15s ease,
+    transform .15s ease;
+}
+
+.nexus-search-result:hover{
+  background:#111020;
+
+  border-color:#4a347d;
+
+  transform:translateY(-1px);
+}
+
+.nexus-search-result-title{
+  color:#cdbdff;
+
+  font-size:14px;
+
+  font-weight:800;
+
+  line-height:1.35;
+
+  margin-bottom:5px;
+}
+
+.nexus-search-result-url{
+  color:#8f86a6;
+
+  font-size:10px;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+  white-space:nowrap;
+
+  margin-bottom:7px;
+}
+
+.nexus-search-result-desc{
+  color:#aaa5bd;
+
+  font-size:12px;
+
+  line-height:1.5;
+}
+
+.nexus-search-fr-badge{
+  display:inline-block;
+
+  margin-top:8px;
+
+  padding:3px 7px;
+
+  border-radius:6px;
+
+  background:#211642;
+
+  color:#cdbdff;
+
+  font-size:9px;
+
+  font-weight:800;
+}
+
+
+/* =========================================================
+   IMAGES
+========================================================= */
+
+.nexus-image-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fill,
+      minmax(180px,1fr)
+    );
+
+  gap:12px;
+}
+
+.nexus-image-card{
+  border:
+    1px solid var(--border);
+
+  border-radius:13px;
+
+  overflow:hidden;
+
+  background:#0b0a14;
+
+  cursor:pointer;
+
+  transition:
+    transform .15s ease,
+    border-color .15s ease;
+}
+
+.nexus-image-card:hover{
+  transform:translateY(-2px);
+
+  border-color:#4a347d;
+}
+
+.nexus-image-preview{
+  width:100%;
+
+  aspect-ratio:4 / 3;
+
+  object-fit:cover;
+
+  display:block;
+
+  background:#111020;
+}
+
+.nexus-image-info{
+  padding:10px;
+}
+
+.nexus-image-title{
+  color:#ddd7ed;
+
+  font-size:11px;
+
+  font-weight:700;
+
+  line-height:1.4;
+
+  display:-webkit-box;
+
+  -webkit-line-clamp:2;
+
+  -webkit-box-orient:vertical;
+
+  overflow:hidden;
+}
+
+.nexus-image-license{
+  color:#77718d;
+
+  font-size:9px;
+
+  margin-top:5px;
+}
+
+
+/* =========================================================
+   VIDEOS
+========================================================= */
+
+.nexus-video-icon{
+  width:44px;
+  height:44px;
+
+  flex:0 0 44px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:12px;
+
+  background:#211642;
+
+  color:#cdbdff;
+
+  font-size:20px;
+}
+
+.nexus-video-result{
+  display:flex;
+
+  align-items:center;
+
+  gap:13px;
+
+  width:100%;
+
+  text-align:left;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:13px;
+
+  background:#0b0a14;
+
+  padding:13px;
+
+  margin-bottom:10px;
+
+  cursor:pointer;
+
+  transition:
+    background .15s ease,
+    border-color .15s ease,
+    transform .15s ease;
+}
+
+.nexus-video-result:hover{
+  background:#111020;
+
+  border-color:#4a347d;
+
+  transform:translateY(-1px);
+}
+
+.nexus-video-content{
+  min-width:0;
+  flex:1;
+}
+
+
+/* =========================================================
+   INFOS / ERREURS
+========================================================= */
+
+.nexus-search-info{
+  color:var(--muted);
+
+  font-size:11px;
+
+  margin-bottom:12px;
+}
+
+.nexus-search-correction{
+  margin:
+    -5px 0 14px;
+
+  color:#cdbdff;
+
+  font-size:11px;
+}
+
+.nexus-search-empty,
+.nexus-search-error,
+.nexus-search-loading{
+  border:
+    1px solid var(--border);
+
+  border-radius:13px;
+
+  background:#0b0a14;
+
+  padding:18px;
+
+  color:var(--muted);
+
+  font-size:12px;
+
+  line-height:1.5;
+}
+
+.nexus-search-error{
+  border-color:#5b2940;
+
+  color:#ffb4c6;
+}
+
+.nexus-search-page::-webkit-scrollbar{
+  width:8px;
+}
+
+.nexus-search-page::-webkit-scrollbar-thumb{
+  background:#302050;
+
+  border-radius:10px;
 }
 
 
@@ -1062,6 +1495,53 @@ header{
     bottom:34px;
   }
 
+  .nexus-search-page{
+    padding:18px 12px;
+  }
+
+  .nexus-search-form{
+    flex-direction:column;
+  }
+
+  .nexus-search-form .primary{
+    width:100%;
+  }
+
+  .nexus-search-modes{
+    width:100%;
+  }
+
+  .nexus-search-mode{
+    flex:1;
+    padding:
+      8px 8px;
+  }
+
+  .nexus-image-grid{
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0,1fr)
+      );
+  }
+
+}
+
+
+/* =========================================================
+   TRES PETIT ECRAN
+========================================================= */
+
+@media(max-width:430px){
+
+  .tab{
+    max-width:125px;
+  }
+
+  .nexus-image-grid{
+    grid-template-columns:1fr;
+  }
+
 }
 
 </style>
@@ -1169,14 +1649,6 @@ header{
     >
 
   </div>
-
-  <select
-    id="searchEngine"
-    class="search-engine"
-    title="Moteur de recherche"
-  >
-    <option value="mojeek">🔎 Mojeek</option>
-  </select>
 
   <button
     class="tool"
@@ -1301,36 +1773,30 @@ header{
 const STORAGE_KEY =
   "cn_nexus_bookmarks_v1";
 
-const SEARCH_ENGINE_KEY =
-  "cn_nexus_search_engine_v1";
+const NEXUS_SEARCH_API =
+  "https://puri.li/api/search";
 
-const SEARCH_ENGINES = {
-  mojeek: {
-    name: "Mojeek",
-    icon: "🔎",
-    url: "https://www.mojeek.com/search?q="
-  }
-};
+const NEXUS_IMAGES_API =
+  "https://puri.li/api/images";
 
 
-/*
-  Domaines dont les pages principales sont connues
-  pour refuser l'affichage dans une iframe externe.
-
-  On les traite AVANT de créer l'iframe.
-
-  Cela évite notamment le faux écran blanc
-  que tu avais avec ChatGPT.
-
-  Cette liste ne prétend pas couvrir tous les sites :
-  les protections iframe peuvent changer et dépendent
-  parfois du chemin précis de l'URL.
-*/
+/* =========================================================
+   DOMAINES CONNUS POUR LES IFRAMES
+========================================================= */
 
 const KNOWN_IFRAME_BLOCKED = [
 
   "google.com",
   "google.fr",
+
+  "yahoo.com",
+  "yahoo.fr",
+
+  "ecosia.org",
+
+  "duckduckgo.com",
+
+  "mojeek.com",
 
   "chatgpt.com",
   "chat.openai.com",
@@ -1351,7 +1817,7 @@ const KNOWN_IFRAME_BLOCKED = [
 
 
 /* =========================================================
-   ÉTAT
+   ETAT
 ========================================================= */
 
 let tabs = [
@@ -1367,6 +1833,18 @@ let activeTab = 1;
 let history = [];
 
 let historyIndex = -1;
+
+
+/*
+  Mode actuel de NexusSearch.
+  Valeurs possibles :
+  all
+  web
+  images
+  videos
+*/
+
+let nexusSearchMode = "all";
 
 
 /* =========================================================
@@ -1386,9 +1864,6 @@ const address =
 const statusEl =
   $("status");
 
-const searchEngineSelect =
-  $("searchEngine");
-
 
 /* =========================================================
    STATUS
@@ -1398,68 +1873,6 @@ function setStatus(text){
 
   statusEl.textContent =
     text;
-
-}
-
-
-function getSearchEngine(){
-
-  const saved =
-    localStorage.getItem(
-      SEARCH_ENGINE_KEY
-    );
-
-  if(
-    saved &&
-    SEARCH_ENGINES[saved]
-  ){
-    return saved;
-  }
-
-  return "mojeek";
-}
-
-
-function setSearchEngine(engine){
-
-  if(
-    !SEARCH_ENGINES[engine]
-  ){
-    engine = "mojeek";
-  }
-
-  localStorage.setItem(
-    SEARCH_ENGINE_KEY,
-    engine
-  );
-
-  if(searchEngineSelect){
-    searchEngineSelect.value =
-      engine;
-  }
-
-  setStatus(
-    "Moteur de recherche : " +
-    SEARCH_ENGINES[engine].name
-  );
-}
-
-
-if(searchEngineSelect){
-
-  searchEngineSelect.value =
-    getSearchEngine();
-
-  searchEngineSelect.addEventListener(
-    "change",
-    () => {
-
-      setSearchEngine(
-        searchEngineSelect.value
-      );
-
-    }
-  );
 
 }
 
@@ -1488,7 +1901,6 @@ function getRealHostname(url){
 
 /* =========================================================
    VERIFIER SI UN DOMAINE EST CONNU
-   POUR BLOQUER LES IFRAMES
 ========================================================= */
 
 function isKnownIframeBlocked(url){
@@ -1496,13 +1908,11 @@ function isKnownIframeBlocked(url){
   const host =
     getRealHostname(url);
 
-
   if(!host){
 
     return false;
 
   }
-
 
   return KNOWN_IFRAME_BLOCKED.some(
     blocked =>
@@ -1513,6 +1923,150 @@ function isKnownIframeBlocked(url){
       )
 
   );
+
+}
+
+
+/* =========================================================
+   DETECTION RESULTAT FRANCAIS
+========================================================= */
+
+function isFrenchResult(result){
+
+  const url =
+    String(
+      result.url ||
+      result.displayUrl ||
+      ""
+    ).toLowerCase();
+
+  const title =
+    String(
+      result.title ||
+      ""
+    ).toLowerCase();
+
+  const description =
+    String(
+      result.description ||
+      ""
+    ).toLowerCase();
+
+  const frenchDomains = [
+
+    ".fr",
+    "gouv.fr",
+    "service-public.fr",
+    "vie-publique.fr",
+    "lemonde.fr",
+    "lefigaro.fr",
+    "franceinfo.fr",
+    "francetvinfo.fr",
+    "radiofrance.fr",
+    "bfmtv.com",
+    "tf1.fr",
+    "rtl.fr",
+    "20minutes.fr",
+    "ouest-france.fr",
+    "liberation.fr",
+    "lesechos.fr",
+    "numerama.com",
+    "01net.com",
+    "clubic.com",
+    "futura-sciences.com",
+    "linternaute.com",
+    "allocine.fr",
+    "doctissimo.fr",
+    "wikipedia.org/wiki/Accueil"
+  ];
+
+  if(
+    frenchDomains.some(
+      domain =>
+        url.includes(domain)
+    )
+  ){
+
+    return true;
+
+  }
+
+  const frenchWords = [
+
+    "français",
+    "française",
+    "france",
+    "bonjour",
+    "actualité",
+    "actualités",
+    "gouvernement",
+    "président",
+    "éducation",
+    "école",
+    "université",
+    "société",
+    "économie",
+    "technologie",
+    "sciences",
+    "culture",
+    "sport",
+    "politique"
+
+  ];
+
+  const combined =
+    title +
+    " " +
+    description;
+
+  return frenchWords.some(
+    word =>
+      combined.includes(word)
+  );
+
+}
+
+
+/* =========================================================
+   SCORE FRANCAIS
+========================================================= */
+
+function frenchScore(result){
+
+  let score = 0;
+
+  const url =
+    String(
+      result.url ||
+      result.displayUrl ||
+      ""
+    ).toLowerCase();
+
+  if(
+    /\.fr(?:[/:?#]|$)/i.test(url)
+  ){
+
+    score += 12;
+
+  }
+
+  if(
+    url.includes("gouv.fr")
+  ){
+
+    score += 10;
+
+  }
+
+  if(
+    isFrenchResult(result)
+  ){
+
+    score += 5;
+
+  }
+
+  return score;
 
 }
 
@@ -1529,16 +2083,13 @@ function displayUrl(url){
 
   }
 
-
   try{
 
     const parsed =
       new URL(url);
 
-
     let host =
       parsed.hostname;
-
 
     if(
       host.startsWith("www.")
@@ -1548,7 +2099,6 @@ function displayUrl(url){
         host.slice(4);
 
     }
-
 
     if(
       host.endsWith(".nexus")
@@ -1562,26 +2112,8 @@ function displayUrl(url){
 
     }
 
-
-    /*
-      Remplace le TLD réel :
-
-      .com
-      .fr
-      .io
-      .to
-      .net
-      .org
-      etc.
-
-      par :
-
-      .nexus
-    */
-
     const lastDot =
       host.lastIndexOf(".");
-
 
     if(
       lastDot > 0
@@ -1600,7 +2132,6 @@ function displayUrl(url){
         ".nexus";
 
     }
-
 
     return (
       host +
@@ -1631,7 +2162,6 @@ function getSiteName(url){
         .hostname
         .replace(/^www\./i,"");
 
-
     if(
       host.endsWith(".nexus")
     ){
@@ -1643,7 +2173,6 @@ function getSiteName(url){
         );
 
     }
-
 
     return (
       host.charAt(0)
@@ -1672,7 +2201,6 @@ function tabLabel(url){
 
   }
 
-
   try{
 
     let host =
@@ -1680,7 +2208,6 @@ function tabLabel(url){
         .hostname
         .toLowerCase()
         .replace(/^www\./,"");
-
 
     if(
       host.endsWith(".nexus")
@@ -1694,10 +2221,8 @@ function tabLabel(url){
 
     }
 
-
     const lastDot =
       host.lastIndexOf(".");
-
 
     if(
       lastDot > 0
@@ -1717,7 +2242,6 @@ function tabLabel(url){
 
     }
 
-
     return host;
 
   }catch{
@@ -1733,30 +2257,27 @@ function tabLabel(url){
    NORMALISER URL
 ========================================================= */
 
-function normalize(value){
+function looksLikeUrl(value){
+
+  return (
+    /^https?:\/\//i.test(value) ||
+    /^(localhost|[\w-]+(\.[\w-]+)+)(:\d+)?(\/.*)?$/i.test(value)
+  );
+
+}
+
+
+function normalizeUrl(value){
 
   value =
     String(value || "")
       .trim();
-
 
   if(!value){
 
     return "";
 
   }
-
-
-  /*
-    Si l'utilisateur tape un faux domaine
-    .nexus, on le transforme en .com
-    par défaut pour retrouver une URL réelle.
-
-    Exemple :
-
-    google.nexus
-    → google.com
-  */
 
   if(
     !value.includes("://") &&
@@ -1771,64 +2292,77 @@ function normalize(value){
 
   }
 
-
   if(
-    value.includes("://")
+    !value.includes("://")
   ){
 
-    try{
+    value =
+      "https://" +
+      value;
 
-      const parsed =
-        new URL(value);
+  }
 
+  try{
 
-      if(
-        parsed.hostname
-          .endsWith(".nexus")
-      ){
+    const parsed =
+      new URL(value);
 
-        parsed.hostname =
-          parsed.hostname.replace(
-            /\.nexus$/i,
-            ".com"
-          );
+    if(
+      parsed.hostname
+        .endsWith(".nexus")
+    ){
 
-      }
-
-
-      return parsed.toString();
-
-    }catch{
-
-      return value;
+      parsed.hostname =
+        parsed.hostname.replace(
+          /\.nexus$/i,
+          ".com"
+        );
 
     }
 
-  }
+    return parsed.toString();
 
+  }catch{
 
-  if(
-    /^(localhost|[\w-]+(\.[\w-]+)+)(:\d+)?(\/.*)?$/i
-      .test(value)
-  ){
-
-    return (
-      "https://" +
-      value
-    );
+    return "";
 
   }
 
+}
 
-  const engine =
-    SEARCH_ENGINES[
-      getSearchEngine()
-    ] || SEARCH_ENGINES.mojeek;
 
+function normalize(value){
+
+  const text =
+    String(value || "")
+      .trim();
+
+  if(!text){
+
+    return "";
+
+  }
+
+  if(!looksLikeUrl(text)){
+
+    return "";
+
+  }
+
+  return normalizeUrl(text);
+
+}
+
+
+function isSearchInput(value){
+
+  const text =
+    String(value || "")
+      .trim();
 
   return (
-    engine.url +
-    encodeURIComponent(value)
+    !!text &&
+    !looksLikeUrl(text)
   );
 
 }
@@ -1857,10 +2391,8 @@ function renderTabs(){
   const container =
     $("tabs");
 
-
   container.innerHTML =
     "";
-
 
   tabs.forEach(
     t => {
@@ -1870,7 +2402,6 @@ function renderTabs(){
           "button"
         );
 
-
       button.className =
         "tab" +
         (
@@ -1879,16 +2410,13 @@ function renderTabs(){
             : ""
         );
 
-
       button.textContent =
         tabLabel(t.url);
-
 
       button.title =
         t.url
           ? displayUrl(t.url)
           : "Nouvel onglet";
-
 
       button.onclick =
         () => {
@@ -1901,7 +2429,6 @@ function renderTabs(){
           loadCurrent();
 
         };
-
 
       container.appendChild(
         button
@@ -1935,6 +2462,8 @@ function showHome(){
 
         <p>
           Le navigateur de C.N. Organization
+          <br>
+          avec NexusSearch intégré
         </p>
 
         <div class="home-search">
@@ -2002,7 +2531,7 @@ function showHome(){
 
 
 /* =========================================================
-   PAGE D'ERREUR NEXUS
+   PAGE EXTERNE
 ========================================================= */
 
 function showExternalFallback(url){
@@ -2010,87 +2539,69 @@ function showExternalFallback(url){
   const siteName =
     getSiteName(url);
 
-
   page.innerHTML =
     "";
-
 
   const overlay =
     document.createElement(
       "div"
     );
 
-
   overlay.className =
     "external-fallback";
-
 
   const box =
     document.createElement(
       "div"
     );
 
-
   box.className =
     "external-fallback-box";
-
 
   const title =
     document.createElement(
       "div"
     );
 
-
   title.className =
     "external-fallback-title";
-
 
   title.textContent =
     siteName +
     " utilise un protocole incompatible avec le système sécurisé Nexus.";
-
 
   const text =
     document.createElement(
       "div"
     );
 
-
   text.className =
     "external-fallback-text";
 
-
   text.textContent =
     "Ouvrir avec votre navigateur par défaut.";
-
 
   const urlText =
     document.createElement(
       "div"
     );
 
-
   urlText.className =
     "external-fallback-url";
 
-
   urlText.textContent =
     displayUrl(url);
-
 
   const button =
     document.createElement(
       "button"
     );
 
-
   button.className =
     "primary external-fallback-button";
 
-
   button.textContent =
     "↗ Ouvrir avec votre navigateur par défaut";
-
 
   button.onclick =
     () => {
@@ -2100,7 +2611,6 @@ function showExternalFallback(url){
           url,
           "_blank"
         );
-
 
       if(opened){
 
@@ -2127,11 +2637,9 @@ function showExternalFallback(url){
     button
   );
 
-
   overlay.appendChild(
     box
   );
-
 
   page.appendChild(
     overlay
@@ -2147,6 +2655,1366 @@ function showExternalFallback(url){
 
 
 /* =========================================================
+   ECHAPPER HTML
+========================================================= */
+
+function escapeHtml(value){
+
+  return String(value || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   INTERFACE NEXUSSEARCH
+========================================================= */
+
+function renderNexusSearchShell(query){
+
+  page.innerHTML = `
+
+    <div class="nexus-search-page">
+
+      <div class="nexus-search-inner">
+
+        <div class="nexus-search-head">
+
+          <div class="nexus-search-mini-logo">
+            N
+          </div>
+
+          <div>
+
+            <div class="nexus-search-title">
+              NexusSearch
+            </div>
+
+            <div class="nexus-search-subtitle">
+              Recherche intégrée à C.N. Nexus
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="nexus-search-modes"
+          id="nexusSearchModes"
+        >
+
+          <button
+            class="nexus-search-mode"
+            data-mode="all"
+          >
+            Tout
+          </button>
+
+          <button
+            class="nexus-search-mode"
+            data-mode="web"
+          >
+            Web
+          </button>
+
+          <button
+            class="nexus-search-mode"
+            data-mode="images"
+          >
+            Images
+          </button>
+
+          <button
+            class="nexus-search-mode"
+            data-mode="videos"
+          >
+            Vidéos
+          </button>
+
+        </div>
+
+
+        <form
+          class="nexus-search-form"
+          id="nexusSearchForm"
+        >
+
+          <input
+            class="nexus-search-input"
+            id="nexusSearchInput"
+            value="${escapeHtml(query)}"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="Rechercher sur le Web..."
+          >
+
+          <button
+            class="primary"
+            type="submit"
+          >
+            Rechercher
+          </button>
+
+        </form>
+
+
+        <div class="nexus-search-france">
+          🇫🇷 Résultats français et francophones privilégiés
+        </div>
+
+
+        <div
+          id="nexusSearchResults"
+          class="nexus-search-loading"
+        >
+          Recherche en cours…
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  document
+    .querySelectorAll(
+      ".nexus-search-mode"
+    )
+    .forEach(button => {
+
+      button.classList.toggle(
+        "active",
+        button.dataset.mode === nexusSearchMode
+      );
+
+      button.onclick =
+        () => {
+
+          nexusSearchMode =
+            button.dataset.mode;
+
+          runNexusSearch(
+            query,
+            1
+          );
+
+        };
+
+    });
+
+
+  const form =
+    $("nexusSearchForm");
+
+  const input =
+    $("nexusSearchInput");
+
+
+  form.addEventListener(
+    "submit",
+    event => {
+
+      event.preventDefault();
+
+      const next =
+        input.value.trim();
+
+      if(next){
+
+        runNexusSearch(
+          next,
+          1
+        );
+
+      }
+
+    }
+  );
+
+
+  input.focus();
+
+  input.setSelectionRange(
+    input.value.length,
+    input.value.length
+  );
+
+}
+
+
+/* =========================================================
+   REQUETE FRANCAISE
+========================================================= */
+
+function buildSearchQuery(query, mode){
+
+  const clean =
+    String(query || "")
+      .trim();
+
+  /*
+    On ne force pas "France" pour toutes les recherches :
+    cela pourrait dégrader fortement les recherches
+    internationales.
+
+    Pour Web/Vidéos, on ajoute seulement une indication
+    francophone afin de favoriser ce contexte.
+  */
+
+  if(
+    mode === "web" ||
+    mode === "videos"
+  ){
+
+    return (
+      clean +
+      " français France"
+    );
+
+  }
+
+  return clean;
+
+}
+
+
+/* =========================================================
+   RECHERCHE PRINCIPALE
+========================================================= */
+
+async function runNexusSearch(
+  query,
+  pageNumber = 1
+){
+
+  const cleanQuery =
+    String(query || "")
+      .trim();
+
+  if(!cleanQuery){
+
+    showHome();
+
+    return;
+
+  }
+
+
+  const tab =
+    getActiveTab();
+
+  if(tab){
+
+    tab.url =
+      "";
+
+    tab.title =
+      "NexusSearch";
+
+  }
+
+
+  address.value =
+    cleanQuery;
+
+  renderTabs();
+
+  renderNexusSearchShell(
+    cleanQuery
+  );
+
+
+  setStatus(
+    "NexusSearch — " +
+    getSearchModeLabel() +
+    " — recherche de « " +
+    cleanQuery +
+    " »"
+  );
+
+
+  try{
+
+    if(
+      nexusSearchMode === "images"
+    ){
+
+      await runNexusImages(
+        cleanQuery,
+        pageNumber
+      );
+
+      return;
+
+    }
+
+
+    const searchQuery =
+      buildSearchQuery(
+        cleanQuery,
+        nexusSearchMode
+      );
+
+
+    const params =
+      new URLSearchParams({
+
+        q:searchQuery,
+
+        page:String(pageNumber),
+
+        exact:"0"
+
+      });
+
+
+    const response =
+      await fetch(
+
+        NEXUS_SEARCH_API +
+        "?" +
+        params.toString(),
+
+        {
+          method:"GET",
+
+          headers:{
+            "Accept":
+              "application/json"
+          }
+
+        }
+
+      );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        "HTTP " +
+        response.status
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    /*
+      Tout et Web utilisent les résultats
+      du moteur Purili.
+
+      Vidéos filtre les pages dont le contenu
+      ressemble davantage à des pages vidéo.
+    */
+
+    let results =
+      Array.isArray(data.results)
+        ? data.results
+        : [];
+
+
+    if(
+      nexusSearchMode === "videos"
+    ){
+
+      results =
+        filterVideoResults(
+          results
+        );
+
+    }
+
+
+    results =
+      prioritizeFrenchResults(
+        results
+      );
+
+
+    renderNexusSearchResults(
+      cleanQuery,
+      {
+        ...data,
+        results
+      }
+    );
+
+
+  }catch(error){
+
+    const results =
+      $("nexusSearchResults");
+
+    if(results){
+
+      results.className =
+        "nexus-search-error";
+
+      results.textContent =
+        "NexusSearch n'a pas pu récupérer les résultats. " +
+        "Réessaie dans quelques instants. (" +
+        (
+          error.message ||
+          "erreur inconnue"
+        ) +
+        ")";
+
+    }
+
+
+    setStatus(
+      "Erreur NexusSearch"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   LABEL MODE
+========================================================= */
+
+function getSearchModeLabel(){
+
+  switch(
+    nexusSearchMode
+  ){
+
+    case "web":
+      return "Web";
+
+    case "images":
+      return "Images";
+
+    case "videos":
+      return "Vidéos";
+
+    default:
+      return "Tout";
+
+  }
+
+}
+
+
+/* =========================================================
+   PRIORITE FRANCAISE
+========================================================= */
+
+function prioritizeFrenchResults(
+  results
+){
+
+  return [...results].sort(
+    (a,b) => {
+
+      const frenchDifference =
+        frenchScore(b) -
+        frenchScore(a);
+
+      if(
+        frenchDifference !== 0
+      ){
+
+        return frenchDifference;
+
+      }
+
+      return 0;
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   DETECTION VIDEO
+========================================================= */
+
+function filterVideoResults(
+  results
+){
+
+  const videoDomains = [
+
+    "youtube.com",
+    "youtu.be",
+    "dailymotion.com",
+    "vimeo.com",
+    "twitch.tv",
+    "arte.tv",
+    "france.tv",
+    "tf1.fr",
+    "m6.fr",
+    "bfmtv.com",
+    "france24.com"
+
+  ];
+
+
+  const videoWords = [
+
+    "vidéo",
+    "video",
+    "watch",
+    "regarder",
+    "youtube",
+    "dailymotion",
+    "vimeo",
+    "stream",
+    "replay",
+    "reportage"
+
+  ];
+
+
+  const filtered =
+    results.filter(
+      result => {
+
+        const url =
+          String(
+            result.url ||
+            ""
+          ).toLowerCase();
+
+        const text =
+          (
+            String(
+              result.title ||
+              ""
+            ) +
+            " " +
+            String(
+              result.description ||
+              ""
+            ) +
+            " " +
+            url
+          ).toLowerCase();
+
+        return (
+          videoDomains.some(
+            domain =>
+              url.includes(domain)
+          ) ||
+          videoWords.some(
+            word =>
+              text.includes(word)
+          )
+        );
+
+      }
+    );
+
+
+  /*
+    Si le moteur n'a trouvé aucune page
+    clairement vidéo, on garde quand même
+    les résultats de la recherche Web afin
+    que l'onglet ne soit jamais vide.
+  */
+
+  return filtered.length
+    ? filtered
+    : results;
+
+}
+
+
+/* =========================================================
+   RECHERCHE IMAGES
+========================================================= */
+
+async function runNexusImages(
+  query,
+  pageNumber = 1
+){
+
+  const params =
+    new URLSearchParams({
+
+      q:query,
+
+      page:String(pageNumber)
+
+    });
+
+
+  const response =
+    await fetch(
+
+      NEXUS_IMAGES_API +
+      "?" +
+      params.toString(),
+
+      {
+        method:"GET",
+
+        headers:{
+          "Accept":
+            "application/json"
+        }
+
+      }
+
+    );
+
+
+  if(!response.ok){
+
+    throw new Error(
+      "HTTP " +
+      response.status
+    );
+
+  }
+
+
+  const data =
+    await response.json();
+
+
+  renderNexusImageResults(
+    query,
+    data
+  );
+
+}
+
+
+/* =========================================================
+   RESULTATS IMAGES
+========================================================= */
+
+function renderNexusImageResults(
+  query,
+  data
+){
+
+  const container =
+    $("nexusSearchResults");
+
+  if(!container){
+
+    return;
+
+  }
+
+
+  container.className =
+    "";
+
+  container.innerHTML =
+    "";
+
+
+  const images =
+    Array.isArray(data.images)
+      ? data.images
+      : [];
+
+
+  const info =
+    document.createElement(
+      "div"
+    );
+
+  info.className =
+    "nexus-search-info";
+
+  info.textContent =
+    images.length +
+    " image" +
+    (
+      images.length > 1
+        ? "s"
+        : ""
+    ) +
+    " pour « " +
+    query +
+    " »";
+
+  container.appendChild(
+    info
+  );
+
+
+  if(images.length === 0){
+
+    const empty =
+      document.createElement(
+        "div"
+      );
+
+    empty.className =
+      "nexus-search-empty";
+
+    empty.textContent =
+      "Aucune image trouvée.";
+
+    container.appendChild(
+      empty
+    );
+
+    return;
+
+  }
+
+
+  const grid =
+    document.createElement(
+      "div"
+    );
+
+  grid.className =
+    "nexus-image-grid";
+
+
+  images.forEach(
+    image => {
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+      card.className =
+        "nexus-image-card";
+
+
+      const preview =
+        document.createElement(
+          "img"
+        );
+
+      preview.className =
+        "nexus-image-preview";
+
+      preview.loading =
+        "lazy";
+
+      preview.alt =
+        image.title ||
+        "Image";
+
+
+      /*
+        Purili fournit thumbUrl.
+      */
+
+      preview.src =
+        image.thumbUrl ||
+        image.url ||
+        "";
+
+
+      const infoBox =
+        document.createElement(
+          "div"
+        );
+
+      infoBox.className =
+        "nexus-image-info";
+
+
+      const title =
+        document.createElement(
+          "div"
+        );
+
+      title.className =
+        "nexus-image-title";
+
+      title.textContent =
+        image.title ||
+        "Image";
+
+
+      const license =
+        document.createElement(
+          "div"
+        );
+
+      license.className =
+        "nexus-image-license";
+
+      license.textContent =
+        image.license
+          ? "Licence : " +
+            image.license
+          : "Source : Wikimedia";
+
+
+      infoBox.append(
+        title,
+        license
+      );
+
+
+      card.append(
+        preview,
+        infoBox
+      );
+
+
+      card.onclick =
+        () => {
+
+          const target =
+            image.url ||
+            image.thumbUrl;
+
+          if(target){
+
+            window.open(
+              target,
+              "_blank"
+            );
+
+          }
+
+        };
+
+
+      grid.appendChild(
+        card
+      );
+
+    }
+  );
+
+
+  container.appendChild(
+    grid
+  );
+
+
+  if(
+    data.total >
+    images.length
+  ){
+
+    const more =
+      document.createElement(
+        "button"
+      );
+
+    more.className =
+      "primary";
+
+    more.style.marginTop =
+      "14px";
+
+    more.textContent =
+      "Charger plus d'images";
+
+    more.onclick =
+      () => {
+
+        runNexusImages(
+          query,
+          Number(
+            data.page || pageNumber
+          ) + 1
+        );
+
+      };
+
+    container.appendChild(
+      more
+    );
+
+  }
+
+
+  setStatus(
+    "NexusSearch — Images — " +
+    images.length +
+    " résultat" +
+    (
+      images.length > 1
+        ? "s"
+        : ""
+    )
+  );
+
+}
+
+
+/* =========================================================
+   RESULTATS WEB / TOUT / VIDEOS
+========================================================= */
+
+function renderNexusSearchResults(
+  query,
+  data
+){
+
+  const container =
+    $("nexusSearchResults");
+
+  if(!container){
+
+    return;
+
+  }
+
+
+  container.className =
+    "";
+
+  container.innerHTML =
+    "";
+
+
+  const results =
+    Array.isArray(data.results)
+      ? data.results
+      : [];
+
+
+  const info =
+    document.createElement(
+      "div"
+    );
+
+  info.className =
+    "nexus-search-info";
+
+
+  let label =
+    "résultat";
+
+  if(
+    nexusSearchMode === "videos"
+  ){
+
+    label =
+      "résultat vidéo";
+
+  }
+
+
+  info.textContent =
+    results.length +
+    " " +
+    label +
+    (
+      results.length > 1
+        ? "s"
+        : ""
+    ) +
+    " pour « " +
+    query +
+    " »";
+
+
+  container.appendChild(
+    info
+  );
+
+
+  if(data.correction){
+
+    const correction =
+      document.createElement(
+        "div"
+      );
+
+    correction.className =
+      "nexus-search-correction";
+
+
+    if(
+      data.correction.corrected
+    ){
+
+      correction.textContent =
+        "Recherche corrigée : " +
+        data.correction.corrected;
+
+    }
+
+
+    container.appendChild(
+      correction
+    );
+
+  }
+
+
+  if(results.length === 0){
+
+    const empty =
+      document.createElement(
+        "div"
+      );
+
+    empty.className =
+      "nexus-search-empty";
+
+    empty.textContent =
+      nexusSearchMode === "videos"
+        ? "Aucune vidéo trouvée. Essaie une recherche plus précise."
+        : "Aucun résultat trouvé. Essaie avec une recherche différente.";
+
+
+    container.appendChild(
+      empty
+    );
+
+    return;
+
+  }
+
+
+  results.forEach(
+    result => {
+
+      if(
+        nexusSearchMode === "videos"
+      ){
+
+        renderVideoResult(
+          container,
+          result
+        );
+
+      }else{
+
+        renderWebResult(
+          container,
+          result
+        );
+
+      }
+
+    }
+  );
+
+
+  if(data.hasNext){
+
+    const more =
+      document.createElement(
+        "button"
+      );
+
+    more.className =
+      "primary";
+
+    more.style.marginTop =
+      "8px";
+
+    more.textContent =
+      "Charger plus de résultats";
+
+
+    more.onclick =
+      () => {
+
+        runNexusSearch(
+          query,
+          Number(
+            data.page || 1
+          ) + 1
+        );
+
+      };
+
+
+    container.appendChild(
+      more
+    );
+
+  }
+
+
+  setStatus(
+    "NexusSearch — " +
+    getSearchModeLabel() +
+    " — " +
+    results.length +
+    " résultat" +
+    (
+      results.length > 1
+        ? "s"
+        : ""
+    )
+  );
+
+}
+
+
+/* =========================================================
+   RESULTAT WEB
+========================================================= */
+
+function renderWebResult(
+  container,
+  result
+){
+
+  const button =
+    document.createElement(
+      "button"
+    );
+
+  button.className =
+    "nexus-search-result";
+
+  button.type =
+    "button";
+
+
+  const title =
+    document.createElement(
+      "div"
+    );
+
+  title.className =
+    "nexus-search-result-title";
+
+  title.textContent =
+    result.title ||
+    result.url ||
+    "Résultat";
+
+
+  const url =
+    document.createElement(
+      "div"
+    );
+
+  url.className =
+    "nexus-search-result-url";
+
+  url.textContent =
+    result.displayUrl ||
+    result.url ||
+    "";
+
+
+  const desc =
+    document.createElement(
+      "div"
+    );
+
+  desc.className =
+    "nexus-search-result-desc";
+
+  desc.textContent =
+    result.description ||
+    "Aucune description disponible.";
+
+
+  button.append(
+    title,
+    url,
+    desc
+  );
+
+
+  if(
+    isFrenchResult(result)
+  ){
+
+    const badge =
+      document.createElement(
+        "span"
+      );
+
+    badge.className =
+      "nexus-search-fr-badge";
+
+    badge.textContent =
+      "🇫🇷 Résultat français";
+
+    button.appendChild(
+      badge
+    );
+
+  }
+
+
+  button.title =
+    result.url ||
+    "";
+
+
+  button.onclick =
+    () => {
+
+      if(result.url){
+
+        navigate(
+          result.url
+        );
+
+      }
+
+    };
+
+
+  container.appendChild(
+    button
+  );
+
+}
+
+
+/* =========================================================
+   RESULTAT VIDEO
+========================================================= */
+
+function renderVideoResult(
+  container,
+  result
+){
+
+  const button =
+    document.createElement(
+      "button"
+    );
+
+  button.className =
+    "nexus-video-result";
+
+  button.type =
+    "button";
+
+
+  const icon =
+    document.createElement(
+      "div"
+    );
+
+  icon.className =
+    "nexus-video-icon";
+
+  icon.textContent =
+    "▶";
+
+
+  const content =
+    document.createElement(
+      "div"
+    );
+
+  content.className =
+    "nexus-video-content";
+
+
+  const title =
+    document.createElement(
+      "div"
+    );
+
+  title.className =
+    "nexus-search-result-title";
+
+  title.textContent =
+    result.title ||
+    result.url ||
+    "Vidéo";
+
+
+  const url =
+    document.createElement(
+      "div"
+    );
+
+  url.className =
+    "nexus-search-result-url";
+
+  url.textContent =
+    result.displayUrl ||
+    result.url ||
+    "";
+
+
+  const desc =
+    document.createElement(
+      "div"
+    );
+
+  desc.className =
+    "nexus-search-result-desc";
+
+  desc.textContent =
+    result.description ||
+    "Page vidéo";
+
+
+  content.append(
+    title,
+    url,
+    desc
+  );
+
+
+  if(
+    isFrenchResult(result)
+  ){
+
+    const badge =
+      document.createElement(
+        "span"
+      );
+
+    badge.className =
+      "nexus-search-fr-badge";
+
+    badge.textContent =
+      "🇫🇷 Résultat français";
+
+    content.appendChild(
+      badge
+    );
+
+  }
+
+
+  button.append(
+    icon,
+    content
+  );
+
+
+  button.onclick =
+    () => {
+
+      if(result.url){
+
+        navigate(
+          result.url
+        );
+
+      }
+
+    };
+
+
+  container.appendChild(
+    button
+  );
+
+}
+
+
+/* =========================================================
    NAVIGATION
 ========================================================= */
 
@@ -2155,8 +4023,24 @@ function navigate(
   push = true
 ){
 
+  const rawValue =
+    String(value || "")
+      .trim();
+
+
+  if(isSearchInput(rawValue)){
+
+    runNexusSearch(
+      rawValue
+    );
+
+    return;
+
+  }
+
+
   const url =
-    normalize(value);
+    normalize(rawValue);
 
 
   if(!url){
@@ -2200,7 +4084,6 @@ function navigate(
   address.value =
     displayUrl(url);
 
-
   renderTabs();
 
 
@@ -2224,17 +4107,6 @@ function navigate(
   }
 
 
-  /*
-    IMPORTANT :
-
-    Si le domaine fait partie des sites
-    connus pour bloquer les iframes,
-    on n'essaie même pas de charger
-    l'iframe.
-
-    On affiche directement la page Nexus.
-  */
-
   if(
     isKnownIframeBlocked(url)
   ){
@@ -2249,11 +4121,6 @@ function navigate(
 
   }
 
-
-  /*
-    Pour tous les autres sites,
-    on tente réellement l'iframe.
-  */
 
   page.innerHTML =
     "";
@@ -2296,18 +4163,6 @@ function navigate(
   );
 
 
-  /*
-    ATTENTION :
-
-    Le load n'est PAS utilisé pour décider
-    si le site est compatible.
-
-    Certains sites qui bloquent les iframes
-    peuvent quand même déclencher load.
-
-    Il sert uniquement au statut.
-  */
-
   frame.addEventListener(
     "load",
     () => {
@@ -2347,18 +4202,14 @@ function loadCurrent(){
     page.innerHTML =
       "";
 
-
     address.value =
       "";
 
-
     showHome();
-
 
     setStatus(
       "Prêt"
     );
-
 
     updateBookmarkButton();
 
@@ -2899,12 +4750,37 @@ function aiReply(message){
 
 
   if(
-    text.includes("moteur") ||
-    text.includes("mojeek")
+    text.includes("recherche") ||
+    text.includes("nexussearch")
   ){
 
     return (
-      "Le moteur de recherche de Nexus est Mojeek."
+      "NexusSearch propose Tout, Web, Images et Vidéos. " +
+      "Les résultats français et francophones sont privilégiés."
+    );
+
+  }
+
+
+  if(
+    text.includes("image")
+  ){
+
+    return (
+      "L'onglet Images utilise l'API images de Purili."
+    );
+
+  }
+
+
+  if(
+    text.includes("vidéo") ||
+    text.includes("video")
+  ){
+
+    return (
+      "L'onglet Vidéos recherche des pages vidéo dans " +
+      "l'index Web et privilégie les résultats français."
     );
 
   }
