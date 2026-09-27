@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
 
 <meta charset="UTF-8">
@@ -624,7 +625,7 @@ header{
 
 
 /* =========================================================
-   NEXUS ERROR / FALLBACK
+   FALLBACK MANUEL
 ========================================================= */
 
 .external-fallback{
@@ -1173,9 +1174,6 @@ header{
 const STORAGE_KEY =
   "cn_nexus_bookmarks_v1";
 
-const IFRAME_FALLBACK_DELAY =
-  5000;
-
 
 /* =========================================================
    ÉTAT
@@ -1194,8 +1192,6 @@ let activeTab = 1;
 let history = [];
 
 let historyIndex = -1;
-
-let iframeFallbackTimer = null;
 
 
 /* =========================================================
@@ -1229,7 +1225,138 @@ function setStatus(text){
 
 
 /* =========================================================
-   RÉCUPÉRER LE NOM DU SITE
+   AFFICHAGE DU DOMAINE EN .NEXUS
+========================================================= */
+
+/*
+  Cette fonction ne modifie JAMAIS l'URL réelle.
+
+  Exemples :
+
+  google.com
+  → google.nexus
+
+  google.fr
+  → google.nexus
+
+  github.io
+  → github.nexus
+
+  site.to
+  → site.nexus
+
+  youtube.com/watch?v=123
+  → youtube.nexus/watch?v=123
+
+  L'URL réelle reste exactement
+  celle utilisée dans l'iframe.
+*/
+
+function displayUrl(url){
+
+  if(!url){
+    return "";
+  }
+
+  try{
+
+    const parsed =
+      new URL(url);
+
+    let host =
+      parsed.hostname;
+
+    /*
+      Retirer www. uniquement pour
+      l'affichage.
+    */
+
+    if(
+      host.startsWith("www.")
+    ){
+
+      host =
+        host.slice(4);
+
+    }
+
+
+    /*
+      Si une URL .nexus existe déjà,
+      on la normalise.
+    */
+
+    if(
+      host.endsWith(".nexus")
+    ){
+
+      host =
+        host.slice(
+          0,
+          -6
+        );
+
+    }
+
+
+    /*
+      Remplacer le suffixe final
+      (.com, .fr, .io, .to, etc.)
+      par .nexus.
+
+      Exemple :
+
+      google.com
+      google.fr
+      google.io
+
+      deviennent tous :
+
+      google.nexus
+    */
+
+    const lastDot =
+      host.lastIndexOf(".");
+
+
+    if(
+      lastDot > 0
+    ){
+
+      host =
+        host.slice(
+          0,
+          lastDot
+        ) +
+        ".nexus";
+
+    }else{
+
+      host =
+        host +
+        ".nexus";
+
+    }
+
+
+    return (
+      host +
+      parsed.pathname +
+      parsed.search +
+      parsed.hash
+    );
+
+  }catch{
+
+    return url;
+
+  }
+
+}
+
+
+/* =========================================================
+   NOM DU SITE
 ========================================================= */
 
 function getSiteName(url){
@@ -1251,71 +1378,6 @@ function getSiteName(url){
 
     }
 
-    if(
-      host.endsWith(".nexus")
-    ){
-
-      host =
-        host.slice(
-          0,
-          -6
-        );
-
-    }
-
-    /*
-      Première lettre en majuscule
-      pour obtenir par exemple :
-
-      google.com
-      → Google.com
-    */
-
-    if(host.length > 0){
-
-      host =
-        host.charAt(0).toUpperCase() +
-        host.slice(1);
-
-    }
-
-    return host;
-
-  }catch{
-
-    return "Ce site";
-
-  }
-
-}
-
-
-/* =========================================================
-   URL VISUELLE .NEXUS
-========================================================= */
-
-function displayUrl(url){
-
-  if(!url){
-    return "";
-  }
-
-  try{
-
-    const parsed =
-      new URL(url);
-
-    let host =
-      parsed.hostname;
-
-    if(
-      host.startsWith("www.")
-    ){
-
-      host =
-        host.slice(4);
-
-    }
 
     if(
       host.endsWith(".nexus")
@@ -1328,18 +1390,16 @@ function displayUrl(url){
         );
 
     }
+
 
     return (
-      host +
-      ".nexus" +
-      parsed.pathname +
-      parsed.search +
-      parsed.hash
+      host.charAt(0).toUpperCase() +
+      host.slice(1)
     );
 
   }catch{
 
-    return url;
+    return "Ce site";
 
   }
 
@@ -1353,7 +1413,9 @@ function displayUrl(url){
 function tabLabel(url){
 
   if(!url){
+
     return "Nouvel onglet";
+
   }
 
   try{
@@ -1373,6 +1435,7 @@ function tabLabel(url){
 
     }
 
+
     if(
       host.endsWith(".nexus")
     ){
@@ -1385,7 +1448,37 @@ function tabLabel(url){
 
     }
 
-    return host + ".nexus";
+
+    /*
+      Même logique que la barre :
+      remplacement du TLD par .nexus.
+    */
+
+    const lastDot =
+      host.lastIndexOf(".");
+
+
+    if(
+      lastDot > 0
+    ){
+
+      host =
+        host.slice(
+          0,
+          lastDot
+        ) +
+        ".nexus";
+
+    }else{
+
+      host =
+        host +
+        ".nexus";
+
+    }
+
+
+    return host;
 
   }catch{
 
@@ -1397,7 +1490,7 @@ function tabLabel(url){
 
 
 /* =========================================================
-   NORMALISATION
+   NORMALISATION URL
 ========================================================= */
 
 function normalize(value){
@@ -1406,14 +1499,28 @@ function normalize(value){
     String(value || "")
       .trim();
 
+
   if(!value){
+
     return "";
+
   }
 
 
   /*
-    Retire le faux .nexus
-    si l'utilisateur le tape.
+    Si l'utilisateur tape :
+
+    google.nexus
+
+    on transforme cela en :
+
+    https://google.com
+
+    Impossible de savoir quel TLD
+    était utilisé uniquement à partir
+    de .nexus.
+
+    On utilise donc .com par défaut.
   */
 
   if(
@@ -1424,7 +1531,7 @@ function normalize(value){
     value =
       value.replace(
         /\.nexus(?=[:/?#]|$)/i,
-        ""
+        ".com"
       );
 
   }
@@ -1443,17 +1550,19 @@ function normalize(value){
       const parsed =
         new URL(value);
 
+
       if(
         parsed.hostname.endsWith(".nexus")
       ){
 
         parsed.hostname =
-          parsed.hostname.slice(
-            0,
-            -6
+          parsed.hostname.replace(
+            /\.nexus$/i,
+            ".com"
           );
 
       }
+
 
       return parsed.toString();
 
@@ -1467,7 +1576,7 @@ function normalize(value){
 
 
   /*
-    Domaine classique
+    Adresse classique
   */
 
   if(
@@ -1484,7 +1593,7 @@ function normalize(value){
 
 
   /*
-    Recherche
+    Recherche Google
   */
 
   return (
@@ -1496,7 +1605,7 @@ function normalize(value){
 
 
 /* =========================================================
-   ONGLET ACTUEL
+   ONGLET ACTIF
 ========================================================= */
 
 function getActiveTab(){
@@ -1510,13 +1619,14 @@ function getActiveTab(){
 
 
 /* =========================================================
-   AFFICHER LES ONGLETS
+   RENDU DES ONGLETS
 ========================================================= */
 
 function renderTabs(){
 
   const container =
     $("tabs");
+
 
   container.innerHTML =
     "";
@@ -1529,6 +1639,7 @@ function renderTabs(){
         document.createElement(
           "button"
         );
+
 
       button.className =
         "tab" +
@@ -1661,40 +1772,10 @@ function showHome(){
 
 
 /* =========================================================
-   NETTOYER LE FALLBACK
-========================================================= */
-
-function clearIframeFallback(){
-
-  if(
-    iframeFallbackTimer
-  ){
-
-    clearTimeout(
-      iframeFallbackTimer
-    );
-
-    iframeFallbackTimer =
-      null;
-
-  }
-
-}
-
-
-/* =========================================================
-   FALLBACK NEXUS
+   ÉCRAN D'OUVERTURE EXTERNE
 ========================================================= */
 
 function openExternal(url){
-
-  /*
-    Nom réel du site :
-    Google.com
-    Chatgpt.com
-    Github.com
-    etc.
-  */
 
   const siteName =
     getSiteName(url);
@@ -1705,6 +1786,7 @@ function openExternal(url){
       "div"
     );
 
+
   overlay.className =
     "external-fallback";
 
@@ -1714,6 +1796,7 @@ function openExternal(url){
       "div"
     );
 
+
   box.className =
     "external-fallback-box";
 
@@ -1722,6 +1805,7 @@ function openExternal(url){
     document.createElement(
       "div"
     );
+
 
   title.className =
     "external-fallback-title";
@@ -1737,6 +1821,7 @@ function openExternal(url){
       "div"
     );
 
+
   text.className =
     "external-fallback-text";
 
@@ -1749,6 +1834,7 @@ function openExternal(url){
     document.createElement(
       "div"
     );
+
 
   urlText.className =
     "external-fallback-url";
@@ -1763,6 +1849,7 @@ function openExternal(url){
       "button"
     );
 
+
   button.className =
     "primary external-fallback-button";
 
@@ -1773,13 +1860,6 @@ function openExternal(url){
 
   button.onclick =
     () => {
-
-      /*
-        IMPORTANT :
-        L'ouverture est directement déclenchée
-        par le clic de l'utilisateur afin que
-        Safari/iOS ne bloque pas le nouvel onglet.
-      */
 
       const opened =
         window.open(
@@ -1829,89 +1909,6 @@ function openExternal(url){
 
 
 /* =========================================================
-   FALLBACK IFRAME
-========================================================= */
-
-function setupIframeFallback(
-  frame,
-  url
-){
-
-  clearIframeFallback();
-
-
-  /*
-    NE PAS considérer "load" comme une preuve
-    que la page est réellement visible.
-
-    Certains sites déclenchent load même lorsque
-    l'affichage dans une iframe est refusé.
-  */
-
-  frame.addEventListener(
-    "load",
-    () => {
-
-      /*
-        On indique seulement que l'iframe
-        a terminé son chargement technique.
-
-        On n'écrit PAS :
-        "Page chargée"
-      */
-
-      setStatus(
-        "Connexion au site — " +
-        displayUrl(url)
-      );
-
-    },
-    {
-      once:true
-    }
-  );
-
-
-  /*
-    Après le délai, Nexus affiche son écran
-    de compatibilité.
-
-    L'utilisateur peut alors décider d'ouvrir
-    le site avec Safari.
-
-    Cette méthode est volontairement utilisée
-    car JavaScript ne peut pas lire librement
-    le contenu d'une iframe provenant d'un autre
-    domaine pour savoir si X-Frame-Options/CSP
-    a réellement bloqué l'affichage.
-  */
-
-  iframeFallbackTimer =
-    setTimeout(
-      () => {
-
-        iframeFallbackTimer =
-          null;
-
-
-        setStatus(
-          "Problème d'affichage — " +
-          displayUrl(url)
-        );
-
-
-        openExternal(
-          url
-        );
-
-      },
-      IFRAME_FALLBACK_DELAY
-    );
-
-}
-
-
-/* =========================================================
    NAVIGATION
 ========================================================= */
 
@@ -1938,12 +1935,14 @@ function navigate(
 
 
   if(!t){
+
     return;
+
   }
 
 
   /*
-    URL réelle
+    On stocke l'URL réelle.
   */
 
   t.url =
@@ -1967,7 +1966,8 @@ function navigate(
 
 
   /*
-    URL visuelle
+    La barre affiche uniquement
+    la version .nexus.
   */
 
   address.value =
@@ -1989,9 +1989,11 @@ function navigate(
         historyIndex + 1
       );
 
+
     history.push(
       url
     );
+
 
     historyIndex =
       history.length - 1;
@@ -1999,12 +2001,13 @@ function navigate(
   }
 
 
-  clearIframeFallback();
-
-
   page.innerHTML =
     "";
 
+
+  /*
+    IFRAME
+  */
 
   const frame =
     document.createElement(
@@ -2030,8 +2033,11 @@ function navigate(
 
   /*
     IMPORTANT :
-    URL RÉELLE uniquement.
-    Le .nexus est seulement visuel.
+
+    C'est l'URL RÉELLE qui est envoyée
+    au site.
+
+    Aucun .nexus ici.
   */
 
   frame.src =
@@ -2044,14 +2050,35 @@ function navigate(
 
 
   setStatus(
-    "Connexion à " +
+    "Chargement — " +
     displayUrl(url)
   );
 
 
-  setupIframeFallback(
-    frame,
-    url
+  /*
+    Le "load" sert uniquement à indiquer
+    que l'iframe a terminé son chargement
+    technique.
+
+    On ne déclenche PAS d'erreur automatique.
+
+    Cela évite le problème où un site compatible
+    serait considéré à tort comme incompatible.
+  */
+
+  frame.addEventListener(
+    "load",
+    () => {
+
+      setStatus(
+        "Page chargée — " +
+        displayUrl(url)
+      );
+
+    },
+    {
+      once:true
+    }
   );
 
 
@@ -2061,7 +2088,7 @@ function navigate(
 
 
 /* =========================================================
-   CHARGER L'ONGLET
+   CHARGER ONGLET ACTUEL
 ========================================================= */
 
 function loadCurrent(){
@@ -2075,21 +2102,24 @@ function loadCurrent(){
     !t.url
   ){
 
-    clearIframeFallback();
-
     page.innerHTML =
       "";
+
 
     address.value =
       "";
 
+
     showHome();
+
 
     setStatus(
       "Prêt"
     );
 
+
     updateBookmarkButton();
+
 
     return;
 
@@ -2115,9 +2145,15 @@ function newTab(){
 
 
   tabs.push({
+
     id:id,
-    title:"Nouvel onglet",
-    url:""
+
+    title:
+      "Nouvel onglet",
+
+    url:
+      ""
+
   });
 
 
@@ -2145,7 +2181,9 @@ function goHome(){
 
 
   if(!t){
+
     return;
+
   }
 
 
@@ -2156,9 +2194,6 @@ function goHome(){
     "Nouvel onglet";
 
 
-  clearIframeFallback();
-
-
   renderTabs();
 
   loadCurrent();
@@ -2167,7 +2202,7 @@ function goHome(){
 
 
 /* =========================================================
-   RELOAD
+   RECHARGER
 ========================================================= */
 
 function reload(){
@@ -2197,7 +2232,7 @@ function reload(){
 
 
 /* =========================================================
-   BACK
+   PRÉCÉDENT
 ========================================================= */
 
 function goBack(){
@@ -2243,7 +2278,7 @@ function goBack(){
 
 
 /* =========================================================
-   FORWARD
+   SUIVANT
 ========================================================= */
 
 function goForward(){
@@ -2439,7 +2474,7 @@ function renderFavorites(){
 
 
 /* =========================================================
-   FAVORI
+   AJOUT / SUPPRESSION FAVORI
 ========================================================= */
 
 function toggleBookmark(){
@@ -2506,11 +2541,13 @@ function toggleBookmark(){
 
 
   bookmarks.push({
+
     title:
       tabLabel(t.url),
 
     url:
       t.url
+
   });
 
 
@@ -2535,7 +2572,7 @@ function toggleBookmark(){
 
 
 /* =========================================================
-   ÉTAT FAVORI
+   ÉTAT DU FAVORI
 ========================================================= */
 
 function updateBookmarkButton(){
@@ -2597,45 +2634,22 @@ function aiReply(message){
   ){
 
     return (
-      "Lorsqu'un site ne peut pas être affiché " +
-      "dans le système sécurisé de Nexus, " +
-      "Nexus propose de l'ouvrir avec le navigateur par défaut."
+      "Les sites compatibles restent affichés " +
+      "directement dans C.N. Nexus."
     );
 
   }
 
 
   if(
-    text.includes("url")
+    text.includes("url") ||
+    text.includes("nexus")
   ){
 
     return (
       "Le .nexus affiché dans la barre est uniquement visuel. " +
-      "L'adresse réelle utilisée par Nexus reste inchangée."
-    );
-
-  }
-
-
-  if(
-    text.includes("sécur")
-  ){
-
-    return (
-      "Le système sécurisé Nexus contrôle l'affichage " +
-      "des pages externes dans son environnement. " +
-      "Le .nexus lui-même est uniquement visuel."
-    );
-
-  }
-
-
-  if(
-    text.includes("nouvel onglet")
-  ){
-
-    return (
-      "Le bouton + permet de créer un nouvel onglet."
+      "Par exemple, google.com devient google.nexus, " +
+      "mais Nexus utilise toujours l'URL réelle."
     );
 
   }
@@ -2647,6 +2661,17 @@ function aiReply(message){
 
     return (
       "Le bouton ☆ permet d'ajouter la page actuelle aux favoris."
+    );
+
+  }
+
+
+  if(
+    text.includes("nouvel onglet")
+  ){
+
+    return (
+      "Le bouton + permet de créer un nouvel onglet."
     );
 
   }
@@ -2667,8 +2692,7 @@ function aiReply(message){
 
   return (
     "Je suis C.N. AI. Je peux t'aider avec " +
-    "les fonctions de C.N. Nexus : navigation, " +
-    "onglets, favoris, affichage des pages et ouverture externe."
+    "les fonctions de C.N. Nexus."
   );
 
 }
@@ -2764,7 +2788,7 @@ address.addEventListener(
 
 
 /* =========================================================
-   AI OUVRIR
+   C.N. AI
 ========================================================= */
 
 $("aiOpen").onclick =
@@ -2787,10 +2811,6 @@ $("aiClose").onclick =
   };
 
 
-/* =========================================================
-   AI FORM
-========================================================= */
-
 $("aiForm").addEventListener(
   "submit",
   event => {
@@ -2807,7 +2827,9 @@ $("aiForm").addEventListener(
 
 
     if(!value){
+
       return;
+
     }
 
 
