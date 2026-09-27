@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>C.N. Nexus</title>
 
 <style>
+
+/* =========================================================
+   VARIABLES
+========================================================= */
 
 :root{
   --bg:#05050a;
@@ -15,12 +24,15 @@
   --border:#29204d;
   --violet:#8b5cf6;
   --indigo:#4f46e5;
-  --marine:#07152f;
   --text:#f5f3ff;
   --muted:#aaa5bd;
-  --danger:#ff5577;
   --shadow:0 12px 40px rgba(0,0,0,.45);
 }
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
 
 *{
   box-sizing:border-box;
@@ -28,13 +40,16 @@
 
 html,
 body{
-  margin:0;
   width:100%;
   height:100%;
+  margin:0;
   overflow:hidden;
-  font-family:Arial,Helvetica,sans-serif;
   background:var(--bg);
   color:var(--text);
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 }
 
 body{
@@ -43,51 +58,69 @@ body{
 }
 
 
-/* =========================
+/* =========================================================
    HEADER
-========================= */
+========================================================= */
 
 header{
   height:58px;
   min-height:58px;
+
   display:flex;
   align-items:center;
+
   gap:12px;
+
   padding:0 14px;
-  background:linear-gradient(
-    90deg,
-    #090812,
-    #0d0b19,
-    #090812
-  );
-  border-bottom:1px solid var(--border);
+
+  background:
+    linear-gradient(
+      90deg,
+      #090812,
+      #0d0b19,
+      #090812
+    );
+
+  border-bottom:
+    1px solid var(--border);
+
   box-shadow:var(--shadow);
+
   z-index:20;
 }
 
 .logo{
   width:36px;
   height:36px;
-  border-radius:11px;
+
+  flex:0 0 36px;
+
   display:flex;
   align-items:center;
   justify-content:center;
-  font-weight:900;
+
+  border-radius:11px;
+
   font-size:19px;
+  font-weight:900;
+
   background:
     linear-gradient(
       135deg,
       var(--violet),
       var(--indigo)
     );
+
   box-shadow:
-    0 0 22px rgba(139,92,246,.3);
+    0 0 22px
+    rgba(139,92,246,.3);
 }
 
 .brand{
+  min-width:0;
+
   display:flex;
   flex-direction:column;
-  min-width:0;
 }
 
 .brand strong{
@@ -102,12 +135,20 @@ header{
 
 .ai-button{
   margin-left:auto;
-  border:1px solid #38266d;
+
+  border:
+    1px solid #38266d;
+
   background:#120d25;
+
   color:#dcd1ff;
+
   border-radius:10px;
+
   padding:9px 13px;
+
   cursor:pointer;
+
   font-weight:700;
 }
 
@@ -116,19 +157,26 @@ header{
 }
 
 
-/* =========================
+/* =========================================================
    TABS
-========================= */
+========================================================= */
 
 #tabs{
   height:40px;
   min-height:40px;
+
   display:flex;
   align-items:flex-end;
+
   gap:5px;
+
   padding:0 8px;
+
   background:#080711;
-  border-bottom:1px solid var(--border);
+
+  border-bottom:
+    1px solid var(--border);
+
   overflow-x:auto;
   overflow-y:hidden;
 }
@@ -145,67 +193,103 @@ header{
 .tab{
   max-width:220px;
   min-width:0;
+
   height:34px;
+
   padding:0 12px;
-  border:1px solid transparent;
-  border-radius:10px 10px 0 0;
+
+  border:
+    1px solid transparent;
+
+  border-radius:
+    10px 10px 0 0;
+
   background:transparent;
+
   color:var(--muted);
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   cursor:pointer;
+
   font-size:12px;
+
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
+
   flex-shrink:0;
 }
 
 .tab.active{
   background:var(--panel);
-  border-color:var(--border);
-  border-bottom-color:var(--panel);
+
+  border-color:
+    var(--border);
+
+  border-bottom-color:
+    var(--panel);
+
   color:var(--text);
 }
 
 @media(max-width:760px){
+
   .tab{
     max-width:170px;
   }
+
 }
 
 @media(max-width:430px){
+
   .tab{
     max-width:125px;
   }
+
 }
 
 
-/* =========================
+/* =========================================================
    TOOLBAR
-========================= */
+========================================================= */
 
 .toolbar{
   height:52px;
   min-height:52px;
+
   display:flex;
   align-items:center;
+
   gap:7px;
+
   padding:7px 10px;
+
   background:var(--panel);
-  border-bottom:1px solid var(--border);
+
+  border-bottom:
+    1px solid var(--border);
 }
 
 .tool{
   width:35px;
   height:35px;
+
   flex:0 0 35px;
-  border:1px solid var(--border);
+
+  border:
+    1px solid var(--border);
+
   border-radius:9px;
+
   background:#0d0b18;
+
   color:var(--text);
+
   cursor:pointer;
+
   font-size:16px;
 }
 
@@ -216,23 +300,35 @@ header{
 .address-wrap{
   min-width:0;
   flex:1;
+
   height:35px;
+
   display:flex;
   align-items:center;
-  border:1px solid var(--border);
+
+  border:
+    1px solid var(--border);
+
   border-radius:10px;
+
   background:#080711;
+
   overflow:hidden;
 }
 
 .address{
   width:100%;
   height:100%;
+
   border:0;
   outline:0;
+
   background:transparent;
+
   color:var(--text);
+
   padding:0 13px;
+
   font-size:13px;
 }
 
@@ -241,50 +337,74 @@ header{
 }
 
 
-/* =========================
+/* =========================================================
    LAYOUT
-========================= */
+========================================================= */
 
 .layout{
   flex:1;
   min-height:0;
+
   display:grid;
-  grid-template-columns:230px 1fr;
+
+  grid-template-columns:
+    230px 1fr;
 }
 
 .sidebar{
   min-width:0;
+
   background:#080711;
-  border-right:1px solid var(--border);
+
+  border-right:
+    1px solid var(--border);
+
   display:flex;
   flex-direction:column;
+
   overflow:hidden;
 }
 
 .sidebar-title{
-  padding:15px 14px 10px;
+  padding:
+    15px 14px 10px;
+
   font-size:12px;
+
   font-weight:800;
+
   color:#d7d0e8;
 }
 
 #favorites{
   overflow:auto;
-  padding:0 8px 12px;
+
+  padding:
+    0 8px 12px;
 }
 
 .favorite{
+  width:100%;
+
   display:flex;
   align-items:center;
+
   gap:9px;
-  width:100%;
+
   border:0;
+
   background:transparent;
+
   color:var(--muted);
+
   padding:10px;
+
   border-radius:9px;
+
   cursor:pointer;
+
   text-align:left;
+
   font-size:12px;
 }
 
@@ -295,30 +415,40 @@ header{
 
 .favorite-name{
   min-width:0;
+
   overflow:hidden;
+
   text-overflow:ellipsis;
+
   white-space:nowrap;
 }
 
 .empty-favorites{
   padding:10px;
+
   color:#68627a;
+
   font-size:11px;
 }
 
 .main{
   min-width:0;
   min-height:0;
+
   display:flex;
   flex-direction:column;
+
   position:relative;
 }
 
 #page{
   flex:1;
   min-height:0;
+
   position:relative;
+
   overflow:hidden;
+
   background:
     radial-gradient(
       circle at 50% 35%,
@@ -331,98 +461,144 @@ header{
 #status{
   height:25px;
   min-height:25px;
+
   display:flex;
   align-items:center;
+
   padding:0 10px;
-  border-top:1px solid var(--border);
+
+  border-top:
+    1px solid var(--border);
+
   background:#080711;
+
   color:var(--muted);
+
   font-size:10px;
 }
 
 
-/* =========================
+/* =========================================================
    HOME
-========================= */
+========================================================= */
 
 .home{
   width:100%;
   height:100%;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   padding:25px;
 }
 
 .home-card{
   width:min(700px,100%);
+
   text-align:center;
+
   padding:30px;
 }
 
 .home-logo{
   width:70px;
   height:70px;
-  margin:0 auto 18px;
+
+  margin:
+    0 auto 18px;
+
   border-radius:21px;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   font-size:34px;
   font-weight:900;
+
   background:
     linear-gradient(
       135deg,
       var(--violet),
       var(--indigo)
     );
+
   box-shadow:
-    0 0 45px rgba(139,92,246,.28);
+    0 0 45px
+    rgba(139,92,246,.28);
 }
 
 .home h1{
-  margin:0 0 8px;
+  margin:
+    0 0 8px;
+
   font-size:29px;
 }
 
 .home p{
   margin:0;
+
   color:var(--muted);
+
   font-size:13px;
 }
 
 .home-search{
-  margin:24px auto 0;
+  margin:
+    24px auto 0;
+
   display:flex;
+
   max-width:560px;
+
   gap:8px;
 }
 
 .home-search input{
   flex:1;
+
   min-width:0;
+
   height:42px;
-  border:1px solid var(--border);
+
+  border:
+    1px solid var(--border);
+
   border-radius:11px;
+
   outline:0;
+
   background:#080711;
+
   color:var(--text);
-  padding:0 13px;
+
+  padding:
+    0 13px;
 }
 
 .primary{
   height:42px;
-  border:1px solid #5533a1;
+
+  border:
+    1px solid #5533a1;
+
   border-radius:11px;
-  padding:0 17px;
+
+  padding:
+    0 17px;
+
   background:
     linear-gradient(
       135deg,
       #6538bf,
       #4036c7
     );
+
   color:white;
+
   font-weight:800;
+
   cursor:pointer;
 }
 
@@ -431,87 +607,138 @@ header{
 }
 
 
-/* =========================
+/* =========================================================
    IFRAME
-========================= */
+========================================================= */
 
 .browser-frame{
   width:100%;
   height:100%;
-  border:0;
+
   display:block;
+
+  border:0;
+
   background:white;
 }
 
 
-/* =========================
-   FALLBACK
-========================= */
+/* =========================================================
+   NEXUS ERROR / FALLBACK
+========================================================= */
 
 .external-fallback{
   position:absolute;
+
   inset:0;
+
   display:flex;
+
   align-items:center;
   justify-content:center;
+
   background:
     linear-gradient(
       180deg,
       #080711,
       #05050a
     );
+
   z-index:10;
+
   padding:25px;
 }
 
 .external-fallback-box{
-  width:min(500px,100%);
+  width:min(
+    520px,
+    100%
+  );
+
   background:#0d0b18;
-  border:1px solid #38266d;
+
+  border:
+    1px solid #38266d;
+
   border-radius:18px;
+
   padding:28px;
+
   text-align:center;
-  box-shadow:0 20px 60px rgba(0,0,0,.55);
+
+  box-shadow:
+    0 20px 60px
+    rgba(0,0,0,.55);
 }
 
 .external-fallback-title{
   font-size:18px;
+
   font-weight:800;
-  margin-bottom:10px;
+
+  line-height:1.35;
+
+  margin-bottom:12px;
 }
 
 .external-fallback-text{
   color:var(--muted);
+
   font-size:13px;
+
   line-height:1.5;
+
   margin-bottom:20px;
 }
 
 .external-fallback-url{
   color:#c9b9ff;
-  font-size:11px;
-  margin-bottom:18px;
-  word-break:break-all;
+
+  font-size:12px;
+
+  margin-bottom:20px;
+
+  word-break:break-word;
+}
+
+.external-fallback-button{
+  width:100%;
 }
 
 
-/* =========================
+/* =========================================================
    AI PANEL
-========================= */
+========================================================= */
 
 .ai-panel{
   position:absolute;
+
   right:15px;
   bottom:42px;
-  width:min(360px,calc(100% - 30px));
+
+  width:min(
+    360px,
+    calc(100% - 30px)
+  );
+
   max-height:500px;
+
   display:none;
   flex-direction:column;
+
   background:#0b0a14;
-  border:1px solid #39266d;
+
+  border:
+    1px solid #39266d;
+
   border-radius:16px;
-  box-shadow:0 20px 60px rgba(0,0,0,.6);
+
+  box-shadow:
+    0 20px 60px
+    rgba(0,0,0,.6);
+
   overflow:hidden;
+
   z-index:30;
 }
 
@@ -520,9 +747,14 @@ header{
 }
 
 .ai-head{
-  padding:13px 15px;
-  border-bottom:1px solid var(--border);
+  padding:
+    13px 15px;
+
+  border-bottom:
+    1px solid var(--border);
+
   display:flex;
+
   align-items:center;
   justify-content:space-between;
 }
@@ -533,78 +765,116 @@ header{
 
 .ai-close{
   border:0;
+
   background:transparent;
+
   color:var(--muted);
+
   cursor:pointer;
+
   font-size:17px;
 }
 
 .ai-messages{
   flex:1;
+
   min-height:180px;
+
   max-height:330px;
+
   overflow:auto;
+
   padding:12px;
 }
 
 .ai-message{
-  padding:9px 11px;
+  padding:
+    9px 11px;
+
   margin-bottom:8px;
+
   border-radius:10px;
+
   font-size:12px;
+
   line-height:1.45;
 }
 
 .ai-message.bot{
   background:#111020;
+
   color:#ddd7ed;
 }
 
 .ai-message.user{
   background:#211642;
+
   color:#eee8ff;
+
   margin-left:25px;
 }
 
 .ai-form{
   display:flex;
+
   gap:7px;
+
   padding:10px;
-  border-top:1px solid var(--border);
+
+  border-top:
+    1px solid var(--border);
 }
 
 .ai-input{
   flex:1;
+
   min-width:0;
+
   height:36px;
-  border:1px solid var(--border);
+
+  border:
+    1px solid var(--border);
+
   border-radius:9px;
+
   outline:0;
+
   background:#080711;
+
   color:var(--text);
-  padding:0 10px;
+
+  padding:
+    0 10px;
+
   font-size:12px;
 }
 
 .ai-send{
   width:38px;
   height:36px;
-  border:1px solid #5533a1;
+
+  border:
+    1px solid #5533a1;
+
   border-radius:9px;
+
   background:#34236c;
+
   color:white;
+
   cursor:pointer;
 }
 
 
-/* =========================
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
 
 @media(max-width:700px){
 
   header{
-    padding:0 9px;
+    padding:
+      0 9px;
   }
 
   .brand span{
@@ -616,7 +886,9 @@ header{
   }
 
   .ai-button{
-    padding:8px 10px;
+    padding:
+      8px 10px;
+
     font-size:11px;
   }
 
@@ -630,11 +902,13 @@ header{
 
   .toolbar{
     gap:5px;
+
     padding:7px;
   }
 
   .tool{
     width:33px;
+
     flex-basis:33px;
   }
 
@@ -647,7 +921,8 @@ header{
   }
 
   .home-card{
-    padding:20px 10px;
+    padding:
+      20px 10px;
   }
 
   .home h1{
@@ -664,27 +939,40 @@ header{
 
   .ai-panel{
     right:10px;
+
     bottom:34px;
   }
+
 }
 
 </style>
+
 </head>
+
 
 <body>
 
 
-<!-- =========================
+<!-- =====================================================
      HEADER
-========================= -->
+===================================================== -->
 
 <header>
 
-  <div class="logo">N</div>
+  <div class="logo">
+    N
+  </div>
 
   <div class="brand">
-    <strong>C.N. Nexus</strong>
-    <span>by C.N. Organization</span>
+
+    <strong>
+      C.N. Nexus
+    </strong>
+
+    <span>
+      by C.N. Organization
+    </span>
+
   </div>
 
   <button
@@ -697,16 +985,16 @@ header{
 </header>
 
 
-<!-- =========================
+<!-- =====================================================
      TABS
-========================= -->
+===================================================== -->
 
 <div id="tabs"></div>
 
 
-<!-- =========================
+<!-- =====================================================
      TOOLBAR
-========================= -->
+===================================================== -->
 
 <div class="toolbar">
 
@@ -774,9 +1062,9 @@ header{
 </div>
 
 
-<!-- =========================
-     MAIN LAYOUT
-========================= -->
+<!-- =====================================================
+     LAYOUT
+===================================================== -->
 
 <div class="layout">
 
@@ -805,9 +1093,9 @@ header{
     </div>
 
 
-    <!-- =====================
+    <!-- =================================================
          C.N. AI
-    ====================== -->
+    ================================================== -->
 
     <div
       class="ai-panel"
@@ -816,7 +1104,9 @@ header{
 
       <div class="ai-head">
 
-        <strong>C.N. AI</strong>
+        <strong>
+          C.N. AI
+        </strong>
 
         <button
           class="ai-close"
@@ -833,9 +1123,14 @@ header{
       >
 
         <div class="ai-message bot">
+
           Salut 👋 Je suis C.N. AI.
+
           <br><br>
-          Je peux t'aider à utiliser C.N. Nexus.
+
+          Je peux t'aider à utiliser
+          C.N. Nexus.
+
         </div>
 
       </div>
@@ -902,15 +1197,14 @@ let historyIndex = -1;
 
 let iframeFallbackTimer = null;
 
-let iframeLoadDetected = false;
-
 
 /* =========================================================
    ÉLÉMENTS
 ========================================================= */
 
 const $ =
-  id => document.getElementById(id);
+  id =>
+    document.getElementById(id);
 
 const page =
   $("page");
@@ -935,10 +1229,69 @@ function setStatus(text){
 
 
 /* =========================================================
-   URL AFFICHÉE
-   IMPORTANT :
-   .nexus est UNIQUEMENT VISUEL.
-   L'URL réelle n'est jamais modifiée.
+   RÉCUPÉRER LE NOM DU SITE
+========================================================= */
+
+function getSiteName(url){
+
+  try{
+
+    const parsed =
+      new URL(url);
+
+    let host =
+      parsed.hostname;
+
+    if(
+      host.startsWith("www.")
+    ){
+
+      host =
+        host.slice(4);
+
+    }
+
+    if(
+      host.endsWith(".nexus")
+    ){
+
+      host =
+        host.slice(
+          0,
+          -6
+        );
+
+    }
+
+    /*
+      Première lettre en majuscule
+      pour obtenir par exemple :
+
+      google.com
+      → Google.com
+    */
+
+    if(host.length > 0){
+
+      host =
+        host.charAt(0).toUpperCase() +
+        host.slice(1);
+
+    }
+
+    return host;
+
+  }catch{
+
+    return "Ce site";
+
+  }
+
+}
+
+
+/* =========================================================
+   URL VISUELLE .NEXUS
 ========================================================= */
 
 function displayUrl(url){
@@ -955,14 +1308,25 @@ function displayUrl(url){
     let host =
       parsed.hostname;
 
-    if(host.startsWith("www.")){
+    if(
+      host.startsWith("www.")
+    ){
+
       host =
         host.slice(4);
+
     }
 
-    if(host.endsWith(".nexus")){
+    if(
+      host.endsWith(".nexus")
+    ){
+
       host =
-        host.slice(0,-6);
+        host.slice(
+          0,
+          -6
+        );
+
     }
 
     return (
@@ -1000,14 +1364,25 @@ function tabLabel(url){
     let host =
       parsed.hostname;
 
-    if(host.startsWith("www.")){
+    if(
+      host.startsWith("www.")
+    ){
+
       host =
         host.slice(4);
+
     }
 
-    if(host.endsWith(".nexus")){
+    if(
+      host.endsWith(".nexus")
+    ){
+
       host =
-        host.slice(0,-6);
+        host.slice(
+          0,
+          -6
+        );
+
     }
 
     return host + ".nexus";
@@ -1022,13 +1397,14 @@ function tabLabel(url){
 
 
 /* =========================================================
-   NORMALISATION URL
+   NORMALISATION
 ========================================================= */
 
 function normalize(value){
 
   value =
-    String(value || "").trim();
+    String(value || "")
+      .trim();
 
   if(!value){
     return "";
@@ -1036,12 +1412,8 @@ function normalize(value){
 
 
   /*
-    Si l'utilisateur tape :
-
-    google.com.nexus
-    google.com.nexus/test
-
-    on enlève uniquement le faux .nexus.
+    Retire le faux .nexus
+    si l'utilisateur le tape.
   */
 
   if(
@@ -1059,11 +1431,7 @@ function normalize(value){
 
 
   /*
-    Si l'utilisateur tape :
-
-    https://google.com.nexus/test
-
-    on enlève le faux .nexus du hostname.
+    URL avec protocole
   */
 
   if(
@@ -1099,7 +1467,7 @@ function normalize(value){
 
 
   /*
-    Adresse classique
+    Domaine classique
   */
 
   if(
@@ -1107,13 +1475,16 @@ function normalize(value){
       .test(value)
   ){
 
-    return "https://" + value;
+    return (
+      "https://" +
+      value
+    );
 
   }
 
 
   /*
-    Sinon recherche Google
+    Recherche
   */
 
   return (
@@ -1125,20 +1496,21 @@ function normalize(value){
 
 
 /* =========================================================
-   TAB ACTIVE
+   ONGLET ACTUEL
 ========================================================= */
 
 function getActiveTab(){
 
   return tabs.find(
-    t => t.id === activeTab
+    t =>
+      t.id === activeTab
   );
 
 }
 
 
 /* =========================================================
-   TABS
+   AFFICHER LES ONGLETS
 ========================================================= */
 
 function renderTabs(){
@@ -1149,11 +1521,14 @@ function renderTabs(){
   container.innerHTML =
     "";
 
+
   tabs.forEach(
     t => {
 
       const button =
-        document.createElement("button");
+        document.createElement(
+          "button"
+        );
 
       button.className =
         "tab" +
@@ -1163,13 +1538,16 @@ function renderTabs(){
             : ""
         );
 
+
       button.textContent =
         tabLabel(t.url);
+
 
       button.title =
         t.url
           ? displayUrl(t.url)
           : "Nouvel onglet";
+
 
       button.onclick =
         () => {
@@ -1183,6 +1561,7 @@ function renderTabs(){
 
         };
 
+
       container.appendChild(
         button
       );
@@ -1194,7 +1573,7 @@ function renderTabs(){
 
 
 /* =========================================================
-   HOME
+   ACCUEIL
 ========================================================= */
 
 function showHome(){
@@ -1267,8 +1646,12 @@ function showHome(){
     "keydown",
     event => {
 
-      if(event.key === "Enter"){
+      if(
+        event.key === "Enter"
+      ){
+
         launch();
+
       }
 
     }
@@ -1278,12 +1661,14 @@ function showHome(){
 
 
 /* =========================================================
-   FALLBACK IFRAME
+   NETTOYER LE FALLBACK
 ========================================================= */
 
 function clearIframeFallback(){
 
-  if(iframeFallbackTimer){
+  if(
+    iframeFallbackTimer
+  ){
 
     clearTimeout(
       iframeFallbackTimer
@@ -1298,68 +1683,92 @@ function clearIframeFallback(){
 
 
 /* =========================================================
-   OUVERTURE EXTERNE
-   L'utilisateur clique lui-même sur le bouton.
-   Cela évite le blocage des popups sur iPhone/Safari.
+   FALLBACK NEXUS
 ========================================================= */
 
 function openExternal(url){
 
+  /*
+    Nom réel du site :
+    Google.com
+    Chatgpt.com
+    Github.com
+    etc.
+  */
+
+  const siteName =
+    getSiteName(url);
+
+
   const overlay =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   overlay.className =
     "external-fallback";
 
 
   const box =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   box.className =
     "external-fallback-box";
 
 
   const title =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   title.className =
     "external-fallback-title";
 
+
   title.textContent =
-    "Cette page ne peut pas être affichée dans C.N. Nexus";
+    siteName +
+    " utilise un protocole incompatible avec le système sécurisé Nexus.";
 
 
   const text =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   text.className =
     "external-fallback-text";
 
+
   text.textContent =
-    "Le site externe bloque probablement l'affichage dans une iframe.";
+    "Ouvrir avec votre navigateur par défaut.";
 
 
   const urlText =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   urlText.className =
     "external-fallback-url";
+
 
   urlText.textContent =
     displayUrl(url);
 
 
   const button =
-    document.createElement("button");
+    document.createElement(
+      "button"
+    );
 
   button.className =
-    "primary";
+    "primary external-fallback-button";
 
-  button.style.width =
-    "100%";
 
   button.textContent =
-    "↗ Ouvrir dans un nouvel onglet";
+    "↗ Ouvrir avec votre navigateur par défaut";
 
 
   button.onclick =
@@ -1367,8 +1776,9 @@ function openExternal(url){
 
       /*
         IMPORTANT :
-        window.open() est exécuté directement
-        après le clic de l'utilisateur.
+        L'ouverture est directement déclenchée
+        par le clic de l'utilisateur afin que
+        Safari/iOS ne bloque pas le nouvel onglet.
       */
 
       const opened =
@@ -1383,14 +1793,14 @@ function openExternal(url){
         overlay.remove();
 
         setStatus(
-          "Page ouverte dans un nouvel onglet — " +
+          "Ouvert avec le navigateur par défaut — " +
           displayUrl(url)
         );
 
       }else{
 
         setStatus(
-          "Le navigateur a bloqué l'ouverture du nouvel onglet."
+          "L'ouverture a été bloquée par le navigateur."
         );
 
       }
@@ -1419,7 +1829,7 @@ function openExternal(url){
 
 
 /* =========================================================
-   DÉTECTION DU CHARGEMENT IFRAME
+   FALLBACK IFRAME
 ========================================================= */
 
 function setupIframeFallback(
@@ -1429,21 +1839,29 @@ function setupIframeFallback(
 
   clearIframeFallback();
 
-  iframeLoadDetected =
-    false;
 
+  /*
+    NE PAS considérer "load" comme une preuve
+    que la page est réellement visible.
+
+    Certains sites déclenchent load même lorsque
+    l'affichage dans une iframe est refusé.
+  */
 
   frame.addEventListener(
     "load",
     () => {
 
-      iframeLoadDetected =
-        true;
+      /*
+        On indique seulement que l'iframe
+        a terminé son chargement technique.
 
-      clearIframeFallback();
+        On n'écrit PAS :
+        "Page chargée"
+      */
 
       setStatus(
-        "Page chargée — " +
+        "Connexion au site — " +
         displayUrl(url)
       );
 
@@ -1454,6 +1872,20 @@ function setupIframeFallback(
   );
 
 
+  /*
+    Après le délai, Nexus affiche son écran
+    de compatibilité.
+
+    L'utilisateur peut alors décider d'ouvrir
+    le site avec Safari.
+
+    Cette méthode est volontairement utilisée
+    car JavaScript ne peut pas lire librement
+    le contenu d'une iframe provenant d'un autre
+    domaine pour savoir si X-Frame-Options/CSP
+    a réellement bloqué l'affichage.
+  */
+
   iframeFallbackTimer =
     setTimeout(
       () => {
@@ -1462,17 +1894,9 @@ function setupIframeFallback(
           null;
 
 
-        if(
-          iframeLoadDetected
-        ){
-
-          return;
-
-        }
-
-
         setStatus(
-          "Page externe — ouverture disponible dans un nouvel onglet"
+          "Problème d'affichage — " +
+          displayUrl(url)
         );
 
 
@@ -1519,7 +1943,7 @@ function navigate(
 
 
   /*
-    On conserve l'URL RÉELLE.
+    URL réelle
   */
 
   t.url =
@@ -1543,8 +1967,7 @@ function navigate(
 
 
   /*
-    Seule la barre d'adresse
-    affiche le faux .nexus.
+    URL visuelle
   */
 
   address.value =
@@ -1555,7 +1978,7 @@ function navigate(
 
 
   /*
-    Historique réel.
+    Historique
   */
 
   if(push){
@@ -1578,29 +2001,37 @@ function navigate(
 
   clearIframeFallback();
 
+
   page.innerHTML =
     "";
 
 
   const frame =
-    document.createElement("iframe");
+    document.createElement(
+      "iframe"
+    );
+
 
   frame.className =
     "browser-frame";
+
 
   frame.setAttribute(
     "allowfullscreen",
     ""
   );
 
+
   frame.setAttribute(
     "referrerpolicy",
     "no-referrer-when-downgrade"
   );
 
+
   /*
-    L'URL réelle est utilisée ici.
-    Aucun .nexus n'est envoyé au site.
+    IMPORTANT :
+    URL RÉELLE uniquement.
+    Le .nexus est seulement visuel.
   */
 
   frame.src =
@@ -1613,7 +2044,7 @@ function navigate(
 
 
   setStatus(
-    "Chargement : " +
+    "Connexion à " +
     displayUrl(url)
   );
 
@@ -1623,11 +2054,14 @@ function navigate(
     url
   );
 
+
+  updateBookmarkButton();
+
 }
 
 
 /* =========================================================
-   CHARGER L'ONGLET ACTUEL
+   CHARGER L'ONGLET
 ========================================================= */
 
 function loadCurrent(){
@@ -1636,7 +2070,10 @@ function loadCurrent(){
     getActiveTab();
 
 
-  if(!t || !t.url){
+  if(
+    !t ||
+    !t.url
+  ){
 
     clearIframeFallback();
 
@@ -1651,6 +2088,8 @@ function loadCurrent(){
     setStatus(
       "Prêt"
     );
+
+    updateBookmarkButton();
 
     return;
 
@@ -1719,6 +2158,7 @@ function goHome(){
 
   clearIframeFallback();
 
+
   renderTabs();
 
   loadCurrent();
@@ -1736,7 +2176,10 @@ function reload(){
     getActiveTab();
 
 
-  if(!t || !t.url){
+  if(
+    !t ||
+    !t.url
+  ){
 
     loadCurrent();
 
@@ -1773,6 +2216,7 @@ function goBack(){
 
 
   historyIndex--;
+
 
   const url =
     history[historyIndex];
@@ -1819,6 +2263,7 @@ function goForward(){
 
 
   historyIndex++;
+
 
   const url =
     history[historyIndex];
@@ -1888,6 +2333,7 @@ function renderFavorites(){
   const container =
     $("favorites");
 
+
   const bookmarks =
     getBookmarks();
 
@@ -1901,17 +2347,23 @@ function renderFavorites(){
   ){
 
     const empty =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
+
 
     empty.className =
       "empty-favorites";
 
+
     empty.textContent =
       "Aucun favori";
+
 
     container.appendChild(
       empty
     );
+
 
     return;
 
@@ -1922,28 +2374,39 @@ function renderFavorites(){
     item => {
 
       const button =
-        document.createElement("button");
+        document.createElement(
+          "button"
+        );
+
 
       button.className =
         "favorite";
 
 
       const icon =
-        document.createElement("span");
+        document.createElement(
+          "span"
+        );
+
 
       icon.textContent =
         "★";
 
 
       const name =
-        document.createElement("span");
+        document.createElement(
+          "span"
+        );
+
 
       name.className =
         "favorite-name";
 
+
       name.textContent =
         item.title ||
         tabLabel(item.url);
+
 
       button.title =
         displayUrl(item.url);
@@ -1976,7 +2439,7 @@ function renderFavorites(){
 
 
 /* =========================================================
-   AJOUT FAVORI
+   FAVORI
 ========================================================= */
 
 function toggleBookmark(){
@@ -2010,25 +2473,32 @@ function toggleBookmark(){
     );
 
 
-  if(existing !== -1){
+  if(
+    existing !== -1
+  ){
 
     bookmarks.splice(
       existing,
       1
     );
 
+
     saveBookmarks(
       bookmarks
     );
 
+
     renderFavorites();
+
 
     setStatus(
       "Favori supprimé"
     );
 
+
     $("bookmark").textContent =
       "☆";
+
 
     return;
 
@@ -2036,8 +2506,11 @@ function toggleBookmark(){
 
 
   bookmarks.push({
-    title:tabLabel(t.url),
-    url:t.url
+    title:
+      tabLabel(t.url),
+
+    url:
+      t.url
   });
 
 
@@ -2045,12 +2518,15 @@ function toggleBookmark(){
     bookmarks
   );
 
+
   renderFavorites();
+
 
   setStatus(
     "Ajouté aux favoris — " +
     displayUrl(t.url)
   );
+
 
   $("bookmark").textContent =
     "★";
@@ -2059,13 +2535,14 @@ function toggleBookmark(){
 
 
 /* =========================================================
-   ACTUALISER ICÔNE FAVORI
+   ÉTAT FAVORI
 ========================================================= */
 
 function updateBookmarkButton(){
 
   const t =
     getActiveTab();
+
 
   const button =
     $("bookmark");
@@ -2116,60 +2593,25 @@ function aiReply(message){
 
 
   if(
-    text.includes("nexus")
+    text.includes("iframe")
   ){
 
     return (
-      "C.N. Nexus est l'interface navigateur de C.N. Organization. " +
-      "Les sites sont affichés dans une iframe quand cela fonctionne."
+      "Lorsqu'un site ne peut pas être affiché " +
+      "dans le système sécurisé de Nexus, " +
+      "Nexus propose de l'ouvrir avec le navigateur par défaut."
     );
 
   }
 
 
   if(
-    text.includes("nexus") &&
     text.includes("url")
   ){
 
     return (
       "Le .nexus affiché dans la barre est uniquement visuel. " +
-      "L'URL réelle utilisée par Nexus reste l'adresse originale."
-    );
-
-  }
-
-
-  if(
-    text.includes("nouvel onglet")
-  ){
-
-    return (
-      "Utilise le bouton + en haut pour créer un nouvel onglet."
-    );
-
-  }
-
-
-  if(
-    text.includes("iframe")
-  ){
-
-    return (
-      "Si une page externe ne peut pas être affichée dans l'iframe, " +
-      "Nexus affiche une option pour l'ouvrir dans un nouvel onglet."
-    );
-
-  }
-
-
-  if(
-    text.includes("favori")
-  ){
-
-    return (
-      "Le bouton ☆ permet d'ajouter la page actuelle aux favoris. " +
-      "Les favoris sont conservés dans le stockage local du navigateur."
+      "L'adresse réelle utilisée par Nexus reste inchangée."
     );
 
   }
@@ -2180,8 +2622,31 @@ function aiReply(message){
   ){
 
     return (
-      "Le suffixe .nexus est une présentation visuelle : " +
-      "il ne transforme pas l'URL réelle et ne constitue pas une protection de sécurité."
+      "Le système sécurisé Nexus contrôle l'affichage " +
+      "des pages externes dans son environnement. " +
+      "Le .nexus lui-même est uniquement visuel."
+    );
+
+  }
+
+
+  if(
+    text.includes("nouvel onglet")
+  ){
+
+    return (
+      "Le bouton + permet de créer un nouvel onglet."
+    );
+
+  }
+
+
+  if(
+    text.includes("favori")
+  ){
+
+    return (
+      "Le bouton ☆ permet d'ajouter la page actuelle aux favoris."
     );
 
   }
@@ -2201,16 +2666,16 @@ function aiReply(message){
 
 
   return (
-    "Je suis C.N. AI. Pour l'instant, je peux t'aider " +
-    "avec les fonctions de C.N. Nexus : navigation, onglets, favoris, " +
-    "iframe et ouverture externe."
+    "Je suis C.N. AI. Je peux t'aider avec " +
+    "les fonctions de C.N. Nexus : navigation, " +
+    "onglets, favoris, affichage des pages et ouverture externe."
   );
 
 }
 
 
 /* =========================================================
-   AJOUT MESSAGE AI
+   MESSAGE AI
 ========================================================= */
 
 function addAiMessage(
@@ -2223,11 +2688,15 @@ function addAiMessage(
 
 
   const message =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
+
 
   message.className =
     "ai-message " +
     type;
+
 
   message.textContent =
     text;
@@ -2272,6 +2741,10 @@ $("bookmark").onclick =
   toggleBookmark;
 
 
+/* =========================================================
+   BARRE D'ADRESSE
+========================================================= */
+
 address.addEventListener(
   "keydown",
   event => {
@@ -2291,7 +2764,7 @@ address.addEventListener(
 
 
 /* =========================================================
-   CLIC C.N. AI
+   AI OUVRIR
 ========================================================= */
 
 $("aiOpen").onclick =
@@ -2315,7 +2788,7 @@ $("aiClose").onclick =
 
 
 /* =========================================================
-   FORM C.N. AI
+   AI FORM
 ========================================================= */
 
 $("aiForm").addEventListener(
@@ -2327,6 +2800,7 @@ $("aiForm").addEventListener(
 
     const input =
       $("aiInput");
+
 
     const value =
       input.value.trim();
@@ -2378,36 +2852,6 @@ updateBookmarkButton();
 setStatus(
   "Prêt"
 );
-
-
-/* =========================================================
-   MAJ FAVORI APRÈS NAVIGATION
-========================================================= */
-
-const originalNavigate =
-  navigate;
-
-
-/*
-  On remplace navigate par une version
-  qui actualise aussi l'étoile du favori.
-*/
-
-navigate =
-  function(
-    value,
-    push = true
-  ){
-
-    originalNavigate(
-      value,
-      push
-    );
-
-    updateBookmarkButton();
-
-  };
-
 
 </script>
 
