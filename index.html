@@ -1175,9 +1175,7 @@ header{
     class="search-engine"
     title="Moteur de recherche"
   >
-    <option value="duckduckgo">𓅿   DuckDuckGo</option>
-    <option value="ecosia">🅔   Ecosia</option>
-    <option value="yahoo">𝙮   Yahoo</option>
+    <option value="mojeek">🔎 Mojeek</option>
   </select>
 
   <button
@@ -1307,22 +1305,10 @@ const SEARCH_ENGINE_KEY =
   "cn_nexus_search_engine_v1";
 
 const SEARCH_ENGINES = {
-  duckduckgo: {
-    name: "DuckDuckGo",
-    icon: "🦆",
-    url: "https://duckduckgo.com/?q="
-  },
-
-  ecosia: {
-    name: "Ecosia",
-    icon: "🌱",
-    url: "https://www.ecosia.org/search?q="
-  },
-
-  yahoo: {
-    name: "Yahoo",
-    icon: "🟣",
-    url: "https://search.yahoo.com/search?p="
+  mojeek: {
+    name: "Mojeek",
+    icon: "🔎",
+    url: "https://www.mojeek.com/search?q="
   }
 };
 
@@ -1430,7 +1416,7 @@ function getSearchEngine(){
     return saved;
   }
 
-  return "duckduckgo";
+  return "mojeek";
 }
 
 
@@ -1439,7 +1425,7 @@ function setSearchEngine(engine){
   if(
     !SEARCH_ENGINES[engine]
   ){
-    engine = "duckduckgo";
+    engine = "mojeek";
   }
 
   localStorage.setItem(
@@ -1837,7 +1823,7 @@ function normalize(value){
   const engine =
     SEARCH_ENGINES[
       getSearchEngine()
-    ] || SEARCH_ENGINES.duckduckgo;
+    ] || SEARCH_ENGINES.mojeek;
 
 
   return (
@@ -2914,15 +2900,11 @@ function aiReply(message){
 
   if(
     text.includes("moteur") ||
-    text.includes("duckduckgo") ||
-    text.includes("ecosia") ||
-    text.includes("yahoo")
+    text.includes("mojeek")
   ){
 
     return (
-      "Tu peux choisir ton moteur de recherche avec " +
-      "le sélecteur dans la barre : DuckDuckGo, Ecosia ou Yahoo. " +
-      "Ton choix est mémorisé automatiquement."
+      "Le moteur de recherche de Nexus est Mojeek."
     );
 
   }
